@@ -1,0 +1,60 @@
+.month-progress-bar {
+  position: sticky;
+  top: 50px;
+
+  box-shadow: var(--card-box-shadow);
+
+  background-color: var(--card-background-color);
+
+  padding: 15px;
+
+  z-index: 1000;
+}
+
+.progress-bar-container {
+  position: relative;
+  width: 100%;
+  height: 10px;
+
+  border-radius: 5px;
+
+  background-color: var(--app-background-color);
+
+  overflow: hidden;
+}
+
+.progress-bar {
+  position: relative;
+  height: 100%;
+  background-color: var(--company-color);
+}
+
+.hours {
+  position: absolute;
+  right: 15px;
+  margin-top: 10px;
+}
+
+.separators {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.separator {
+  position: absolute;
+
+  width: 2px;
+  height: 100%;
+  background-color: white;
+  z-index: 999;
+}
+
+.description {
+  margin-top: 10px;
+  font-weight: lighter;
+}
+
+.description__data {
+  font-weight: bold;
+}

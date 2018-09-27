@@ -14,9 +14,9 @@
 
 .logo {
   width: 80%;
-  max-width: 400px;
-  margin-top: 10px;
-  margin-bottom: 50px;
+  max-width: 200px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .card {
@@ -54,7 +54,8 @@
 }
 
 .label {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  padding-left: 10px;
 }
 
 .input {
@@ -77,15 +78,6 @@
   border-bottom: 2px solid var(--company-color);
 }
 
-.input:invalid {
-  border-radius: 5px 5px 0px 0px;
-  /*border-bottom: 2px solid red !important;*/
-}
-
-.input:invalid + .label {
-  /*color: red !important;*/
-}
-
 .form-control .input:focus + .label {
   color: var(--company-color);
 }
@@ -94,7 +86,7 @@
   width: 100%;
   height: 40px;
 
-  margin-top: 25px;
+  margin-top: 20px;
 
   color: white;
   background-color: var(--font-color);

@@ -13,4 +13,7 @@
   --font-size-regular: 18px;
 
   --font-color: #707070;
+  --font-color-light: #70707080;
+
+  --header-height: 50px;
 }

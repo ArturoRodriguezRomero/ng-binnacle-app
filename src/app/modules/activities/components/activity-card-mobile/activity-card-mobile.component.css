@@ -1,0 +1,71 @@
+.activity-card {
+  position: relative;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--card-background-color);
+
+  box-shadow: var(--card-box-shadow);
+
+  border-radius: 5px;
+
+  padding: 10px;
+
+  text-decoration: none;
+  color: var(--font-color);
+}
+
+.title {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.flag {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+
+  width: 15px;
+  height: 15px;
+
+  font-size: 15px;
+  color: white;
+
+  background-color: green;
+
+  border-radius: 50%;
+}
+
+.times {
+  font-style: italic;
+  font-weight: lighter;
+
+  margin-top: 10px;
+
+  color: var(--font-color-light);
+}
+
+.times .start {
+  margin: 5px;
+}
+
+.times .end {
+  margin: 5px;
+}
+
+.times .hours {
+  margin-left: 10px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.description {
+  color: var(--font-color-light);
+  font-weight: lighter;
+
+  margin-top: 10px;
+
+  text-align: justify;
+}

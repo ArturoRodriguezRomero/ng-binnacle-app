@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarModule } from './navbar/navbar.module';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
-  imports: [CommonModule, NavbarModule],
+  imports: [CommonModule],
   declarations: [LoadingSpinnerComponent],
-  exports: [NavbarModule, LoadingSpinnerComponent]
+  exports: [LoadingSpinnerComponent]
 })
 export class ComponentsModule {}

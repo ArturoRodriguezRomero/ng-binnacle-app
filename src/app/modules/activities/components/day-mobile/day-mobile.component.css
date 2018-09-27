@@ -1,0 +1,64 @@
+.day {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.selector {
+  position: sticky;
+  top: calc(var(--header-height) + 80px);
+
+  min-width: 50px;
+  height: fit-content;
+
+  margin: 5px;
+  margin-right: 20px;
+}
+
+.point {
+  position: absolute;
+  right: -16px;
+  top: 12px;
+
+  width: 10px;
+  height: 10px;
+
+  background-color: white;
+  border: 2px solid var(--company-color);
+
+  border-radius: 50%;
+}
+
+.monthday {
+  font-size: 2em;
+  color: var(--company-color);
+  text-align: center;
+}
+
+.weekday {
+  text-align: center;
+  color: var(--font-color-light);
+}
+
+.hours {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: var(--font-color-light);
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-list > * {
+  margin-bottom: 10px;
+}
