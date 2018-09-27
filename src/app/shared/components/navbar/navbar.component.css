@@ -1,0 +1,18 @@
+.header {
+  background-color: var(--autentia-color);
+  color: #fff;
+  margin-bottom: var(--margin-s);
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.header__end {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}

@@ -1,0 +1,14 @@
+:root {
+  font-family: 'Roboto', sans-serif;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: var(--font-size-regular);
+  color: var(--font-color);
+}

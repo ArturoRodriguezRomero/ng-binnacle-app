@@ -1,0 +1,26 @@
+<section class="login-page">
+  <img class="logo" src="assets/svg/logo-autentia.svg" alt="Autentia" />
+  <div #card class="card" *ngIf="!(loginState$|async).loading; else loading">
+    <form [formGroup]="credentials" class="form">
+
+      <div class="input-container">
+        <div class="form-control">
+          <input formControlName="username" class="input" type="text" value="admin" autofocus required />
+          <label class="label">Username</label>
+        </div>
+        <div class="form-control">
+          <input formControlName="password" class="input" type="password" value="adminadmin" (keyup.enter)="handleSubmit()"
+            required />
+          <label class="label">Password</label>
+        </div>
+      </div>
+      <button type="button" class="button" (click)="handleSubmit()" [disabled]="credentials.invalid">Login</button>
+    </form>
+
+  </div>
+  <ng-template #loading>
+    <div class="login-page-loading">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+  </ng-template>
+</section>
