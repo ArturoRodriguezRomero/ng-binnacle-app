@@ -2,6 +2,7 @@
   position: relative;
 
   width: 100%;
+  min-height: 100px;
 
   display: flex;
   flex-direction: row;
@@ -23,7 +24,7 @@
 
 .point {
   position: absolute;
-  right: -16px;
+  left: 56px;
   top: 12px;
 
   width: 10px;
@@ -36,7 +37,7 @@
 }
 
 .monthday {
-  font-size: 2em;
+  font-size: 1.5em;
   color: var(--company-color);
   text-align: center;
 }
@@ -44,6 +45,7 @@
 .weekday {
   text-align: center;
   color: var(--font-color-light);
+  text-transform: capitalize;
 }
 
 .hours {
@@ -51,12 +53,22 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
   color: var(--font-color-light);
+  font-size: 0.7em;
+}
+
+.hours__icon {
+  font-size: 1em;
+}
+
+.hours__digit {
 }
 
 .activity-list {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .activity-list > * {

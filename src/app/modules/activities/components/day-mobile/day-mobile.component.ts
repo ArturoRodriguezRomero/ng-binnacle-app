@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-day-mobile',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./day-mobile.component.css']
 })
 export class DayMobileComponent implements OnInit {
+  @Input()
+  date: Date;
+  @Input()
+  activities = [];
+  @Input()
+  totalHours: number;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

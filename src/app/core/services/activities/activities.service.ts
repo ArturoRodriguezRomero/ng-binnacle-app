@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Endpoints } from '../enpoints';
+import { Endpoints } from '../endpoints';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from '../../../shared/models/Activity';
 

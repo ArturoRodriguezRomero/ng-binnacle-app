@@ -1,6 +1,6 @@
 <header class="header">
-  <button>
-    <i class="menu-button material-icons">
+  <button class="menu-button">
+    <i class="material-icons">
       menu
     </i>
   </button>
@@ -12,11 +12,18 @@
   </div>
 </header>
 <app-month-progress-bar></app-month-progress-bar>
-<div class="day-list">
-  <app-day-mobile></app-day-mobile>
-  <app-day-mobile></app-day-mobile>
-  <app-day-mobile></app-day-mobile>
-  <app-day-mobile></app-day-mobile>
-  <app-day-mobile></app-day-mobile>
-  <app-day-mobile></app-day-mobile>
-</div>
+
+<ng-container *ngIf="(activitiesState$ | async)?.loading; then thenTemplate; else elseTemplate"></ng-container>
+<ng-template #thenTemplate>
+  <div class="activities-loading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+</ng-template>
+<ng-template #elseTemplate>
+  <div class="day-list">
+    <div *ngFor="let day of (activitiesState$ | async)?.activities">
+      <app-day-mobile [date]="day.date" [totalHours]="day.total_hours" [activities]="day.activities"></app-day-mobile>
+      <app-week-separator *ngIf="day.date | isSunday"></app-week-separator>
+    </div>
+  </div>
+</ng-template>

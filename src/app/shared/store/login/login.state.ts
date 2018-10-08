@@ -25,7 +25,7 @@ export class LoginState {
   ) {}
 
   @Action(LoginRequest)
-  async LoginRequest(
+  LoginRequest(
     { patchState }: StateContext<LoginStateModel>,
     { payload }: LoginRequest
   ) {

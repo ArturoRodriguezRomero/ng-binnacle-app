@@ -18,11 +18,19 @@
 }
 
 .menu-button {
+  appearance: none;
   display: flex;
   align-items: center;
 
-  font-size: 2em;
   color: var(--company-color);
+
+  border: none;
+
+  background-color: transparent;
+}
+
+.menu-button > * {
+  font-size: 2em;
 }
 
 .month-button {
@@ -33,6 +41,16 @@
   justify-content: center;
 
   font-size: 1.2em;
+}
+
+.activities-loading {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .day-list {

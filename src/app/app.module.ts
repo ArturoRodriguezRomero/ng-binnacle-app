@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +24,11 @@ import { APIInterceptor } from './core/interceptors/api.interceptor';
 import { ActivitiesState } from './shared/store/activities/activities.state';
 import { ComponentsModule } from './shared/components/components.module';
 import { notifierOptions } from './shared/misc/notifier-config';
+
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+import { HoursAndMinutesPipe } from './shared/pipes/hours.and.minutes.pipe';
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,8 +58,8 @@ import { notifierOptions } from './shared/misc/notifier-config';
       useClass: APIInterceptor,
       multi: true
     },
-
-    AuthorizationGuardService
+    AuthorizationGuardService,
+    { provide: LOCALE_ID, useValue: 'es' }
   ],
   bootstrap: [AppComponent]
 })

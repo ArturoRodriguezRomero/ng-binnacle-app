@@ -1,15 +1,15 @@
 <a class="activity-card" href="">
-  <div class="title">Proyecto World BBVA</div>
-  <i class="flag material-icons">
+  <div class="title">{{ activity.projectRole.project.name }}</div>
+  <i class="flag material-icons" *ngIf="activity.billable">
     attach_money
   </i>
   <div class="times">
-    <span class="start">9:00</span>
+    <span class="start">{{ activity.startDate | date:"hh:mm" }}</span>
     <span>-</span>
-    <span class="end">13:00</span>
-    <span class="hours">4 hours</span>
+    <span class="end">{{ activity.startDate | calculateEndDate:activity.duration | date:"hh:mm" }}</span>
+    <span class="hours">{{ activity.duration | hoursAndMinutes}}</span>
   </div>
   <div class="description">
-    - Into electronic typesetting, remaining essentially unchanged.
+    {{ activity.description }}
   </div>
 </a>

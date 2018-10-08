@@ -28,6 +28,12 @@ import { LoginStateModel } from '../../../../shared/store/login/login.state';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @Select(state => state.login)
+  loginState$: Observable<LoginStateModel>;
+
+  @ViewChild('card')
+  card: ElementRef;
+
   public credentials = new FormGroup({
     username: new FormControl({ value: '', disabled: false }, [
       Validators.required,
@@ -39,17 +45,7 @@ export class LoginComponent implements OnInit {
     ])
   });
 
-  constructor(
-    private store: Store,
-    private actions$: Actions,
-    private renderer: Renderer2
-  ) {}
-
-  @Select(state => state.login)
-  loginState$: Observable<LoginStateModel>;
-
-  @ViewChild('card')
-  card: ElementRef;
+  constructor(private store: Store, private actions$: Actions) {}
 
   ngOnInit() {
     this.actions$.pipe(ofActionSuccessful(LoginError)).subscribe(() => {

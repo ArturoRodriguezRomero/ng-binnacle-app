@@ -1,16 +1,17 @@
 import { Activity } from '../../models/Activity';
+import { HttpErrorResponse } from '@angular/common/http';
 
-export class FetchActivitiesRequest {
-  static readonly type = '[activities store] Fetch Activities Request';
-  constructor(public date: Date) {}
+export class GetActivitiesByDatesRequest {
+  static readonly type = '[activities store] Get Activities By Dates Request';
+  constructor(public startDate: Date, public endDate: Date) {}
 }
 
-export class FetchActivitiesSuccess {
-  static readonly type = '[activities store] Fetch Activities Success';
+export class GetActivitiesByDatesSuccess {
+  static readonly type = '[activities store] Get Activities By Dates Success';
   constructor(public activities: Activity[]) {}
 }
 
-export class FetchActivitiesError {
-  static readonly type = '[activities store] Fetch Activities Error';
-  constructor(public error: Error) {}
+export class GetActivitiesByDatesError {
+  static readonly type = '[activities store] Get Activities By Dates Error';
+  constructor(public error: HttpErrorResponse) {}
 }
