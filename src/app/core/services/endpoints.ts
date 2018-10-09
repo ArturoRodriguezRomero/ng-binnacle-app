@@ -12,12 +12,22 @@ export namespace Endpoints {
     };
 
     export const getByDates = (startDate: Date, endDate: Date) => {
-      console.log(
-        `activitiesByDates?startDate=${TimeUtils.toServerFormat(
-          startDate
-        )}&endDate=${TimeUtils.toServerFormat(endDate)}`
-      );
       return `activitiesByDates?startDate=${TimeUtils.toServerFormat(
+        startDate
+      )}&endDate=${TimeUtils.toServerFormat(endDate)}`;
+    };
+
+    export const getActivitiesTimeByDates = (
+      startDate: Date,
+      endDate: Date
+    ) => {
+      return `activitiesTime?startDate=${TimeUtils.toServerFormat(
+        startDate
+      )}&endDate=${TimeUtils.toServerFormat(endDate)}`;
+    };
+
+    export const getImputedDaysByDates = (startDate: Date, endDate: Date) => {
+      return `imputedDays?startDate=${TimeUtils.toServerFormat(
         startDate
       )}&endDate=${TimeUtils.toServerFormat(endDate)}`;
     };

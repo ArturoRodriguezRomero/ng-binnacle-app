@@ -14,4 +14,17 @@ export class ActivitiesService {
       Endpoints.Activities.getByDates(startDate, endDate)
     );
   }
+
+  getActivitiesTimeByDates(startDate: Date, endDate: Date) {
+    return this.http.get<number>(
+      Endpoints.Activities.getActivitiesTimeByDates(startDate, endDate)
+    );
+  }
+
+  getImputedDaysByDates(startDate: Date, endDate: Date) {
+    console.log(Endpoints.Activities.getImputedDaysByDates(startDate, endDate));
+    return this.http.get<string[]>(
+      Endpoints.Activities.getImputedDaysByDates(startDate, endDate)
+    );
+  }
 }

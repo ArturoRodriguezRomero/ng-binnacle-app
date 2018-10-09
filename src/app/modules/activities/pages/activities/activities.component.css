@@ -57,7 +57,7 @@
   background-color: var(--app-background-color);
 }
 
-.day-list::before {
+.rail {
   position: fixed;
   left: 65px;
   top: 0px;

@@ -1,6 +1,6 @@
 <div class="week-separator">
-  <div class="day-range">3 - 9</div>
-  <div class="hours">39:45 / 40</div>
+  <div class="day-range">{{ monday | date:"d" }} - {{ sunday | date:"d" }}</div>
+  <div class="hours">{{ totalMinutes | hoursAndMinutes }}</div>
   <i class="material-icons">
     keyboard_arrow_down
   </i>
