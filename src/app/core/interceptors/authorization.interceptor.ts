@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthorizationInterceptor implements HttpInterceptor {
-  constructor(public auth: AuthorizationService) {}
+  constructor(public authorizationService: AuthorizationService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -19,7 +19,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     request = request.clone({
       setHeaders: {
-        Authorization: `Basic ${this.auth.getToken()}`
+        Authorization: `Basic ${this.authorizationService.getToken()}`
       }
     });
     return next.handle(request);

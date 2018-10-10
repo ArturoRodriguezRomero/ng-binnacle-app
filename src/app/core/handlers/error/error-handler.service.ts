@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ErrorHandlerService {
-  private errorMessages = new Map<number, string>();
+  errorMessages = new Map<number, string>();
 
   constructor(private notifier: NotifierService) {
     this.errorMessages.set(0, 'No hay conexión a Internet.');

@@ -27,7 +27,6 @@ import { notifierOptions } from './shared/misc/notifier-config';
 
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
-import { HoursAndMinutesPipe } from './shared/pipes/hours.and.minutes.pipe';
 import { CalendarState } from './shared/store/calendar/calendar.state';
 registerLocaleData(localeEs, 'es');
 

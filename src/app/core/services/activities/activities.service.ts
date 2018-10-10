@@ -22,7 +22,6 @@ export class ActivitiesService {
   }
 
   getImputedDaysByDates(startDate: Date, endDate: Date) {
-    console.log(Endpoints.Activities.getImputedDaysByDates(startDate, endDate));
     return this.http.get<string[]>(
       Endpoints.Activities.getImputedDaysByDates(startDate, endDate)
     );

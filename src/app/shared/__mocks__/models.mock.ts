@@ -1,3 +1,5 @@
+import { Activity } from '../models/Activity';
+
 export namespace ModelsMock {
   export const Credentials = {
     username: 'username',
@@ -8,5 +10,33 @@ export namespace ModelsMock {
     id: 1,
     login: 'login',
     name: 'name'
+  };
+
+  export const Organization = {
+    id: 1,
+    name: 'name'
+  };
+
+  export const Project = {
+    id: 1,
+    name: 'name',
+    open: true,
+    organization: Organization
+  };
+
+  export const Role = {
+    id: 1,
+    name: 'name',
+    project: Project
+  };
+
+  export const Activity = {
+    id: 1,
+    startDate: new Date(),
+    duration: 60,
+    description: 'description',
+    projectRole: Role,
+    userId: 1,
+    billable: true
   };
 }

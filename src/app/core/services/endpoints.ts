@@ -7,10 +7,6 @@ export namespace Endpoints {
     };
   }
   export namespace Activities {
-    export const getByDay = (day: Date) => {
-      return `activitiesByDay?date=${day}`;
-    };
-
     export const getByDates = (startDate: Date, endDate: Date) => {
       return `activitiesByDates?startDate=${TimeUtils.toServerFormat(
         startDate

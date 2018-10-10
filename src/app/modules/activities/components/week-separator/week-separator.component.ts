@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Activity } from '../../../../shared/models/Activity';
 import { startOfWeek, eachDayOfInterval } from 'date-fns';
 import { isSameDay } from 'date-fns/esm';
 import { ActivitiesService } from '../../../../core/services/activities/activities.service';
@@ -40,13 +39,13 @@ export class WeekSeparatorComponent implements OnInit {
       const sundayIndex = activities.findIndex(day => day.date == this.sunday);
 
       if (this.isDayIndexFromPreviousMonth(mondayIndex)) {
+        this.calculateTotalMinutesFromServer();
+      } else {
         this.calculateTotalMinutesFromLocalActivities(
           activities,
           mondayIndex,
           sundayIndex
         );
-      } else {
-        this.calculateTotalMinutesFromServer();
       }
     });
   }
@@ -76,6 +75,6 @@ export class WeekSeparatorComponent implements OnInit {
   }
 
   isDayIndexFromPreviousMonth(mondayIndex: number) {
-    return mondayIndex != -1;
+    return mondayIndex == -1;
   }
 }

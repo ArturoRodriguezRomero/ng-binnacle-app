@@ -1,5 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { NgxsModule, Store, Actions, ofActionSuccessful } from '@ngxs/store';
+import {
+  NgxsModule,
+  Store,
+  Actions,
+  ofActionSuccessful,
+  ofActionDispatched,
+  ofActionErrored
+} from '@ngxs/store';
 import { LoginState } from './login.state';
 import { ErrorHandlerService } from '../../../core/handlers/error/error-handler.service';
 import { errorHandlerServiceStub } from '../../../core/handlers/__mocks__/error.handler.service.stub';
@@ -15,14 +22,14 @@ import { LoadingSpinnerComponent } from '../../components/loading-spinner/loadin
 import { MonthProgressBarComponent } from '../../../modules/activities/components/month-progress-bar/month-progress-bar.component';
 import { DayMobileComponent } from '../../../modules/activities/components/day-mobile/day-mobile.component';
 import { ActivityCardMobileComponent } from '../../../modules/activities/components/activity-card-mobile/activity-card-mobile.component';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
-} from '@angular/platform-browser-dynamic/testing';
 import { AuthorizationGuardService } from '../../../core/services/authorization/authorization.guard.service';
 import { Credentials } from '../../models/Credentials';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { IsSundayPipe } from '../../pipes/is.sunday.pipe';
+import { WeekSeparatorComponent } from 'src/app/modules/activities/components/week-separator/week-separator.component';
+import { HoursAndMinutesPipe } from '../../pipes/hours.and.minutes.pipe';
+import { CalculateEndDatePipe } from '../../pipes/calculate.end.date.pipe';
 
 describe('Login State', () => {
   let store: Store;
@@ -41,7 +48,11 @@ describe('Login State', () => {
         LoadingSpinnerComponent,
         MonthProgressBarComponent,
         DayMobileComponent,
-        ActivityCardMobileComponent
+        ActivityCardMobileComponent,
+        IsSundayPipe,
+        WeekSeparatorComponent,
+        HoursAndMinutesPipe,
+        CalculateEndDatePipe
       ],
       imports: [
         CommonModule,
@@ -73,6 +84,7 @@ describe('Login State', () => {
     errorHandlerService = TestBed.get(ErrorHandlerService);
   });
 
+  // TODO
   /*it('should set loading = true when @Action(LoginRequest)', () => {
     store.dispatch(new LoginRequest({ username: 'test', password: 'test' }));
 
@@ -103,7 +115,9 @@ describe('Login State', () => {
     store.dispatch(new LoginRequest({ username: 'test', password: 'test' }));
 
     actions$.pipe(ofActionSuccessful(LoginRequest)).subscribe(actions => {
-      expect(actions).toEqual(true);
+      actions$.pipe(ofActionDispatched(LoginSuccess)).subscribe(actions => {
+        expect(actions).toEqual(true);
+      });
     });
   });
 
@@ -111,8 +125,10 @@ describe('Login State', () => {
     spyOn(authorizationService, 'checkUser').and.throwError('error');
     store.dispatch(new LoginRequest({ username: 'test', password: 'test' }));
 
-    actions$.pipe(ofActionSuccessful(LoginError)).subscribe(actions => {
-      expect(actions).toEqual(true);
+    actions$.pipe(ofActionErrored(LoginRequest)).subscribe(actions => {
+      actions$.pipe(ofActionDispatched(LoginError)).subscribe(actions => {
+        expect(actions).toEqual(true);
+      });
     });
   });
 
