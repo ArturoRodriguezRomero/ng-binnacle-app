@@ -4,10 +4,12 @@
     attach_money
   </i>
   <div class="times">
-    <span class="start">{{ activity.startDate | date:"hh:mm" }}</span>
-    <span>-</span>
-    <span class="end">{{ activity.startDate | calculateEndDate:activity.duration | date:"hh:mm" }}</span>
-    <span class="hours">{{ activity.duration | hoursAndMinutes}}</span>
+    <div class="range">
+      <span class="start">{{ activity.startDate | date:"hh:mm" }}</span>
+      <span>-</span>
+      <span class="end">{{ activity.startDate | calculateEndDate:activity.duration | date:"hh:mm" }}</span>
+    </div>
+    <div class="duration">{{ activity.duration | hoursAndMinutes}}</div>
   </div>
   <div class="description">
     {{ activity.description }}

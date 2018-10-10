@@ -7,6 +7,7 @@
   background-color: var(--card-background-color);
 
   padding: 15px;
+  margin-top: -1px;
 
   z-index: 1000;
 }

@@ -24,4 +24,11 @@
 }
 
 .hours {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.hours__label {
+  font-weight: lighter;
 }

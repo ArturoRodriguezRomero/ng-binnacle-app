@@ -5,12 +5,17 @@
     <div class="weekday">{{ date | date:"E"}}</div>
 
     <div class="hours" *ngIf="totalHours > 0">
-      <i class="material-icons hours__icon">access_time</i>
-      <span class="hours__digit">{{ totalHours | hoursAndMinutes }}</span>
+
     </div>
 
   </div>
   <div class="activity-list">
     <app-activity-card-mobile *ngFor="let activity of activities" [activity]="activity"></app-activity-card-mobile>
   </div>
+  <div class="total-hours" *ngIf="totalHours > 0"><i class="material-icons total-hours__icon">
+      subdirectory_arrow_right
+    </i> {{
+    totalHours |
+    hoursAndMinutes }}</div>
+
 </div>
