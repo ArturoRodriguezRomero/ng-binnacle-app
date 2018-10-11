@@ -1,0 +1,30 @@
+<div class="calendar-menu" [ngClass]="{'deployed': isDeployed}">
+  <div class="month-bar">
+    <i class="material-icons arrow" (click)="goToPreviousMonth()">keyboard_arrow_left</i>
+    <div class="selected-date">
+      <div class="month">{{ selectedDate | date:"MMMM" }}</div>
+      <div class="year">{{ selectedDate | date:"y" }}</div>
+    </div>
+    <i class="material-icons arrow" (click)="goToNextMonth()">keyboard_arrow_right</i>
+  </div>
+
+  <div class="calendar-header">
+    <div class="day week-day">L</div>
+    <div class="day week-day">M</div>
+    <div class="day week-day">X</div>
+    <div class="day week-day">J</div>
+    <div class="day week-day">V</div>
+    <div class="day week-day">S</div>
+    <div class="day week-day">D</div>
+  </div>
+  <div class="calendar">
+    <div *ngIf="(calendarState$ | async)?.loading || (holidaysState$ | async)?.loading" class="calendar-loading">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div class="day" *ngFor="let day of days" [ngClass]="{'previous-month': day.isDateFromPreviousMonth, 'public-holiday ': day.isPublicHoliday, 'private-holiday': day.isPrivateHoliday, 'imputed': day.isImputed, 'current-day': day.isCurrentDay}"
+      (click)="setSelectedDate(day.date)">
+      {{ day.date | date:"d"}}
+    </div>
+  </div>
+  <div class="statistics"></div>
+</div>

@@ -43,7 +43,6 @@ export class CalendarState {
     action: GetImputedDaysByDatesRequest
   ) {
     stateContext.patchState({ loading: true });
-    console.log(action);
     this.activitiesService
       .getImputedDaysByDates(action.startDate, action.endDate)
       .subscribe(

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SlidingCalendarComponent } from './sliding-calendar.component';
+import { CalendarMenuComponent } from './calendar-menu.component';
 
-describe('SlidingCalendarComponent', () => {
-  let component: SlidingCalendarComponent;
-  let fixture: ComponentFixture<SlidingCalendarComponent>;
+describe('CalendarMenuComponent', () => {
+  let component: CalendarMenuComponent;
+  let fixture: ComponentFixture<CalendarMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlidingCalendarComponent ]
+      declarations: [ CalendarMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SlidingCalendarComponent);
+    fixture = TestBed.createComponent(CalendarMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

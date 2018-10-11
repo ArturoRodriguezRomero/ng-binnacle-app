@@ -28,6 +28,7 @@ import { notifierOptions } from './shared/misc/notifier-config';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { CalendarState } from './shared/store/calendar/calendar.state';
+import { HolidaysState } from './shared/store/holidays/holidays.state';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -37,7 +38,13 @@ registerLocaleData(localeEs, 'es');
     AppRoutingModule,
     AppRoutingModule,
     FormsModule,
-    NgxsModule.forRoot([LoginState, UserState, ActivitiesState, CalendarState]),
+    NgxsModule.forRoot([
+      LoginState,
+      UserState,
+      ActivitiesState,
+      CalendarState,
+      HolidaysState
+    ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,

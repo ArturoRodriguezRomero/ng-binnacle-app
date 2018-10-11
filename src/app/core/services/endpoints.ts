@@ -28,4 +28,14 @@ export namespace Endpoints {
       )}&endDate=${TimeUtils.toServerFormat(endDate)}`;
     };
   }
+
+  export namespace Holidays {
+    export const getPublicHolidaysByYear = (year: number) => {
+      return `holidays?year=${year}`;
+    };
+
+    export const getPrivateHolidaysThisYear = () => {
+      return `vacations`;
+    };
+  }
 }

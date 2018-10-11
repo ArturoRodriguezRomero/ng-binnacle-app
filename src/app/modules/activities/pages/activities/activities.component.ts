@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { toDate } from 'date-fns/esm';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { GetActivitiesByDatesRequest } from '../../../../shared/store/activities/activities.actions';
 import { Observable } from 'rxjs';
@@ -9,6 +8,7 @@ import {
   SetSelectedDate,
   GetImputedDaysByDatesRequest
 } from '../../../../shared/store/calendar/calendar.actions';
+import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
 
 @Component({
   selector: 'app-activities',
@@ -19,18 +19,51 @@ export class ActivitiesComponent implements OnInit {
   @Select(state => state.activities)
   activitiesState$: Observable<ActivitiesStateModel>;
 
+  @Select(state => state.calendar)
+  calendarState$: Observable<CalendarStateModel>;
+
+  @ViewChild('monthButtonLabel')
+  monthButtonLabel: ElementRef;
+
+  isCalendarMenuDeployed: boolean = true;
+
   constructor(private store: Store) {}
 
   ngOnInit() {
-    const firstDate = startOfMonth(new Date('2018-09-1'));
-    const lastDate = endOfMonth(new Date('2018-09-1'));
+    this.subscribeToSelectedDateChanged();
+    this.setSelectedDateToCurrentDate();
+  }
+
+  toggleCalendarMenu() {
+    this.isCalendarMenuDeployed = !this.isCalendarMenuDeployed;
+  }
+
+  setSelectedDateToCurrentDate() {
+    const selectedDate = new Date();
+    this.store.dispatch(new SetSelectedDate(selectedDate));
+  }
+
+  subscribeToSelectedDateChanged() {
+    this.store
+      .select(state => state.calendar.selectedDate)
+      .subscribe(selectedDate => {
+        this.onSelectedDateChanged(selectedDate);
+      });
+  }
+
+  onSelectedDateChanged(selectedDate: Date) {
+    const firstDate = startOfMonth(selectedDate);
+    const lastDate = endOfMonth(selectedDate);
+
     this.store.dispatch(new GetActivitiesByDatesRequest(firstDate, lastDate));
-    this.store.dispatch(new SetSelectedDate(new Date()));
     this.store.dispatch(
-      new GetImputedDaysByDatesRequest(
-        new Date('2018-09-1'),
-        new Date('2018-10-9')
-      )
+      new GetImputedDaysByDatesRequest(new Date(firstDate), new Date(lastDate))
     );
+  }
+
+  changeSelectedDate(date: Date) {
+    console.log('clicky', date);
+    this.store.dispatch(new SetSelectedDate(date));
+    this.isCalendarMenuDeployed = false;
   }
 }

@@ -11,6 +11,7 @@ import { IsSundayPipe } from '../../shared/pipes/is.sunday.pipe';
 import { WeekSeparatorComponent } from './components/week-separator/week-separator.component';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { ComponentsModule } from '../../shared/components/components.module';
+import { CalendarMenuComponent } from './components/calendar-menu/calendar-menu.component';
 
 @NgModule({
   imports: [CommonModule, ComponentsModule],
@@ -22,7 +23,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
     HoursAndMinutesPipe,
     CalculateEndDatePipe,
     IsSundayPipe,
-    WeekSeparatorComponent
+    WeekSeparatorComponent,
+    CalendarMenuComponent
   ]
 })
 export class ActivitiesModule {}
