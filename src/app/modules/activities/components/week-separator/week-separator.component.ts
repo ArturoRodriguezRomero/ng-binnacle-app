@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { startOfWeek, eachDayOfInterval } from 'date-fns';
 import { isSameDay } from 'date-fns/esm';
@@ -17,10 +17,15 @@ export class WeekSeparatorComponent implements OnInit {
 
   totalMinutes = 0;
 
-  @Select(state => state.activities.activities)
-  activities$: Observable<any>;
+  @Select(state => state.activities)
+  activitiesState$: Observable<any>;
 
-  constructor(public activitiesService: ActivitiesService) {}
+  isLoadingFromServer = false;
+
+  constructor(
+    public activitiesService: ActivitiesService,
+    public store: Store
+  ) {}
 
   ngOnInit() {
     this.getMonday();
@@ -32,22 +37,26 @@ export class WeekSeparatorComponent implements OnInit {
   }
 
   setUpTotalMinutes() {
-    this.activities$.subscribe(activities => {
-      const mondayIndex = activities.findIndex(day =>
-        isSameDay(day.date, this.monday)
-      );
-      const sundayIndex = activities.findIndex(day => day.date == this.sunday);
-
-      if (this.isDayIndexFromPreviousMonth(mondayIndex)) {
-        this.calculateTotalMinutesFromServer();
-      } else {
-        this.calculateTotalMinutesFromLocalActivities(
-          activities,
-          mondayIndex,
-          sundayIndex
+    this.store
+      .selectOnce(state => state.activities.activities)
+      .subscribe(activities => {
+        const mondayIndex = activities.findIndex(day =>
+          isSameDay(day.date, this.monday)
         );
-      }
-    });
+        const sundayIndex = activities.findIndex(
+          day => day.date == this.sunday
+        );
+
+        if (this.isDayIndexFromPreviousMonth(mondayIndex)) {
+          this.calculateTotalMinutesFromServer();
+        } else {
+          this.calculateTotalMinutesFromLocalActivities(
+            activities,
+            mondayIndex,
+            sundayIndex
+          );
+        }
+      });
   }
 
   calculateTotalMinutesFromLocalActivities(
@@ -60,10 +69,12 @@ export class WeekSeparatorComponent implements OnInit {
   }
 
   calculateTotalMinutesFromServer() {
+    this.isLoadingFromServer = true;
     this.activitiesService
       .getActivitiesTimeByDates(this.monday, this.sunday)
       .subscribe(activitiesTime => {
         this.totalMinutes = activitiesTime;
+        this.isLoadingFromServer = false;
       });
   }
 

@@ -20,8 +20,29 @@
   min-width: 50px;
   height: fit-content;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   margin: 5px;
   margin-right: 20px;
+  font-size: 0.8em;
+}
+
+.selector.current-day::after {
+  content: '';
+
+  position: absolute;
+  top: -6px;
+  left: -1px;
+  width: 50px;
+  height: 50px;
+
+  margin: 0 auto;
+
+  border: 2px solid var(--company-color);
+  border-radius: 50%;
 }
 
 .point {
@@ -32,7 +53,7 @@
   width: 10px;
   height: 10px;
 
-  background-color: white;
+  background-color: var(--app-background-color);
   border: 2px solid var(--company-color);
 
   border-radius: 50%;
@@ -40,14 +61,34 @@
 
 .monthday {
   font-size: 1.5em;
-  color: var(--company-color);
+  color: var(--font-color);
   text-align: center;
+}
+
+.monthday.selected {
+  color: var(--company-color);
+}
+
+.monthday.public-holiday {
+  color: var(--public-holiday-color);
+}
+
+.monthday.private-holiday {
+  color: var(--private-holiday-color);
 }
 
 .weekday {
   text-align: center;
   color: var(--font-color-light);
   text-transform: capitalize;
+}
+
+.weekday.public-holiday {
+  color: var(--public-holiday-color);
+}
+
+.weekday.private-holiday {
+  color: var(--private-holiday-color);
 }
 
 .activity-list {
@@ -82,6 +123,7 @@
   align-items: center;
 
   padding-right: 10px;
+  color: var(--font-color-light);
 }
 
 .total-hours__icon {
@@ -91,6 +133,7 @@
   color: var(--font-color-light);
 }
 
-.total-hours__label {
-  font-weight: lighter;
+.total-hours__digit {
+  color: var(--font-color);
+  margin: 0px 5px;
 }

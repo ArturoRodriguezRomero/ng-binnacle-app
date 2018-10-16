@@ -1,6 +1,15 @@
 <div class="week-separator">
   <div class="day-range">{{ monday | date:"d" }} - {{ sunday | date:"d" }}</div>
-  <div class="hours">Total Semana <i class="material-icons">
-      arrow_right_alt
-    </i> {{ totalMinutes | hoursAndMinutes }}</div>
+  <div class="hours">Total Semana -
+    <ng-container *ngIf="isLoadingFromServer; then showLoadingSpinner; else showTotalMinutes">
+    </ng-container>
+
+    <ng-template #showLoadingSpinner>
+      <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+
+    <ng-template #showTotalMinutes>
+      {{ (totalMinutes | hoursAndMinutes) }} h
+    </ng-template>
+  </div>
 </div>

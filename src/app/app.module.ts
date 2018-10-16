@@ -46,7 +46,7 @@ registerLocaleData(localeEs, 'es');
       HolidaysState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    //NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,
     LoginModule,
     ActivitiesModule,

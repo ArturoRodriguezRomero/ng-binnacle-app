@@ -1,21 +1,20 @@
 <div class="day">
-  <div class="selector">
+  <div class="selector" [ngClass]="{'current-day': isCurrentDay()}">
     <div class="point"></div>
-    <div class="monthday">{{ date | date:"d"}}</div>
-    <div class="weekday">{{ date | date:"E"}}</div>
-
+    <div class="monthday" [ngClass]="{'public-holiday': isPublicHoliday, 'private-holiday': isPrivateHoliday}">{{
+      date | date:"d"}}</div>
+    <div class="weekday" [ngClass]="{'public-holiday': isPublicHoliday, 'private-holiday': isPrivateHoliday}">{{ date |
+      date:"EE"}}</div>
     <div class="hours" *ngIf="totalHours > 0">
-
     </div>
-
   </div>
   <div class="activity-list">
     <app-activity-card-mobile *ngFor="let activity of activities" [activity]="activity"></app-activity-card-mobile>
   </div>
+
   <div class="total-hours" *ngIf="totalHours > 0"><i class="material-icons total-hours__icon">
       subdirectory_arrow_right
-    </i> {{
-    totalHours |
-    hoursAndMinutes }}</div>
+    </i>
+    Total día - <div class="total-hours__digit">{{ totalHours | hoursAndMinutes }}</div> h</div>
 
 </div>

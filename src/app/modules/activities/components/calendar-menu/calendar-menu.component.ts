@@ -14,11 +14,7 @@ import {
   isAfter,
   isBefore
 } from 'date-fns';
-import {
-  GetImputedDaysByDatesRequest,
-  SetSelectedDate
-} from 'src/app/shared/store/calendar/calendar.actions';
-import { GetHolidaysRequest } from 'src/app/shared/store/holidays/holidays.actions';
+import { GetImputedDaysByDatesRequest } from 'src/app/shared/store/calendar/calendar.actions';
 import { PublicHoliday } from 'src/app/shared/models/PublicHoliday';
 import { PrivateHoliday } from 'src/app/shared/models/PrivateHoliday';
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
@@ -74,7 +70,6 @@ export class CalendarMenuComponent implements OnInit {
     this.store.select(state => state.holidays).subscribe(holidaysState => {
       this.updateDaysFromState();
     });
-    this.store.dispatch(new GetHolidaysRequest());
   }
 
   updateImputedDaysState() {
@@ -96,7 +91,9 @@ export class CalendarMenuComponent implements OnInit {
             holiday => isSameMonth(holiday.date, this.selectedDate)
           );
           const privateHolidaysThisMonth = holidaysState.privateHolidays.filter(
-            holiday => isSameMonth(holiday.date, this.selectedDate)
+            (holiday: PrivateHoliday) =>
+              isSameMonth(holiday.beginDate, this.selectedDate) ||
+              isSameMonth(holiday.finalDate, this.selectedDate)
           );
 
           this.renderDays(
@@ -137,8 +134,10 @@ export class CalendarMenuComponent implements OnInit {
 
       const isPrivateHoliday = privateHolidays.some(
         holiday =>
-          isAfter(iterationDay, holiday.beginDate) &&
-          isBefore(iterationDay, holiday.endDate)
+          isSameDay(iterationDay, holiday.beginDate) ||
+          isSameDay(iterationDay, holiday.finalDate) ||
+          (isAfter(iterationDay, holiday.beginDate) &&
+            isBefore(iterationDay, holiday.finalDate))
       );
 
       this.days.push({

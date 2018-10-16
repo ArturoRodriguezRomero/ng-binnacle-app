@@ -1,13 +1,36 @@
 <div class="month-progress-bar">
-  <div class="progress-bar-container">
-    <div class="separators">
-      <div class="separator" style="left: 25%"></div>
-      <div class="separator" style="left: 50%"></div>
-      <div class="separator" style="left: 75%"></div>
+  <ng-container *ngIf="(activitiesState$ | async)?.loading; then showLoadingSpinner; else showProgress">
+
+  </ng-container>
+  <ng-template #showLoadingSpinner>
+    <div class="month-progress-loading">
+      <app-loading-spinner></app-loading-spinner>
     </div>
-    <div class="progress-bar" style="width: 80%">
+
+  </ng-template>
+
+  <ng-template #showProgress>
+    <div class="progress-bar-container">
+      <div class="separators">
+        <div class="separator" style="left: 25%"></div>
+        <div class="separator" style="left: 50%"></div>
+        <div class="separator" style="left: 75%"></div>
+      </div>
+      <div class="progress-bar" [style.width.%]="totalWorkedMinutes / totalWorkableMinutesThisMonth * 100">
+      </div>
     </div>
-  </div>
-  <div class="hours">80/160h</div>
-  <div class="description">Este mes llevas <span class="description__data">5 horas de más</span>.</div>
+    <div class="details">
+
+      <div class="description">Este mes: </div>
+      <div class="hours">
+        <span class="hours__total">{{ totalWorkedMinutes | hoursAndMinutes }} h</span>
+        /
+        <span class="hours__workable">{{ totalWorkableMinutesThisMonth | hoursAndMinutes }} h</span>
+      </div>
+      <span class="difference" [ngClass]="minutesDifference >= 0 ? 'positive' : 'negative'" *ngIf="!isSelectedDateInTheFuture">
+        {{ minutesDifference >= 0 ? "+" : "-"}} {{ minutesDifference | hoursAndMinutes }}h
+      </span>
+    </div>
+  </ng-template>
+
 </div>

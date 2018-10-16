@@ -4,12 +4,16 @@ import { SetUser, UnsetUser } from './user.actions';
 
 export interface UserStateModel {
   user: User;
+  monthlyHours: number;
+  workingDays: number;
 }
 
 @State<UserStateModel>({
   name: 'user',
   defaults: {
-    user: undefined
+    user: undefined,
+    monthlyHours: 160,
+    workingDays: 20
   }
 })
 export class UserState {

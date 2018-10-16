@@ -9,7 +9,7 @@
       <span>-</span>
       <span class="end">{{ activity.startDate | calculateEndDate:activity.duration | date:"hh:mm" }}</span>
     </div>
-    <div class="duration">{{ activity.duration | hoursAndMinutes}}</div>
+    <div class="duration">{{ activity.duration | hoursAndMinutes}} h</div>
   </div>
   <div class="description">
     {{ activity.description }}

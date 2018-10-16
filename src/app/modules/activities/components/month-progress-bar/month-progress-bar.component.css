@@ -2,14 +2,24 @@
   position: sticky;
   top: 50px;
 
+  min-height: 45px;
+
   box-shadow: var(--card-box-shadow);
 
   background-color: var(--card-background-color);
 
-  padding: 15px;
+  padding: 10px 15px;
   margin-top: -1px;
 
   z-index: 1;
+}
+
+.month-progress-loading {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .progress-bar-container {
@@ -30,12 +40,6 @@
   background-color: var(--company-color);
 }
 
-.hours {
-  position: absolute;
-  right: 15px;
-  margin-top: 10px;
-}
-
 .separators {
   position: absolute;
   width: 100%;
@@ -51,11 +55,49 @@
   z-index: 999;
 }
 
-.description {
+.details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
   margin-top: 10px;
-  font-weight: lighter;
 }
 
-.description__data {
+.hours {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+
+  font-size: 1em;
+
+  color: var(--font-color-light);
+}
+
+.hours__total {
+  margin-right: 5px;
+  color: var(--font-color);
+}
+
+.hours__workable {
+  margin-left: 5px;
+  color: var(--font-color);
+}
+
+.description {
+  color: var(--font-color-light);
+}
+
+.difference {
   font-weight: bold;
+}
+
+.difference.positive {
+  color: var(--positive-hours-difference);
+}
+
+.difference.negative {
+  color: var(--negative-hours-difference);
 }

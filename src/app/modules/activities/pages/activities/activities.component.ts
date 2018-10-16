@@ -3,12 +3,13 @@ import { Store, Select } from '@ngxs/store';
 import { GetActivitiesByDatesRequest } from '../../../../shared/store/activities/activities.actions';
 import { Observable } from 'rxjs';
 import { ActivitiesStateModel } from '../../../../shared/store/activities/activities.state';
-import { startOfMonth, endOfMonth } from 'date-fns';
+import { startOfMonth, endOfMonth, isSameMonth } from 'date-fns';
 import {
   SetSelectedDate,
   GetImputedDaysByDatesRequest
 } from '../../../../shared/store/calendar/calendar.actions';
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
+import { GetHolidaysRequest } from 'src/app/shared/store/holidays/holidays.actions';
 
 @Component({
   selector: 'app-activities',
@@ -25,13 +26,14 @@ export class ActivitiesComponent implements OnInit {
   @ViewChild('monthButtonLabel')
   monthButtonLabel: ElementRef;
 
-  isCalendarMenuDeployed: boolean = true;
+  isCalendarMenuDeployed: boolean = false;
 
   constructor(private store: Store) {}
 
   ngOnInit() {
     this.subscribeToSelectedDateChanged();
     this.setSelectedDateToCurrentDate();
+    this.store.dispatch(new GetHolidaysRequest());
   }
 
   toggleCalendarMenu() {
@@ -61,9 +63,15 @@ export class ActivitiesComponent implements OnInit {
     );
   }
 
-  changeSelectedDate(date: Date) {
-    console.log('clicky', date);
-    this.store.dispatch(new SetSelectedDate(date));
-    this.isCalendarMenuDeployed = false;
+  changeSelectedDate(newDate: Date) {
+    this.store
+      .selectOnce(state => state.calendar.selectedDate)
+      .subscribe(selectedDate => {
+        if (!isSameMonth(selectedDate, newDate)) {
+          this.store.dispatch(new SetSelectedDate(newDate));
+        }
+
+        this.isCalendarMenuDeployed = false;
+      });
   }
 }

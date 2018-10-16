@@ -8,6 +8,8 @@
   height: 18px;
   background-color: var(--company-color);
 
+  border: 2px solid white;
+
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;

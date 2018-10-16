@@ -1,5 +1,5 @@
 :root {
-  --company-color: #0d00a2;
+  --company-color: #3148aa; /** #79BD8F **/
   --company-contrast-color: #3fefef;
 
   --app-background-color: #f2f2f2;
@@ -16,4 +16,10 @@
   --font-color-light: #70707080;
 
   --header-height: 50px;
+
+  --public-holiday-color: #00bfff;
+  --private-holiday-color: #6fc937;
+
+  --positive-hours-difference: limegreen;
+  --negative-hours-difference: crimson;
 }

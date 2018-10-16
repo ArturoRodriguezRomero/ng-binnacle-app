@@ -10,11 +10,16 @@
 
   transform: translateY(calc(-100% - var(--header-height)));
 
-  transition: 0.5s ease;
+  opacity: 0;
+  transition: transform 0.3s linear, opacity 0.2s linear 0.2s;
+  transition-timing-function: cubic-bezier(0.8, 0, 0.6, 1), linear, linear;
+  transition-delay: 0s;
 }
 
 .calendar-menu.deployed {
   transform: translateY(0%);
+  transition-delay: 0s;
+  opacity: 1;
 }
 
 .month-bar {
@@ -106,16 +111,16 @@
   color: var(--font-color-light);
 }
 
-.day.previous-month {
-  color: transparent;
-}
-
 .day.public-holiday {
-  color: #efc249;
+  color: var(--public-holiday-color);
 }
 
 .day.private-holiday {
-  color: #6fc937;
+  color: var(--private-holiday-color);
+}
+
+.day.previous-month {
+  color: transparent;
 }
 
 .day.imputed::after {

@@ -6,7 +6,7 @@
   </button>
   <button class="month-button" (click)="toggleCalendarMenu()">
     <div #monthButtonLabel>
-      {{ isCalendarMenuDeployed ? "Calendar" : (calendarState$ | async)?.selectedDate | date:"MMMM" }}
+      {{ isCalendarMenuDeployed ? "Calendario" : (calendarState$ | async)?.selectedDate | date:"MMMM" }}
     </div>
     <i class="material-icons">
       {{ isCalendarMenuDeployed ? "keyboard_arrow_up" : "keyboard_arrow_down"}}
