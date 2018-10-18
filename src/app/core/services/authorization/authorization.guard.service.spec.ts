@@ -17,6 +17,7 @@ import { ActivityCardMobileComponent } from '../../../modules/activities/compone
 import { CalculateEndDatePipe } from '../../../shared/pipes/calculate.end.date.pipe';
 import { APP_BASE_HREF } from '@angular/common';
 import { Router } from '@angular/router';
+import { CalendarMenuComponent } from 'src/app/modules/activities/components/calendar-menu/calendar-menu.component';
 
 describe('AuthorizationService', () => {
   let authorizationGuardService: AuthorizationGuardService;
@@ -38,7 +39,8 @@ describe('AuthorizationService', () => {
         WeekSeparatorComponent,
         HoursAndMinutesPipe,
         ActivityCardMobileComponent,
-        CalculateEndDatePipe
+        CalculateEndDatePipe,
+        CalendarMenuComponent
       ],
       imports: [AppRoutingModule, ReactiveFormsModule],
       providers: [

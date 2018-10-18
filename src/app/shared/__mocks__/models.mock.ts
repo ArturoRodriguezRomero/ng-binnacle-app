@@ -39,4 +39,16 @@ export namespace ModelsMock {
     userId: 1,
     billable: true
   };
+
+  export const PrivateHoliday = {
+    beginDate: new Date(),
+    finalDate: new Date(),
+    state: 'ACCEPTED',
+    userId: 1
+  };
+
+  export const PublicHoliday = {
+    date: new Date(),
+    description: 'description'
+  };
 }

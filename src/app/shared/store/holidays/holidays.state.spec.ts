@@ -7,10 +7,8 @@ import {
   ofActionDispatched,
   ofActionErrored
 } from '@ngxs/store';
-import { LoginState } from './login.state';
 import { ErrorHandlerService } from '../../../core/handlers/error/error-handler.service';
 import { errorHandlerServiceStub } from '../../../core/handlers/__mocks__/error.handler.service.stub';
-import { LoginRequest, LoginError, LoginSuccess } from './login.actions';
 import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
 import { authorizationServiceStub } from '../../../core/services/__mocks__/authorization.service.stub';
 import { AppRoutingModule } from '../../../app-routing.module';
@@ -23,7 +21,6 @@ import { MonthProgressBarComponent } from '../../../modules/activities/component
 import { DayMobileComponent } from '../../../modules/activities/components/day-mobile/day-mobile.component';
 import { ActivityCardMobileComponent } from '../../../modules/activities/components/activity-card-mobile/activity-card-mobile.component';
 import { AuthorizationGuardService } from '../../../core/services/authorization/authorization.guard.service';
-import { Credentials } from '../../models/Credentials';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { IsSundayPipe } from '../../pipes/is.sunday.pipe';
@@ -31,15 +28,22 @@ import { WeekSeparatorComponent } from 'src/app/modules/activities/components/we
 import { HoursAndMinutesPipe } from '../../pipes/hours.and.minutes.pipe';
 import { CalculateEndDatePipe } from '../../pipes/calculate.end.date.pipe';
 import { CalendarMenuComponent } from 'src/app/modules/activities/components/calendar-menu/calendar-menu.component';
+import { HolidaysService } from 'src/app/core/services/holidays/holidays.service';
+import { HolidaysState, HolidaysStateModel } from './holidays.state';
+import { holidaysServiceStub } from 'src/app/core/services/__mocks__/holidays.service.stub';
+import {
+  GetHolidaysRequest,
+  GetHolidaysSuccess,
+  GetHolidaysError
+} from './holidays.actions';
+import { GetActivitiesByDatesError } from '../activities/activities.actions';
 
-describe('Login State', () => {
+describe('Holidays State', () => {
   let store: Store;
-  let authorizationService: AuthorizationService;
+  let holidaysService: HolidaysService;
   let errorHandlerService: ErrorHandlerService;
 
   let actions$: Observable<any>;
-
-  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -59,16 +63,15 @@ describe('Login State', () => {
       imports: [
         CommonModule,
         AppRoutingModule,
-        NgxsModule.forRoot([LoginState]),
+        NgxsModule.forRoot([HolidaysState]),
         ReactiveFormsModule
       ],
       providers: [
         AppRoutingModule,
         {
-          provide: AuthorizationService,
-          useValue: authorizationServiceStub
+          provide: HolidaysService,
+          useValue: holidaysServiceStub
         },
-        AuthorizationGuardService,
         {
           provide: ErrorHandlerService,
           useValue: errorHandlerServiceStub
@@ -80,88 +83,60 @@ describe('Login State', () => {
       ]
     });
     store = TestBed.get(Store);
-    authorizationService = TestBed.get(AuthorizationService);
+    holidaysService = TestBed.get(HolidaysService);
+    errorHandlerService = TestBed.get(ErrorHandlerService);
     actions$ = TestBed.get(Actions);
-    router = TestBed.get(Router);
     errorHandlerService = TestBed.get(ErrorHandlerService);
   });
 
-  // TODO
-  /*it('should set loading = true when @Action(LoginRequest)', () => {
-    store.dispatch(new LoginRequest({ username: 'test', password: 'test' }));
+  it('should dispatch @Action(GetHolidaySuccess) when @Action(GetHolidayRequest) is successfull', () => {
+    spyOn(holidaysService, 'getPrivateHolidaysThisYear').and.callThrough();
+    spyOn(holidaysService, 'getPublicHolidaysByYear').and.callThrough();
 
-    store.selectOnce(state => state.login.loading).subscribe(loading => {
-      expect(loading).toEqual(true);
+    store.dispatch(new GetHolidaysRequest());
+
+    actions$.pipe(ofActionSuccessful(GetHolidaysRequest)).subscribe(actions => {
+      actions$
+        .pipe(ofActionDispatched(GetHolidaysSuccess))
+        .subscribe(actions => {
+          expect(actions).toEqual(true);
+        });
     });
-  });*/
-
-  it('should get #credentials from #payload when @Action(LoginRequest)', () => {
-    const credentials: Credentials = { username: 'test', password: 'test' };
-    spyOn(authorizationService, 'checkUser').and.callThrough();
-
-    store.dispatch(new LoginRequest(credentials));
-
-    expect(authorizationService.checkUser).toHaveBeenCalledWith(credentials);
   });
 
-  it('should call #authorizationService.checkUser when @Action(LoginRequest)', () => {
-    spyOn(authorizationService, 'checkUser').and.callThrough();
+  it('should dispatch @Action(GetHolidayError) when @Action(GetHolidayRequest) is failed', () => {
+    spyOn(holidaysService, 'getPrivateHolidaysThisYear').and.throwError(null);
+    spyOn(holidaysService, 'getPublicHolidaysByYear').and.throwError(null);
 
-    store.dispatch(new LoginRequest({ username: 'test', password: 'test' }));
+    store.dispatch(new GetHolidaysRequest());
 
-    expect(authorizationService.checkUser).toHaveBeenCalled();
-  });
-
-  it('should dispatch @Action LoginSuccess if #checkUser is successfull', () => {
-    spyOn(authorizationService, 'checkUser').and.callThrough();
-    store.dispatch(new LoginRequest({ username: 'test', password: 'test' }));
-
-    actions$.pipe(ofActionSuccessful(LoginRequest)).subscribe(actions => {
-      actions$.pipe(ofActionDispatched(LoginSuccess)).subscribe(actions => {
-        expect(actions).toEqual(true);
+    actions$
+      .pipe(ofActionErrored(GetActivitiesByDatesError))
+      .subscribe(actions => {
+        actions$
+          .pipe(ofActionDispatched(GetHolidaysError))
+          .subscribe(actions => {
+            expect(actions).toEqual(true);
+          });
       });
-    });
   });
 
-  it('should dispatch @Action LoginError if #checkUser fails', () => {
-    spyOn(authorizationService, 'checkUser').and.throwError('error');
-    store.dispatch(new LoginRequest({ username: 'test', password: 'test' }));
+  it('should patchState when @Action(GetHolidaySuccess)', () => {
+    store.dispatch(new GetHolidaysSuccess([], []));
 
-    actions$.pipe(ofActionErrored(LoginRequest)).subscribe(actions => {
-      actions$.pipe(ofActionDispatched(LoginError)).subscribe(actions => {
-        expect(actions).toEqual(true);
+    store
+      .selectOnce(state => state.holidays)
+      .subscribe((holidaysState: HolidaysStateModel) => {
+        expect(holidaysState.loading).toEqual(false);
+        expect(holidaysState.publicHolidays).toEqual([]);
+        expect(holidaysState.privateHolidays).toEqual([]);
       });
-    });
   });
 
-  it('should set state loading = false when @Action Login Success', () => {
-    store.dispatch(new LoginSuccess());
-
-    store.selectOnce(state => state.login.loading).subscribe(loading => {
-      expect(loading).toEqual(false);
-    });
-  });
-
-  it('should #router navigate to /home when @Action Login Success', () => {
-    spyOn(router, 'navigate').and.callThrough();
-
-    store.dispatch(new LoginSuccess());
-
-    expect(router.navigate).toHaveBeenCalledWith(['/home']);
-  });
-
-  it('should set state loading = false when @Action Login Error', () => {
-    store.dispatch(new LoginError(null));
-
-    store.selectOnce(state => state.login.loading).subscribe(loading => {
-      expect(loading).toEqual(false);
-    });
-  });
-
-  it('should #errorHandlerService.throw when @Action Login Error', () => {
+  it('should #errorHandlerService.throw and when @Action GetHolidaysError', () => {
     spyOn(errorHandlerService, 'throw').and.callThrough();
 
-    store.dispatch(new LoginError(null));
+    store.dispatch(new GetHolidaysError(null));
 
     expect(errorHandlerService.throw).toHaveBeenCalled();
   });

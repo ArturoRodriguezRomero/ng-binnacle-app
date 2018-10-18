@@ -28,7 +28,7 @@ export class ActivitiesComponent implements OnInit {
 
   isCalendarMenuDeployed: boolean = false;
 
-  constructor(private store: Store) {}
+  constructor(public store: Store) {}
 
   ngOnInit() {
     this.subscribeToSelectedDateChanged();
@@ -49,6 +49,7 @@ export class ActivitiesComponent implements OnInit {
     this.store
       .select(state => state.calendar.selectedDate)
       .subscribe(selectedDate => {
+        console.log(selectedDate);
         this.onSelectedDateChanged(selectedDate);
       });
   }
@@ -58,9 +59,7 @@ export class ActivitiesComponent implements OnInit {
     const lastDate = endOfMonth(selectedDate);
 
     this.store.dispatch(new GetActivitiesByDatesRequest(firstDate, lastDate));
-    this.store.dispatch(
-      new GetImputedDaysByDatesRequest(new Date(firstDate), new Date(lastDate))
-    );
+    this.store.dispatch(new GetImputedDaysByDatesRequest(firstDate, lastDate));
   }
 
   changeSelectedDate(newDate: Date) {

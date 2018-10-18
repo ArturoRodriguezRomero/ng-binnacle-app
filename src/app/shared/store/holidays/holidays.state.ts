@@ -37,7 +37,6 @@ export class HolidaysState {
     action: GetHolidaysRequest
   ) {
     stateContext.patchState({ loading: true });
-    // TODO: turn into chainable requests.
     this.holidaysService.getPrivateHolidaysThisYear().subscribe(
       privateHolidays => {
         this.holidaysService

@@ -9,7 +9,6 @@ import { HoursAndMinutesPipe } from '../../shared/pipes/hours.and.minutes.pipe';
 import { CalculateEndDatePipe } from '../../shared/pipes/calculate.end.date.pipe';
 import { IsSundayPipe } from '../../shared/pipes/is.sunday.pipe';
 import { WeekSeparatorComponent } from './components/week-separator/week-separator.component';
-import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { CalendarMenuComponent } from './components/calendar-menu/calendar-menu.component';
 

@@ -32,6 +32,7 @@ import { NotifierService } from 'angular-notifier';
 import { Observable } from 'rxjs';
 import { ModelsMock } from '../../__mocks__/models.mock';
 import { errorHandlerServiceStub } from 'src/app/core/handlers/__mocks__/error.handler.service.stub';
+import { CalendarMenuComponent } from 'src/app/modules/activities/components/calendar-menu/calendar-menu.component';
 
 describe('ActivitiesState', () => {
   let store: Store;
@@ -54,7 +55,8 @@ describe('ActivitiesState', () => {
         IsSundayPipe,
         WeekSeparatorComponent,
         HoursAndMinutesPipe,
-        CalculateEndDatePipe
+        CalculateEndDatePipe,
+        CalendarMenuComponent
       ],
       imports: [
         CommonModule,

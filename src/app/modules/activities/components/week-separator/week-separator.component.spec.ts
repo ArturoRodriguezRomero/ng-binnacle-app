@@ -8,21 +8,22 @@ import { ActivitiesState } from '../../../../shared/store/activities/activities.
 import { NotifierService } from 'angular-notifier';
 import { of } from 'rxjs';
 import { ActivitiesService } from '../../../../core/services/activities/activities.service';
+import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinner/loading-spinner.component';
+import { activitiesServiceStub } from 'src/app/core/services/__mocks__/activities.service.stub';
 
 describe('WeekSeparatorComponent', () => {
   let component: WeekSeparatorComponent;
   let fixture: ComponentFixture<WeekSeparatorComponent>;
 
   let notifierServiceStub = { notify: () => {} };
-  let activitiesServiceStub = {
-    getActivitiesTimeByDates(startDate: Date, endDate: Date) {
-      return of(0);
-    }
-  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WeekSeparatorComponent, HoursAndMinutesPipe],
+      declarations: [
+        WeekSeparatorComponent,
+        HoursAndMinutesPipe,
+        LoadingSpinnerComponent
+      ],
       imports: [HttpClientModule, NgxsModule.forRoot([ActivitiesState])],
       providers: [
         {
@@ -76,8 +77,8 @@ describe('WeekSeparatorComponent', () => {
         date: '2018-09-02T00:00:00.000+0200'
       }
     ];
-    Object.defineProperty(component, 'activities$', { writable: true });
-    component.activities$ = of(activitiesMock);
+    Object.defineProperty(component, 'activitiesState$', { writable: true });
+    component.activitiesState$ = of(activitiesMock);
     component.sunday = new Date('2018-09-02');
     component.getMonday();
     spyOn(component, 'calculateTotalMinutesFromServer').and.callThrough();
@@ -96,10 +97,10 @@ describe('WeekSeparatorComponent', () => {
         date: '2018-09-09T00:00:00.000+0200'
       }
     ];
-    Object.defineProperty(component, 'activities$', { writable: true });
-    component.activities$ = of(activitiesMock);
     component.sunday = new Date('2018-09-09');
     component.getMonday();
+    spyOn(component.store, 'selectOnce').and.returnValue(of(activitiesMock));
+
     spyOn(
       component,
       'calculateTotalMinutesFromLocalActivities'

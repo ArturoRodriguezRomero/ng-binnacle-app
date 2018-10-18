@@ -19,9 +19,9 @@ import { PublicHoliday } from 'src/app/shared/models/PublicHoliday';
 import { PrivateHoliday } from 'src/app/shared/models/PrivateHoliday';
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
 
-export interface CalendarDayModel {
+interface CalendarDayModel {
   date: Date;
-  isDateFromPreviousMonth: boolean;
+  isDateFromDifferentMonth: boolean;
   isPublicHoliday: boolean;
   isPrivateHoliday: boolean;
   isImputed: boolean;
@@ -52,21 +52,32 @@ export class CalendarMenuComponent implements OnInit {
   firstDayOfCalendar: Date;
   lastDayOfCalendar: Date;
 
-  constructor(private store: Store) {}
+  constructor(public store: Store) {}
 
   ngOnInit() {
+    this.getSelectedDateFromState();
+    this.subscribeToInputedDaysChange();
+    this.subscribeToHolidaysChange();
+  }
+
+  getSelectedDateFromState() {
     this.store
       .selectOnce(state => state.calendar.selectedDate)
       .subscribe(selectedDate => {
         this.selectedDate = selectedDate;
-
         this.updateImputedDaysState();
       });
+  }
+
+  subscribeToInputedDaysChange() {
     this.store
       .select(state => state.calendar.imputedDays)
       .subscribe(imputedDays => {
         this.updateDaysFromState();
       });
+  }
+
+  subscribeToHolidaysChange() {
     this.store.select(state => state.holidays).subscribe(holidaysState => {
       this.updateDaysFromState();
     });
@@ -112,21 +123,21 @@ export class CalendarMenuComponent implements OnInit {
     lastDayOfCalendar: Date,
     publicHolidays: Array<PublicHoliday>,
     privateHolidays: Array<PrivateHoliday>,
-    imputedDays: Array<any>
+    imputedDays: Array<String>
   ) {
     this.emptyDays();
 
     let iterationDay = firstDayOfCalendar;
     while (iterationDay < lastDayOfCalendar) {
       const date = iterationDay;
-      const isDateFromPreviousMonth = !isSameMonth(
+      const isDateFromDifferentMonth = !isSameMonth(
         iterationDay,
         this.selectedDate
       );
       const isCurrentDay = isSameDay(iterationDay, new Date());
       const isImputed =
         imputedDays.includes(format(iterationDay, 'y-LL-dd')) &&
-        !isDateFromPreviousMonth;
+        !isDateFromDifferentMonth;
 
       const isPublicHoliday = publicHolidays.some(holiday =>
         isSameDay(holiday.date, iterationDay)
@@ -142,7 +153,7 @@ export class CalendarMenuComponent implements OnInit {
 
       this.days.push({
         date,
-        isDateFromPreviousMonth,
+        isDateFromDifferentMonth,
         isCurrentDay,
         isImputed,
         isPrivateHoliday,
