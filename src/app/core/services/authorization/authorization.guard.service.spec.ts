@@ -10,14 +10,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { MonthProgressBarComponent } from '../../../modules/activities/components/month-progress-bar/month-progress-bar.component';
 import { DayMobileComponent } from '../../../modules/activities/components/day-mobile/day-mobile.component';
-import { IsSundayPipe } from '../../../shared/pipes/is.sunday.pipe';
+import { IsSundayPipe } from '../../../shared/pipes/is.sunday.pipe/is.sunday.pipe';
 import { WeekSeparatorComponent } from '../../../modules/activities/components/week-separator/week-separator.component';
-import { HoursAndMinutesPipe } from '../../../shared/pipes/hours.and.minutes.pipe';
+import { HoursAndMinutesPipe } from '../../../shared/pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
 import { ActivityCardMobileComponent } from '../../../modules/activities/components/activity-card-mobile/activity-card-mobile.component';
-import { CalculateEndDatePipe } from '../../../shared/pipes/calculate.end.date.pipe';
+import { CalculateEndDatePipe } from '../../../shared/pipes/calculate.end.date.pipe/calculate.end.date.pipe';
 import { APP_BASE_HREF } from '@angular/common';
 import { Router } from '@angular/router';
 import { CalendarMenuComponent } from 'src/app/modules/activities/components/calendar-menu/calendar-menu.component';
+import { ActivityPreviewComponent } from 'src/app/modules/activities/components/activity-preview/activity-preview.component';
+import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
+import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
 
 describe('AuthorizationService', () => {
   let authorizationGuardService: AuthorizationGuardService;
@@ -40,7 +43,10 @@ describe('AuthorizationService', () => {
         HoursAndMinutesPipe,
         ActivityCardMobileComponent,
         CalculateEndDatePipe,
-        CalendarMenuComponent
+        CalendarMenuComponent,
+        ActivityPreviewComponent,
+        LongPressDirective,
+        TruncatePipe
       ],
       imports: [AppRoutingModule, ReactiveFormsModule],
       providers: [

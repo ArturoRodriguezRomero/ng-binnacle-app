@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { addMinutes, setSeconds, toDate } from 'date-fns';
 import { isSunday } from 'date-fns/esm';
 
 /*

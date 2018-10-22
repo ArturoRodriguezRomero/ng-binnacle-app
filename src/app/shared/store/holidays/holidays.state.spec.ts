@@ -9,8 +9,6 @@ import {
 } from '@ngxs/store';
 import { ErrorHandlerService } from '../../../core/handlers/error/error-handler.service';
 import { errorHandlerServiceStub } from '../../../core/handlers/__mocks__/error.handler.service.stub';
-import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
-import { authorizationServiceStub } from '../../../core/services/__mocks__/authorization.service.stub';
 import { AppRoutingModule } from '../../../app-routing.module';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { LoginComponent } from '../../../modules/login/pages/login/login.component';
@@ -20,13 +18,11 @@ import { LoadingSpinnerComponent } from '../../components/loading-spinner/loadin
 import { MonthProgressBarComponent } from '../../../modules/activities/components/month-progress-bar/month-progress-bar.component';
 import { DayMobileComponent } from '../../../modules/activities/components/day-mobile/day-mobile.component';
 import { ActivityCardMobileComponent } from '../../../modules/activities/components/activity-card-mobile/activity-card-mobile.component';
-import { AuthorizationGuardService } from '../../../core/services/authorization/authorization.guard.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { IsSundayPipe } from '../../pipes/is.sunday.pipe';
+import { IsSundayPipe } from '../../pipes/is.sunday.pipe/is.sunday.pipe';
 import { WeekSeparatorComponent } from 'src/app/modules/activities/components/week-separator/week-separator.component';
-import { HoursAndMinutesPipe } from '../../pipes/hours.and.minutes.pipe';
-import { CalculateEndDatePipe } from '../../pipes/calculate.end.date.pipe';
+import { HoursAndMinutesPipe } from '../../pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
+import { CalculateEndDatePipe } from '../../pipes/calculate.end.date.pipe/calculate.end.date.pipe';
 import { CalendarMenuComponent } from 'src/app/modules/activities/components/calendar-menu/calendar-menu.component';
 import { HolidaysService } from 'src/app/core/services/holidays/holidays.service';
 import { HolidaysState, HolidaysStateModel } from './holidays.state';
@@ -37,6 +33,9 @@ import {
   GetHolidaysError
 } from './holidays.actions';
 import { GetActivitiesByDatesError } from '../activities/activities.actions';
+import { ActivityPreviewComponent } from 'src/app/modules/activities/components/activity-preview/activity-preview.component';
+import { TruncatePipe } from '../../pipes/truncate.pipe/truncate.pipe';
+import { LongPressDirective } from '../../directives/long.press.directive/long.press.directive';
 
 describe('Holidays State', () => {
   let store: Store;
@@ -58,7 +57,10 @@ describe('Holidays State', () => {
         WeekSeparatorComponent,
         HoursAndMinutesPipe,
         CalculateEndDatePipe,
-        CalendarMenuComponent
+        CalendarMenuComponent,
+        ActivityPreviewComponent,
+        TruncatePipe,
+        LongPressDirective
       ],
       imports: [
         CommonModule,

@@ -4,11 +4,11 @@ import { ActivitiesComponent } from './activities.component';
 import { MonthProgressBarComponent } from '../../components/month-progress-bar/month-progress-bar.component';
 import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinner/loading-spinner.component';
 import { DayMobileComponent } from '../../components/day-mobile/day-mobile.component';
-import { IsSundayPipe } from 'src/app/shared/pipes/is.sunday.pipe';
+import { IsSundayPipe } from 'src/app/shared/pipes/is.sunday.pipe/is.sunday.pipe';
 import { WeekSeparatorComponent } from '../../components/week-separator/week-separator.component';
-import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe';
+import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
 import { ActivityCardMobileComponent } from '../../components/activity-card-mobile/activity-card-mobile.component';
-import { CalculateEndDatePipe } from 'src/app/shared/pipes/calculate.end.date.pipe';
+import { CalculateEndDatePipe } from 'src/app/shared/pipes/calculate.end.date.pipe/calculate.end.date.pipe';
 import { NgxsModule, Actions, ofActionDispatched } from '@ngxs/store';
 import { ActivitiesState } from 'src/app/shared/store/activities/activities.state';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -22,6 +22,9 @@ import { CalendarState } from 'src/app/shared/store/calendar/calendar.state';
 import { GetActivitiesByDatesRequest } from 'src/app/shared/store/activities/activities.actions';
 import { endOfMonth, startOfDay } from 'date-fns';
 import { of } from 'rxjs';
+import { ActivityPreviewComponent } from '../../components/activity-preview/activity-preview.component';
+import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
+import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
 
 describe('ActivitiesComponent', () => {
   let component: ActivitiesComponent;
@@ -42,7 +45,10 @@ describe('ActivitiesComponent', () => {
         HoursAndMinutesPipe,
         ActivityCardMobileComponent,
         CalculateEndDatePipe,
-        CalendarMenuComponent
+        CalendarMenuComponent,
+        ActivityPreviewComponent,
+        LongPressDirective,
+        TruncatePipe
       ],
       imports: [
         NgxsModule.forRoot([ActivitiesState, CalendarState]),

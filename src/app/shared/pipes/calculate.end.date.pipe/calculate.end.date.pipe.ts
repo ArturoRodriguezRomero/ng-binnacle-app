@@ -8,9 +8,9 @@ import { addMinutes, setSeconds, toDate } from 'date-fns';
  * Usage:
  *   startDate | calculateEndDate:minutes
  * Example:
- *   const startDate = "10/10/10:12:00"
+ *   const startDate = "2010/10/10:12:00"
  *   {{ startDate | calculateEndDate:75 }}
- *   formats to: 10/10/10:13:15
+ *   formats to: 2010/10/10:13:15
 */
 @Pipe({ name: 'calculateEndDate' })
 export class CalculateEndDatePipe implements PipeTransform {

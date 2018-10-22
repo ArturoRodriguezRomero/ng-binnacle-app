@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DayMobileComponent } from './day-mobile.component';
-import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe';
+import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
 import { ActivityCardMobileComponent } from '../activity-card-mobile/activity-card-mobile.component';
-import { CalculateEndDatePipe } from 'src/app/shared/pipes/calculate.end.date.pipe';
+import { CalculateEndDatePipe } from 'src/app/shared/pipes/calculate.end.date.pipe/calculate.end.date.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { CalendarState } from 'src/app/shared/store/calendar/calendar.state';
@@ -17,6 +17,8 @@ import { activitiesServiceStub } from 'src/app/core/services/__mocks__/activitie
 import { notifierServiceStub } from 'src/app/core/services/__mocks__/notifier.service.stub';
 import { ModelsMock } from 'src/app/shared/__mocks__/models.mock';
 import { of } from 'rxjs';
+import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
+import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
 
 describe('DayMobileComponent', () => {
   let component: DayMobileComponent;
@@ -28,7 +30,9 @@ describe('DayMobileComponent', () => {
         DayMobileComponent,
         HoursAndMinutesPipe,
         ActivityCardMobileComponent,
-        CalculateEndDatePipe
+        CalculateEndDatePipe,
+        LongPressDirective,
+        TruncatePipe
       ],
       imports: [
         HttpClientModule,

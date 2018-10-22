@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonthProgressBarComponent } from './month-progress-bar.component';
 import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinner/loading-spinner.component';
-import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe';
+import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
 import { NgxsModule } from '@ngxs/store';
 import { HolidaysState } from 'src/app/shared/store/holidays/holidays.state';
 import { CalendarState } from 'src/app/shared/store/calendar/calendar.state';

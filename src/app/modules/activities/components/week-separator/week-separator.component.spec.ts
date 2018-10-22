@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WeekSeparatorComponent } from './week-separator.component';
-import { HoursAndMinutesPipe } from '../../../../shared/pipes/hours.and.minutes.pipe';
+import { HoursAndMinutesPipe } from '../../../../shared/pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { ActivitiesState } from '../../../../shared/store/activities/activities.state';

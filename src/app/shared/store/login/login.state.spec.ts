@@ -26,11 +26,14 @@ import { AuthorizationGuardService } from '../../../core/services/authorization/
 import { Credentials } from '../../models/Credentials';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { IsSundayPipe } from '../../pipes/is.sunday.pipe';
+import { IsSundayPipe } from '../../pipes/is.sunday.pipe/is.sunday.pipe';
 import { WeekSeparatorComponent } from 'src/app/modules/activities/components/week-separator/week-separator.component';
-import { HoursAndMinutesPipe } from '../../pipes/hours.and.minutes.pipe';
-import { CalculateEndDatePipe } from '../../pipes/calculate.end.date.pipe';
+import { HoursAndMinutesPipe } from '../../pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
+import { CalculateEndDatePipe } from '../../pipes/calculate.end.date.pipe/calculate.end.date.pipe';
 import { CalendarMenuComponent } from 'src/app/modules/activities/components/calendar-menu/calendar-menu.component';
+import { ActivityPreviewComponent } from 'src/app/modules/activities/components/activity-preview/activity-preview.component';
+import { LongPressDirective } from '../../directives/long.press.directive/long.press.directive';
+import { TruncatePipe } from '../../pipes/truncate.pipe/truncate.pipe';
 
 describe('Login State', () => {
   let store: Store;
@@ -54,7 +57,10 @@ describe('Login State', () => {
         WeekSeparatorComponent,
         HoursAndMinutesPipe,
         CalculateEndDatePipe,
-        CalendarMenuComponent
+        CalendarMenuComponent,
+        ActivityPreviewComponent,
+        LongPressDirective,
+        TruncatePipe
       ],
       imports: [
         CommonModule,
