@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
-import { addMonths, startOfMonth, startOfWeek, toDate } from 'date-fns/esm';
+import { addMonths, startOfMonth, startOfWeek } from 'date-fns/esm';
 import { subMonths } from 'date-fns/esm';
 import {
   endOfMonth,

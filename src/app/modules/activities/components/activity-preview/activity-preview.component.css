@@ -1,0 +1,193 @@
+.activity-preview-container {
+  position: fixed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+  width: 100vw;
+
+  z-index: 100;
+
+  pointer-events: none;
+  transition: 0.3 ease;
+}
+
+.activity-preview-container::after {
+  content: '';
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: transparent;
+  transition: 0.3s ease;
+}
+
+.activity-preview-container.deployed {
+}
+
+.activity-preview-container.deployed::after {
+  content: '';
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #00000073;
+
+  z-index: -1;
+}
+
+.activity-preview {
+  height: fit-content;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  background-color: white;
+
+  margin: 15px;
+  padding: 15px;
+  border-radius: 5px;
+
+  box-shadow: var(--card-box-shadow);
+
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.activity-preview.hidden {
+  transform: scale(0.7);
+  opacity: 0;
+}
+
+.activity-preview.deployed {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.title {
+  width: 100%;
+
+  font-size: 0.8em;
+
+  margin-bottom: 5px;
+
+  text-transform: capitalize;
+
+  color: var(--font-color-light);
+
+  justify-content: space-between;
+}
+
+.times {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+
+  font-size: 1.3em;
+}
+
+.date {
+  font-weight: lighter;
+}
+
+.range {
+  display: flex;
+  flex-direction: row;
+
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.range .start {
+  margin-right: 5px;
+}
+
+.range .end {
+  margin-left: 5px;
+}
+
+.total {
+}
+
+.billable {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  font-size: 1em;
+
+  color: #5cb85c;
+}
+
+.billable-icon {
+  height: 20px;
+  width: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1em;
+
+  color: white;
+  background-color: #5cb85c;
+
+  border-radius: 50%;
+
+  margin-left: 5px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.row .icon {
+  margin-right: 10px;
+}
+
+.company {
+  font-weight: lighter;
+  font-size: 0.8em;
+}
+
+.project {
+  font-weight: lighter;
+  font-size: 0.8em;
+}
+
+.role {
+  font-weight: lighter;
+  font-size: 0.8em;
+}
+
+.description {
+  min-width: 100%;
+
+  margin-top: 10px;
+
+  padding: 10px;
+
+  border-top: 1px dashed var(--font-color-light);
+
+  font-weight: lighter;
+}

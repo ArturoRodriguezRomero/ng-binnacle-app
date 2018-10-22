@@ -1,3 +1,6 @@
+.activities {
+}
+
 .header {
   position: sticky;
   top: 0px;
@@ -10,7 +13,7 @@
   justify-content: space-between;
 
   padding: 15px;
-  z-index: 3;
+  z-index: 10;
 
   background-color: var(--card-background-color);
 

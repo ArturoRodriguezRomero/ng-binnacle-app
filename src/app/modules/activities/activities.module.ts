@@ -8,9 +8,12 @@ import { MonthProgressBarComponent } from './components/month-progress-bar/month
 import { HoursAndMinutesPipe } from '../../shared/pipes/hours.and.minutes.pipe';
 import { CalculateEndDatePipe } from '../../shared/pipes/calculate.end.date.pipe';
 import { IsSundayPipe } from '../../shared/pipes/is.sunday.pipe';
+import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
 import { WeekSeparatorComponent } from './components/week-separator/week-separator.component';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { CalendarMenuComponent } from './components/calendar-menu/calendar-menu.component';
+import { ActivityPreviewComponent } from './components/activity-preview/activity-preview.component';
+import { LongPressDirective } from 'src/app/shared/directives/long.press.directive';
 
 @NgModule({
   imports: [CommonModule, ComponentsModule],
@@ -23,7 +26,10 @@ import { CalendarMenuComponent } from './components/calendar-menu/calendar-menu.
     CalculateEndDatePipe,
     IsSundayPipe,
     WeekSeparatorComponent,
-    CalendarMenuComponent
+    CalendarMenuComponent,
+    ActivityPreviewComponent,
+    LongPressDirective,
+    TruncatePipe
   ]
 })
 export class ActivitiesModule {}

@@ -9,12 +9,21 @@
     </div>
   </div>
   <div class="activity-list">
-    <app-activity-card-mobile *ngFor="let activity of activities" [activity]="activity"></app-activity-card-mobile>
+    <ng-container *ngIf="activities.length > 0; then showActivityList; else showEmptyActivityList"></ng-container>
+    <ng-template #showActivityList>
+      <app-activity-card-mobile *ngFor="let activity of activities" [activity]="activity"></app-activity-card-mobile>
+    </ng-template>
+    <ng-template #showEmptyActivityList>
+      <button class="add-activity-button"><i class="material-icons">
+          add
+        </i>Actividad</button>
+    </ng-template>
   </div>
-
-  <div class="total-hours" *ngIf="totalHours > 0"><i class="material-icons total-hours__icon">
-      subdirectory_arrow_right
-    </i>
-    Total día - <div class="total-hours__digit">{{ totalHours | hoursAndMinutes }}</div> h</div>
-
+  <div class="footer" *ngIf="totalHours > 0">
+    <button class="add-activity-button"><i class="material-icons">
+        add
+      </i>Actividad</button>
+    <div class="total-hours">
+      Total día <div class="digit"> {{ totalHours | hoursAndMinutes }}</div> h</div>
+  </div>
 </div>

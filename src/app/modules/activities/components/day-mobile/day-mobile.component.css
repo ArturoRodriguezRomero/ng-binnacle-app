@@ -10,7 +10,8 @@
 
   padding-right: 10px;
   padding-top: 10px;
-  margin-bottom: 10px;
+
+  margin-bottom: 20px;
 }
 
 .selector {
@@ -95,6 +96,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-top: 5px;
 }
 
 .activity-list > * {
@@ -104,36 +106,74 @@
 .empty-card {
   position: relative;
   width: 100%;
-  min-height: 100%;
+  min-height: 80px;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
-  opacity: 0.2;
+
+  background-color: #b7b7b71f;
+  color: var(--font-color);
+
+  border-radius: 5px;
 }
 
-.total-hours {
+.footer {
   grid-column: 1 / 3;
 
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   align-items: center;
 
   padding-right: 10px;
   color: var(--font-color-light);
+
+  grid-column-start: 2;
 }
 
-.total-hours__icon {
+.add-activity-button {
+  position: relative;
+  width: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 6px 5px 0px;
+
+  border: none;
+  outline: none;
+
+  background-color: #5cb85c;
+
+  color: white;
+
+  border-radius: 5px;
+
+  box-shadow: var(--card-box-shadow);
+
+  z-index: 3;
+}
+
+.footer .total-hours {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.total-hours .icon {
   position: relative;
   top: -3px;
   margin-right: 3px;
   color: var(--font-color-light);
 }
 
-.total-hours__digit {
+.total-hours .digit {
   color: var(--font-color);
   margin: 0px 5px;
 }

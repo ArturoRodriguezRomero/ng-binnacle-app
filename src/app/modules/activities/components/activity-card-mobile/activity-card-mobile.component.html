@@ -1,17 +1,18 @@
-<a class="activity-card" href="">
+<a class="activity-card" long-press [duration]="300" (mousedown)="onLongPress()" (mouseup)="onLongPressEnd()"
+  (onLongPress)="onLongPress()" (onLongPressEnd)="onLongPressEnd()">
   <div class="title">{{ activity.projectRole.project.name }}</div>
   <i class="flag material-icons" *ngIf="activity.billable">
     euro_symbol
   </i>
   <div class="times">
     <div class="range">
-      <span class="start">{{ activity.startDate | date:"hh:mm" }}</span>
+      <span class="start">{{ activity.startDate | date:"HH:mm" }}</span>
       <span>-</span>
-      <span class="end">{{ activity.startDate | calculateEndDate:activity.duration | date:"hh:mm" }}</span>
+      <span class="end">{{ activity.startDate | calculateEndDate:activity.duration | date:"HH:mm" }}</span>
     </div>
     <div class="duration">{{ activity.duration | hoursAndMinutes}} h</div>
   </div>
   <div class="description">
-    {{ activity.description }}
+    {{ activity.description | truncate : 60: true : "..."}}
   </div>
 </a>

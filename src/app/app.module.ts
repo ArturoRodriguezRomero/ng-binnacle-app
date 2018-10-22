@@ -29,6 +29,7 @@ import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { CalendarState } from './shared/store/calendar/calendar.state';
 import { HolidaysState } from './shared/store/holidays/holidays.state';
+import { ActivityDetailState } from './shared/store/activity-detail/activity-detail.state';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -43,7 +44,8 @@ registerLocaleData(localeEs, 'es');
       UserState,
       ActivitiesState,
       CalendarState,
-      HolidaysState
+      HolidaysState,
+      ActivityDetailState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     //NgxsLoggerPluginModule.forRoot(),

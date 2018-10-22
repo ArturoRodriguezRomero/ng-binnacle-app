@@ -49,7 +49,6 @@ export class ActivitiesComponent implements OnInit {
     this.store
       .select(state => state.calendar.selectedDate)
       .subscribe(selectedDate => {
-        console.log(selectedDate);
         this.onSelectedDateChanged(selectedDate);
       });
   }
@@ -69,7 +68,6 @@ export class ActivitiesComponent implements OnInit {
         if (!isSameMonth(selectedDate, newDate)) {
           this.store.dispatch(new SetSelectedDate(newDate));
         }
-
         this.isCalendarMenuDeployed = false;
       });
   }

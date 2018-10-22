@@ -1,17 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Renderer2,
-  ViewChild,
-  ElementRef
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   Store,
   Select,
-  Action,
-  StateContext,
   Actions,
-  ofActionSuccessful
+  ofActionSuccessful,
+  ofActionDispatched
 } from '@ngxs/store';
 import {
   LoginRequest,
@@ -48,6 +41,9 @@ export class LoginComponent implements OnInit {
   constructor(private store: Store, private actions$: Actions) {}
 
   ngOnInit() {
+    this.actions$.pipe(ofActionDispatched(LoginRequest)).subscribe(() => {
+      this.card.nativeElement.classList.remove('card--failed-login');
+    });
     this.actions$.pipe(ofActionSuccessful(LoginError)).subscribe(() => {
       this.card.nativeElement.classList.add('card--failed-login');
     });

@@ -1,32 +1,35 @@
-<header class="header">
-  <button class="menu-button">
-    <i class="material-icons">
-      menu
-    </i>
-  </button>
-  <button class="month-button" (click)="toggleCalendarMenu()">
-    <div #monthButtonLabel>
-      {{ isCalendarMenuDeployed ? "Calendario" : (calendarState$ | async)?.selectedDate | date:"MMMM" }}
+<section #activities class="activities">
+  <app-activity-preview></app-activity-preview>
+  <header class="header">
+    <button class="menu-button">
+      <i class="material-icons">
+        menu
+      </i>
+    </button>
+    <button class="month-button" (click)="toggleCalendarMenu()">
+      <div #monthButtonLabel>
+        {{ isCalendarMenuDeployed ? "Calendario" : (calendarState$ | async)?.selectedDate | date:"MMMM" }}
+      </div>
+      <i class="material-icons">
+        {{ isCalendarMenuDeployed ? "keyboard_arrow_up" : "keyboard_arrow_down"}}
+      </i>
+    </button>
+  </header>
+  <app-calendar-menu [isDeployed]="isCalendarMenuDeployed" (onDaySelected)="changeSelectedDate($event)"></app-calendar-menu>
+  <app-month-progress-bar></app-month-progress-bar>
+  <ng-container *ngIf="(activitiesState$ | async)?.loading; then showActivitiesLoading; else showDayList  "></ng-container>
+  <ng-template #showActivitiesLoading>
+    <div class="activities-loading">
+      <app-loading-spinner></app-loading-spinner>
     </div>
-    <i class="material-icons">
-      {{ isCalendarMenuDeployed ? "keyboard_arrow_up" : "keyboard_arrow_down"}}
-    </i>
-  </button>
-</header>
-<app-calendar-menu [isDeployed]="isCalendarMenuDeployed" (onDaySelected)="changeSelectedDate($event)"></app-calendar-menu>
-<app-month-progress-bar></app-month-progress-bar>
-<ng-container *ngIf="(activitiesState$ | async)?.loading; then activitiesLoading; else dayList  "></ng-container>
-<ng-template #activitiesLoading>
-  <div class="activities-loading">
-    <app-loading-spinner></app-loading-spinner>
-  </div>
-</ng-template>
-<ng-template #dayList>
-  <span class="rail"></span>
-  <div class="day-list">
-    <div *ngFor="let day of (activitiesState$ | async)?.activities">
-      <app-day-mobile ng-if="day.activities.length > 0" [date]="day.date" [totalHours]="day.total_hours" [activities]="day.activities"></app-day-mobile>
-      <app-week-separator *ngIf="day.date | isSunday" [sunday]="day.date"></app-week-separator>
+  </ng-template>
+  <ng-template #showDayList>
+    <span class="rail"></span>
+    <div class="day-list">
+      <div *ngFor="let day of (activitiesState$ | async)?.activities">
+        <app-day-mobile ng-if="day.activities.length > 0" [date]="day.date" [totalHours]="day.total_hours" [activities]="day.activities"></app-day-mobile>
+        <app-week-separator *ngIf="day.date | isSunday" [sunday]="day.date"></app-week-separator>
+      </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
+</section>
