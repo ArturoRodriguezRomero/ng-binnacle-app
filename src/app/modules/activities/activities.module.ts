@@ -14,9 +14,11 @@ import { ComponentsModule } from '../../shared/components/components.module';
 import { CalendarMenuComponent } from './components/calendar-menu/calendar-menu.component';
 import { ActivityPreviewComponent } from './components/activity-preview/activity-preview.component';
 import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
+import { ActivityFormComponent } from './pages/activity-form/activity-form.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 @NgModule({
-  imports: [CommonModule, ComponentsModule],
+  imports: [CommonModule, ComponentsModule, AppRoutingModule],
   declarations: [
     ActivitiesComponent,
     ActivityCardMobileComponent,
@@ -29,7 +31,8 @@ import { LongPressDirective } from 'src/app/shared/directives/long.press.directi
     CalendarMenuComponent,
     ActivityPreviewComponent,
     LongPressDirective,
-    TruncatePipe
+    TruncatePipe,
+    ActivityFormComponent
   ]
 })
 export class ActivitiesModule {}

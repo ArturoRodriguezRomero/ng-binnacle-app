@@ -36,6 +36,10 @@
   color: var(--font-color-light);
 }
 
+.month-bar .arrow:active {
+  background-color: var(--active-background-color);
+}
+
 .month-bar .selected-date {
   display: flex;
   flex-direction: column;
@@ -107,6 +111,10 @@
   font-size: 0.8em;
 }
 
+.day:active {
+  background-color: var(--active-background-color);;
+}
+
 .day.week-day {
   color: var(--font-color-light);
 }
@@ -119,8 +127,9 @@
   color: var(--private-holiday-color);
 }
 
-.day.previous-month {
+.day.different-month {
   color: transparent;
+  visibility: hidden;
 }
 
 .day.imputed::after {

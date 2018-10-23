@@ -25,6 +25,13 @@ import { of } from 'rxjs';
 import { ActivityPreviewComponent } from '../../components/activity-preview/activity-preview.component';
 import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
+import { RouterTestingModule } from '@angular/router/testing';
+import { routes } from 'src/app/app-routing.module';
+import { LoginComponent } from 'src/app/modules/login/pages/login/login.component';
+import { ActivityFormComponent } from '../activity-form/activity-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HolidaysState } from 'src/app/shared/store/holidays/holidays.state';
+import { GetHolidaysRequest } from 'src/app/shared/store/holidays/holidays.actions';
 
 describe('ActivitiesComponent', () => {
   let component: ActivitiesComponent;
@@ -36,23 +43,30 @@ describe('ActivitiesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
+        ActivityCardMobileComponent,
+        CalculateEndDatePipe,
+        HoursAndMinutesPipe,
+        TruncatePipe,
+        LongPressDirective,
+        LoginComponent,
         ActivitiesComponent,
-        MonthProgressBarComponent,
+        ActivityFormComponent,
         LoadingSpinnerComponent,
+        ActivityPreviewComponent,
+        CalendarMenuComponent,
+        MonthProgressBarComponent,
         DayMobileComponent,
         IsSundayPipe,
         WeekSeparatorComponent,
-        HoursAndMinutesPipe,
-        ActivityCardMobileComponent,
-        CalculateEndDatePipe,
-        CalendarMenuComponent,
-        ActivityPreviewComponent,
-        LongPressDirective,
-        TruncatePipe
+        ActivityFormComponent
       ],
       imports: [
-        NgxsModule.forRoot([ActivitiesState, CalendarState]),
-        HttpClientTestingModule
+        NgxsModule.forRoot([ActivitiesState, CalendarState, HolidaysState]),
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes(routes),
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
       ],
       providers: [
         {
@@ -75,14 +89,12 @@ describe('ActivitiesComponent', () => {
 
   it('should setup on #ngOnInit', () => {
     spyOn(component, 'subscribeToSelectedDateChanged').and.callThrough();
-    spyOn(component, 'setSelectedDateToCurrentDate').and.callThrough();
-    spyOn(component.store, 'dispatch').and.callThrough();
+    spyOn(component, 'dispatchGetHolidays').and.callThrough();
 
     component.ngOnInit();
 
     expect(component.subscribeToSelectedDateChanged).toHaveBeenCalled();
-    expect(component.setSelectedDateToCurrentDate).toHaveBeenCalled();
-    expect(component.store.dispatch).toHaveBeenCalled();
+    expect(component.dispatchGetHolidays).toHaveBeenCalled();
   });
 
   it("should set #isCalendarMenuDeployed false when it's true", () => {
@@ -99,16 +111,6 @@ describe('ActivitiesComponent', () => {
     component.toggleCalendarMenu();
 
     expect(component.isCalendarMenuDeployed).toEqual(true);
-  });
-
-  it('should dispatch @Action(new SelectedDate) when #setSelectedDateToCurrentDate with current date', () => {
-    spyOn(component.store, 'dispatch').and.callThrough();
-
-    actions$.pipe(ofActionDispatched(SetSelectedDate)).subscribe(action => {
-      expect(action).toBeTruthy();
-    });
-
-    component.setSelectedDateToCurrentDate();
   });
 
   it('should call #onSelectedDateChanged when state selectedDate changes', () => {
@@ -167,5 +169,17 @@ describe('ActivitiesComponent', () => {
     });
 
     component.changeSelectedDate(expectedDate);
+  });
+
+  it('should dispatch @Action(Get Holiday Request) ONLY when holiday state is empty', () => {
+    spyOn(component.store, 'selectOnce').and.returnValue(
+      of({ publicHolidays: { length: 3 } })
+    );
+
+    actions$.pipe(ofActionDispatched(GetHolidaysRequest)).subscribe(action => {
+      expect(action).toBeTruthy();
+    });
+
+    component.dispatchGetHolidays();
   });
 });

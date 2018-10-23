@@ -34,6 +34,10 @@
   outline: none;
 }
 
+.menu-button:active {
+  background-color: var(--active-background-color);
+}
+
 .menu-button > * {
   font-size: 2em;
 }
@@ -53,6 +57,11 @@
   text-transform: capitalize;
 
   outline: none;
+  user-select: none;
+}
+
+.month-button:active {
+  background-color: var(--active-background-color);
 }
 
 .activities-loading {

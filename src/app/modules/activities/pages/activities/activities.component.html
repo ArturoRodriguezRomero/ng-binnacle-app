@@ -17,7 +17,7 @@
   </header>
   <app-calendar-menu [isDeployed]="isCalendarMenuDeployed" (onDaySelected)="changeSelectedDate($event)"></app-calendar-menu>
   <app-month-progress-bar></app-month-progress-bar>
-  <ng-container *ngIf="(activitiesState$ | async)?.loading; then showActivitiesLoading; else showDayList  "></ng-container>
+  <ng-container *ngIf="(activitiesState$ | async)?.loading || (holidaysState$ | async)?.loading; then showActivitiesLoading; else showDayList  "></ng-container>
   <ng-template #showActivitiesLoading>
     <div class="activities-loading">
       <app-loading-spinner></app-loading-spinner>

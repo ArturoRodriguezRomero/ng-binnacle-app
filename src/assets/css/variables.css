@@ -22,4 +22,8 @@
 
   --positive-hours-difference: limegreen;
   --negative-hours-difference: crimson;
+
+  --billable-color: #5cb85c;
+
+  --active-background-color: #0000000d;
 }

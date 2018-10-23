@@ -5,6 +5,7 @@ import {
   SetActivityDetail,
   UnsetActivityDetail
 } from 'src/app/shared/store/activity-detail/activity-detail.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-card-mobile',
@@ -15,9 +16,13 @@ export class ActivityCardMobileComponent implements OnInit {
   @Input()
   activity: Activity;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {}
+
+  onClick() {
+    this.router.navigate(['activities/new']);
+  }
 
   onLongPress() {
     this.dispatchSetActivityDetail();

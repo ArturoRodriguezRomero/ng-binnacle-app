@@ -27,6 +27,7 @@ import {
   UnsetActivityDetail
 } from './activity-detail.actions';
 import { ModelsMock } from '../../__mocks__/models.mock';
+import { ActivityFormComponent } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
 
 describe('Holidays State', () => {
   let store: Store;
@@ -49,7 +50,8 @@ describe('Holidays State', () => {
         CalendarMenuComponent,
         ActivityPreviewComponent,
         TruncatePipe,
-        LongPressDirective
+        LongPressDirective,
+        ActivityFormComponent
       ],
       imports: [
         CommonModule,

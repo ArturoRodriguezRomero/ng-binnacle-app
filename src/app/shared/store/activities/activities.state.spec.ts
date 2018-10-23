@@ -36,6 +36,7 @@ import { CalendarMenuComponent } from 'src/app/modules/activities/components/cal
 import { ActivityPreviewComponent } from 'src/app/modules/activities/components/activity-preview/activity-preview.component';
 import { LongPressDirective } from '../../directives/long.press.directive/long.press.directive';
 import { TruncatePipe } from '../../pipes/truncate.pipe/truncate.pipe';
+import { ActivityFormComponent } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
 
 describe('ActivitiesState', () => {
   let store: Store;
@@ -62,7 +63,8 @@ describe('ActivitiesState', () => {
         CalendarMenuComponent,
         ActivityPreviewComponent,
         LongPressDirective,
-        TruncatePipe
+        TruncatePipe,
+        ActivityFormComponent
       ],
       imports: [
         CommonModule,

@@ -21,7 +21,7 @@
     <div *ngIf="(calendarState$ | async)?.loading || (holidaysState$ | async)?.loading" class="calendar-loading">
       <app-loading-spinner></app-loading-spinner>
     </div>
-    <div class="day" *ngFor="let day of days" [ngClass]="{'public-holiday ': day.isPublicHoliday, 'private-holiday': day.isPrivateHoliday, 'imputed': day.isImputed, 'current-day': day.isCurrentDay, 'previous-month': day.isDateFromPreviousMonth}"
+    <div class="day" *ngFor="let day of days" [ngClass]="{'public-holiday ': day.isPublicHoliday, 'private-holiday': day.isPrivateHoliday, 'imputed': day.isImputed, 'current-day': day.isCurrentDay, 'different-month': day.isDateFromDifferentMonth}"
       (click)="setSelectedDate(day.date)">
       {{ day.date | date:"d"}}
     </div>

@@ -148,7 +148,7 @@
   font-size: 1em;
 
   color: white;
-  background-color: #5cb85c;
+  background-color: var(--billable-color);
 
   border-radius: 50%;
 

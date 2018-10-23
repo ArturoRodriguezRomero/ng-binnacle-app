@@ -1,4 +1,4 @@
-<a class="activity-card" long-press [duration]="300" (mousedown)="onLongPress()" (mouseup)="onLongPressEnd()"
+<a class="activity-card" long-press [duration]="500" (click)="onClick()" (mousedown)="onLongPress()" (mouseup)="onLongPressEnd()"
   (onLongPress)="onLongPress()" (onLongPressEnd)="onLongPressEnd()">
   <div class="title">{{ activity.projectRole.project.name }}</div>
   <i class="flag material-icons" *ngIf="activity.billable">

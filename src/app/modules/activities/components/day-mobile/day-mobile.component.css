@@ -157,6 +157,15 @@
   box-shadow: var(--card-box-shadow);
 
   z-index: 3;
+  user-select: none;
+}
+
+.add-activity-button:hover {
+  cursor: pointer;
+}
+
+.add-activity-button:active {
+  background-color: #428142;
 }
 
 .footer .total-hours {

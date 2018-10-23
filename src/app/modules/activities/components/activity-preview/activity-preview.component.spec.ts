@@ -4,6 +4,8 @@ import { ActivityPreviewComponent } from './activity-preview.component';
 import { CalculateEndDatePipe } from 'src/app/shared/pipes/calculate.end.date.pipe/calculate.end.date.pipe';
 import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
+import { ActivityDetailState } from 'src/app/shared/store/activity-detail/activity-detail.state';
+import { NgxsModule } from '@ngxs/store';
 
 describe('ActivityPreviewComponent', () => {
   let component: ActivityPreviewComponent;
@@ -16,7 +18,8 @@ describe('ActivityPreviewComponent', () => {
         CalculateEndDatePipe,
         HoursAndMinutesPipe,
         TruncatePipe
-      ]
+      ],
+      imports: [NgxsModule.forRoot([ActivityDetailState])]
     }).compileComponents();
   }));
 

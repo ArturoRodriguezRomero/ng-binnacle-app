@@ -1,0 +1,99 @@
+<section class="activity-form">
+  <header class="header">
+    <a class="back-button" [routerLink]="['/activities']">
+      <i class="material-icons">
+        arrow_back
+      </i>
+    </a>
+    <div class="title">
+      Actividad
+    </div>
+  </header>
+  <div class="form">
+    <div class="form-row">
+      <legend class="legend">Tiempo</legend>
+      <div class="form-control">
+        <i class="material-icons">
+          access_time
+        </i>
+        <label class="label">Hora de inicio</label>
+        <input type="time">
+      </div>
+      <div class="form-control">
+        <i class="material-icons">
+          access_time
+        </i>
+        <label class="label">Hora de fin</label>
+        <input type="time">
+      </div>
+      <div class="form-control">
+        <i class="material-icons">
+          access_time
+        </i>
+        <label class="label">Tiempo total</label>
+        <input type="time">
+      </div>
+    </div>
+    <div class="form-row">
+      <legend class="legend">Proyecto</legend>
+      <div class="shortcut-list">
+        <div class="shortcut">BBVA</div>
+        <div class="shortcut">KN</div>
+        <div class="shortcut">IBERIA</div>
+        <div class="shortcut">BBVA</div>
+        <div class="shortcut">KN</div>
+        <div class="shortcut">IBERIA</div>
+      </div>
+      <div class="form-control">
+        <i class="material-icons icon">
+          account_balance
+        </i>
+        <div class="label">Organización</div>
+        <input list="organizations">
+        <datalist id="organizations">
+        </datalist>
+      </div>
+      <div class="form-control">
+        <i class="material-icons icon">
+          group
+        </i>
+        <div class="label">Proyecto</div>
+        <input list="organizations">
+        <datalist id="organizations">
+        </datalist>
+      </div>
+      <div class="form-control">
+        <i class="material-icons icon">
+          person
+        </i>
+        <div class="label">Rol</div>
+        <input list="organizations">
+        <datalist id="organizations">
+        </datalist>
+      </div>
+    </div>
+    <div class="form-row">
+      <legend class="legend">Facturable</legend>
+      <div class="form-control billable">
+        <button type="button" class="billable-button">No</button>
+        <button type="button" class="billable-button positive">Sí</button>
+      </div>
+    </div>
+    <div class="form-row description">
+      <legend class="legend">Descripción</legend>
+      <div class="description">
+        <div class="client-warning">
+          <i class="material-icons icon">
+            warning
+          </i>
+          El cliente leerá esta descripción.
+        </div>
+        <textarea class="textarea"></textarea>
+      </div>
+    </div>
+    <div class="footer">
+      <button type="button" class="button delete">Eliminar</button>
+      <button type="button" class="button save">Guardar</button>
+    </div>
+  </div>
+</section>

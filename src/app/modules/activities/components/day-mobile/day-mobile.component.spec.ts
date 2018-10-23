@@ -19,6 +19,19 @@ import { ModelsMock } from 'src/app/shared/__mocks__/models.mock';
 import { of } from 'rxjs';
 import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
+import { RouterTestingModule } from '@angular/router/testing';
+import { routes } from 'src/app/app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { WeekSeparatorComponent } from '../week-separator/week-separator.component';
+import { IsSundayPipe } from 'src/app/shared/pipes/is.sunday.pipe/is.sunday.pipe';
+import { MonthProgressBarComponent } from '../month-progress-bar/month-progress-bar.component';
+import { CalendarMenuComponent } from '../calendar-menu/calendar-menu.component';
+import { ActivityPreviewComponent } from '../activity-preview/activity-preview.component';
+import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinner/loading-spinner.component';
+import { ActivityFormComponent } from '../../pages/activity-form/activity-form.component';
+import { ActivitiesComponent } from '../../pages/activities/activities.component';
+import { LoginComponent } from 'src/app/modules/login/pages/login/login.component';
 
 describe('DayMobileComponent', () => {
   let component: DayMobileComponent;
@@ -27,16 +40,29 @@ describe('DayMobileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DayMobileComponent,
-        HoursAndMinutesPipe,
         ActivityCardMobileComponent,
         CalculateEndDatePipe,
+        HoursAndMinutesPipe,
+        TruncatePipe,
         LongPressDirective,
-        TruncatePipe
+        LoginComponent,
+        ActivitiesComponent,
+        ActivityFormComponent,
+        LoadingSpinnerComponent,
+        ActivityPreviewComponent,
+        CalendarMenuComponent,
+        MonthProgressBarComponent,
+        DayMobileComponent,
+        IsSundayPipe,
+        WeekSeparatorComponent
       ],
       imports: [
         HttpClientModule,
-        NgxsModule.forRoot([CalendarState, HolidaysState])
+        NgxsModule.forRoot([CalendarState, HolidaysState]),
+        RouterTestingModule.withRoutes(routes),
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
       ],
       providers: [
         {

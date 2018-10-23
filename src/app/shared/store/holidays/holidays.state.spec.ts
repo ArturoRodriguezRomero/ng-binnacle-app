@@ -36,6 +36,7 @@ import { GetActivitiesByDatesError } from '../activities/activities.actions';
 import { ActivityPreviewComponent } from 'src/app/modules/activities/components/activity-preview/activity-preview.component';
 import { TruncatePipe } from '../../pipes/truncate.pipe/truncate.pipe';
 import { LongPressDirective } from '../../directives/long.press.directive/long.press.directive';
+import { ActivityFormComponent } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
 
 describe('Holidays State', () => {
   let store: Store;
@@ -60,7 +61,8 @@ describe('Holidays State', () => {
         CalendarMenuComponent,
         ActivityPreviewComponent,
         TruncatePipe,
-        LongPressDirective
+        LongPressDirective,
+        ActivityFormComponent
       ],
       imports: [
         CommonModule,

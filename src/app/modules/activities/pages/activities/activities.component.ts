@@ -10,6 +10,7 @@ import {
 } from '../../../../shared/store/calendar/calendar.actions';
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
 import { GetHolidaysRequest } from 'src/app/shared/store/holidays/holidays.actions';
+import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
 
 @Component({
   selector: 'app-activities',
@@ -23,6 +24,9 @@ export class ActivitiesComponent implements OnInit {
   @Select(state => state.calendar)
   calendarState$: Observable<CalendarStateModel>;
 
+  @Select(state => state.holidays)
+  holidaysState$: Observable<HolidaysStateModel>;
+
   @ViewChild('monthButtonLabel')
   monthButtonLabel: ElementRef;
 
@@ -32,17 +36,11 @@ export class ActivitiesComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeToSelectedDateChanged();
-    this.setSelectedDateToCurrentDate();
-    this.store.dispatch(new GetHolidaysRequest());
+    this.dispatchGetHolidays();
   }
 
   toggleCalendarMenu() {
     this.isCalendarMenuDeployed = !this.isCalendarMenuDeployed;
-  }
-
-  setSelectedDateToCurrentDate() {
-    const selectedDate = new Date();
-    this.store.dispatch(new SetSelectedDate(selectedDate));
   }
 
   subscribeToSelectedDateChanged() {
@@ -69,6 +67,16 @@ export class ActivitiesComponent implements OnInit {
           this.store.dispatch(new SetSelectedDate(newDate));
         }
         this.isCalendarMenuDeployed = false;
+      });
+  }
+
+  dispatchGetHolidays() {
+    this.store
+      .selectOnce(state => state.holidays)
+      .subscribe((holidaysState: HolidaysStateModel) => {
+        if (holidaysState.publicHolidays.length == 0) {
+          this.store.dispatch(new GetHolidaysRequest());
+        }
       });
   }
 }

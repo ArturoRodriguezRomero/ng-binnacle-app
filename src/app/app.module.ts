@@ -30,13 +30,14 @@ import { registerLocaleData } from '@angular/common';
 import { CalendarState } from './shared/store/calendar/calendar.state';
 import { HolidaysState } from './shared/store/holidays/holidays.state';
 import { ActivityDetailState } from './shared/store/activity-detail/activity-detail.state';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomReuseStrategy } from './shared/misc/custom.reuse.strategy';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     AppRoutingModule,
     FormsModule,
     NgxsModule.forRoot([
@@ -48,7 +49,7 @@ registerLocaleData(localeEs, 'es');
       ActivityDetailState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    //NgxsLoggerPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,
     LoginModule,
     ActivitiesModule,
@@ -67,7 +68,11 @@ registerLocaleData(localeEs, 'es');
       useClass: APIInterceptor,
       multi: true
     },
-    AuthorizationGuardService,
+    ,
+    /*{
+      provide: RouteReuseStrategy,
+      useClass: CustomReuseStrategy
+    }*/ AuthorizationGuardService,
     { provide: LOCALE_ID, useValue: 'es' }
   ],
   bootstrap: [AppComponent]

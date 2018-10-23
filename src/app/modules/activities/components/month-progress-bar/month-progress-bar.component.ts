@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ActivitiesStateModel } from 'src/app/shared/store/activities/activities.state';
@@ -49,32 +49,39 @@ export class MonthProgressBarComponent implements OnInit {
   }
 
   subscribeToActivitiesChange() {
-    this.activitiesState$.subscribe(activityState => {
-      this.userState$.subscribe(userState => {
-        this.holidaysState$.subscribe(holidaysState => {
-          this.selectedDate$.subscribe(selectedDate => {
-            this.updateTotalMinutes(activityState.activities);
+    this.store.select(state => state.activities).subscribe(activitiesState => {
+      this.store.selectOnce(state => state.user).subscribe(userState => {
+        this.store
+          .selectOnce(state => state.holidays)
+          .subscribe(holidaysState => {
+            this.store
+              .selectOnce(state => state.calendar.selectedDate)
+              .subscribe(selectedDate => {
+                this.updateTotalMinutes(activitiesState.activities);
 
-            this.totalWorkableMinutesUntilNow = this.getTotalWorkableMinutesUntilSelectedDate(
-              userState,
-              holidaysState.privateHolidays,
-              holidaysState.publicHolidays,
-              isSameMonth(selectedDate, new Date())
-                ? new Date()
-                : endOfMonth(selectedDate)
-            );
-            this.totalWorkableMinutesThisMonth = this.getTotalWorkableMinutesUntilSelectedDate(
-              userState,
-              holidaysState.privateHolidays,
-              holidaysState.publicHolidays,
-              endOfMonth(selectedDate)
-            );
+                this.totalWorkableMinutesUntilNow = this.getTotalWorkableMinutesUntilSelectedDate(
+                  userState,
+                  holidaysState.privateHolidays,
+                  holidaysState.publicHolidays,
+                  isSameMonth(selectedDate, new Date())
+                    ? new Date()
+                    : endOfMonth(selectedDate)
+                );
+                this.totalWorkableMinutesThisMonth = this.getTotalWorkableMinutesUntilSelectedDate(
+                  userState,
+                  holidaysState.privateHolidays,
+                  holidaysState.publicHolidays,
+                  endOfMonth(selectedDate)
+                );
 
-            this.isSelectedDateInTheFuture = isAfter(selectedDate, new Date());
+                this.isSelectedDateInTheFuture = isAfter(
+                  selectedDate,
+                  new Date()
+                );
 
-            this.updateHoursDifference();
+                this.updateHoursDifference();
+              });
           });
-        });
       });
     });
   }

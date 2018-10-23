@@ -1,5 +1,5 @@
 <div class="month-progress-bar">
-  <ng-container *ngIf="(activitiesState$ | async)?.loading; then showLoadingSpinner; else showProgress">
+  <ng-container *ngIf="(activitiesState$ | async)?.loading || (holidaysState$ | async)?.loading; then showLoadingSpinner; else showProgress">
 
   </ng-container>
   <ng-template #showLoadingSpinner>

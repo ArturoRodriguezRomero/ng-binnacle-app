@@ -48,7 +48,7 @@ export class LoginState {
   @Action(LoginSuccess)
   LoginSuccess(stateContext: StateContext<LoginStateModel>) {
     stateContext.patchState({ loading: false });
-    this.router.navigate(['/home']);
+    this.router.navigate(['/activities']);
   }
 
   @Action(LoginError)

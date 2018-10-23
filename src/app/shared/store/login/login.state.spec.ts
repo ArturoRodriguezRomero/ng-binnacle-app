@@ -34,6 +34,7 @@ import { CalendarMenuComponent } from 'src/app/modules/activities/components/cal
 import { ActivityPreviewComponent } from 'src/app/modules/activities/components/activity-preview/activity-preview.component';
 import { LongPressDirective } from '../../directives/long.press.directive/long.press.directive';
 import { TruncatePipe } from '../../pipes/truncate.pipe/truncate.pipe';
+import { ActivityFormComponent } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
 
 describe('Login State', () => {
   let store: Store;
@@ -60,7 +61,8 @@ describe('Login State', () => {
         CalendarMenuComponent,
         ActivityPreviewComponent,
         LongPressDirective,
-        TruncatePipe
+        TruncatePipe,
+        ActivityFormComponent
       ],
       imports: [
         CommonModule,
@@ -148,12 +150,12 @@ describe('Login State', () => {
     });
   });
 
-  it('should #router navigate to /home when @Action Login Success', () => {
+  it('should #router navigate to /activities when @Action Login Success', () => {
     spyOn(router, 'navigate').and.callThrough();
 
     store.dispatch(new LoginSuccess());
 
-    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+    expect(router.navigate).toHaveBeenCalledWith(['/activities']);
   });
 
   it('should set state loading = false when @Action Login Error', () => {
