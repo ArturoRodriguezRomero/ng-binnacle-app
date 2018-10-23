@@ -55,7 +55,7 @@
   font-size: 2em;
 }
 
-.title {
+.header .title {
   width: 100%;
 
   display: flex;
@@ -74,7 +74,7 @@
 }
 
 .form {
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .form-row {
@@ -85,42 +85,29 @@
   border: none;
 
   margin: 30px 20px;
+  padding: 20px 0px;
   border-bottom: 1px dashed lightgray;
 }
 
 .legend {
-  color: var(--company-color);
-  margin-bottom: 30px;
-}
-
-.shortcut-list {
-  position: relative;
-  max-width: 100%;
-  height: 50px;
-
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 
-  overflow-x: scroll;
-  overflow-y: visible;
+  color: var(--company-color);
 
-  margin-bottom: 20px;
-
-  padding: 0px 10px;
+  margin-bottom: 30px;
 }
 
-.shortcut {
-  color: white;
+.legend .icon {
+  margin-right: 10px;
+}
 
-  background-color: var(--company-color);
-
-  margin: 0px 5px;
-  padding: 5px 10px;
-  border-radius: 5px;
-
-  box-shadow: var(--card-box-shadow);
+.legend .title {
+  position: relative;
+  top: 2px;
+  width: auto;
 }
 
 .form-control {
@@ -131,6 +118,30 @@
   margin-left: 20px;
   margin-right: 20px;
   margin-bottom: 20px;
+}
+
+.time-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.time-control input {
+  border: none;
+  outline: none;
+
+  background-color: var(--app-background-color);
+
+  border-radius: 5px;
+  padding: 5px;
+
+  max-width: 5em;
+  text-align: center;
 }
 
 .form-control .icon {
@@ -170,48 +181,52 @@
 .form-control.billable {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .billable-button {
-  height: 75px;
-  width: 75px;
-
-  border-radius: 50%;
+  height: 40px;
+  width: 60px;
   background-color: gray;
 
   color: white;
   border: none;
   box-shadow: var(--card-box-shadow);
 
-  transform: scale(0.8);
-
   transition: 0.1s ease;
 }
 
 .billable-button.positive {
   background-color: var(--billable-color);
-  transform: scale(1);
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 .billable-button.negative {
-  background-color: crimson;
-  transform: scale(1);
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+
+.legend.description {
+  margin: 0px 10px;
+  margin-bottom: 30px;
+}
+
+.form-row.billable {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .form-row.description {
-  border: none;
-}
-
-.description {
   display: flex;
   flex-direction: column;
 
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.description .client-warning {
+.form-row.description .client-warning {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -222,20 +237,59 @@
   margin-bottom: 10px;
 }
 
-.description .client-warning .icon {
+.form-row.description .client-warning .icon {
   color: orange;
 }
 
-.description .textarea {
+.form-row.description .textarea {
   min-width: 100%;
-  min-height: 10em;
+  min-height: 15em;
 
-  border: 1px solid lightgrey;
+  background-color: var(--app-background-color);
+  border: none;
   border-radius: 5px;
 
   resize: vertical;
 
   padding: 10px;
+}
+
+.form-row.proyect {
+  border: none;
+}
+
+.shortcut-label {
+  font-size: 0.8em;
+}
+
+.shortcut-list {
+  position: relative;
+  max-width: 100%;
+  height: 50px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  overflow-x: scroll;
+  overflow-y: visible;
+
+  margin-bottom: 20px;
+}
+
+.shortcut {
+  color: white;
+
+  background-color: var(--company-color);
+
+  margin: 0px 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+  box-shadow: var(--card-box-shadow);
+
+  white-space: nowrap;
 }
 
 .footer {

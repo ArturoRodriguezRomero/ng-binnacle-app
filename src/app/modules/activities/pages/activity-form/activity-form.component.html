@@ -11,38 +11,66 @@
   </header>
   <div class="form">
     <div class="form-row">
-      <legend class="legend">Tiempo</legend>
-      <div class="form-control">
-        <i class="material-icons">
+      <div class="legend">
+        <i class="material-icons icon">
           access_time
         </i>
-        <label class="label">Hora de inicio</label>
+        <div class="title">Tiempo</div>
+      </div>
+      <div class="time-control">
+        <label class="label">Inicio</label>
         <input type="time">
       </div>
-      <div class="form-control">
-        <i class="material-icons">
-          access_time
-        </i>
-        <label class="label">Hora de fin</label>
+      <div class="time-control">
+        <label class="label">Fin</label>
         <input type="time">
       </div>
-      <div class="form-control">
-        <i class="material-icons">
-          access_time
-        </i>
-        <label class="label">Tiempo total</label>
+      <div class="time-control">
+        <label class="label">Total</label>
         <input type="time">
       </div>
     </div>
-    <div class="form-row">
-      <legend class="legend">Proyecto</legend>
+    <div class="form-row billable">
+      <div class="legend">
+        <i class="material-icons icon">
+          euro_symbol
+        </i>
+        <div class="title">Facturable</div>
+      </div>
+      <div class="form-control billable">
+        <button type="button" class="billable-button negative">No</button>
+        <button type="button" class="billable-button positive">Sí</button>
+      </div>
+    </div>
+    <div class="form-row description">
+      <div class="legend description">
+        <i class="material-icons icon">
+          description
+        </i>
+        <div class="title">Descripción</div>
+      </div>
+      <div class="description">
+        <div class="client-warning">
+          <i class="material-icons icon">
+            warning
+          </i>
+          El cliente leerá esta descripción.
+        </div>
+        <textarea class="textarea"></textarea>
+      </div>
+    </div>
+    <div class="form-row proyect">
+      <div class="legend">
+        <i class="material-icons icon">
+          assignment
+        </i>
+        <div class="title">Proyecto</div>
+      </div>
+      <div class="shortcut-label">Recientes</div>
       <div class="shortcut-list">
-        <div class="shortcut">BBVA</div>
-        <div class="shortcut">KN</div>
-        <div class="shortcut">IBERIA</div>
-        <div class="shortcut">BBVA</div>
-        <div class="shortcut">KN</div>
-        <div class="shortcut">IBERIA</div>
+        <div class="shortcut">BBVA Global Tech</div>
+        <div class="shortcut">KN Localization</div>
+        <div class="shortcut">IBERIA Fly Away</div>
       </div>
       <div class="form-control">
         <i class="material-icons icon">
@@ -70,25 +98,6 @@
         <input list="organizations">
         <datalist id="organizations">
         </datalist>
-      </div>
-    </div>
-    <div class="form-row">
-      <legend class="legend">Facturable</legend>
-      <div class="form-control billable">
-        <button type="button" class="billable-button">No</button>
-        <button type="button" class="billable-button positive">Sí</button>
-      </div>
-    </div>
-    <div class="form-row description">
-      <legend class="legend">Descripción</legend>
-      <div class="description">
-        <div class="client-warning">
-          <i class="material-icons icon">
-            warning
-          </i>
-          El cliente leerá esta descripción.
-        </div>
-        <textarea class="textarea"></textarea>
       </div>
     </div>
     <div class="footer">
