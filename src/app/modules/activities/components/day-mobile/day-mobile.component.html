@@ -5,7 +5,8 @@
       date | date:"d"}}</div>
     <div class="weekday" [ngClass]="{'public-holiday': isPublicHoliday, 'private-holiday': isPrivateHoliday}">{{ date |
       date:"EE"}}</div>
-    <div class="hours" *ngIf="totalHours > 0">
+    <div class="total-hours" *ngIf="totalHours > 0">
+      <div class="digit"> {{ totalHours | hoursAndMinutes }}</div> h
     </div>
   </div>
   <div class="activity-list">
@@ -23,7 +24,5 @@
     <button class="add-activity-button" [routerLink]="['/activities/new']"><i class="material-icons">
         add
       </i>Actividad</button>
-    <div class="total-hours">
-      Total día <div class="digit"> {{ totalHours | hoursAndMinutes }}</div> h</div>
   </div>
 </div>

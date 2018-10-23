@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isSunday } from 'date-fns/esm';
+import { isSunday } from 'date-fns';
 
 /*
  * Checks if a date is Sunday.

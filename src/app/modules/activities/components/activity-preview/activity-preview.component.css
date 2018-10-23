@@ -27,6 +27,7 @@
 }
 
 .activity-preview-container.deployed {
+  pointer-events: all;
 }
 
 .activity-preview-container.deployed::after {
@@ -44,7 +45,10 @@
 
 .activity-preview {
   height: fit-content;
+  max-height: calc(100% - 15px);
   width: 100%;
+
+  overflow-y: auto;
 
   display: flex;
   flex-direction: column;

@@ -26,10 +26,10 @@
   <ng-template #showDayList>
     <span class="rail"></span>
     <div class="day-list">
-      <div *ngFor="let day of (activitiesState$ | async)?.activities">
+      <ng-container *ngFor="let day of (activitiesState$ | async)?.activities">
+        <app-week-separator *ngIf="day.date | isMonday" [monday]="day.date"></app-week-separator>
         <app-day-mobile ng-if="day.activities.length > 0" [date]="day.date" [totalHours]="day.total_hours" [activities]="day.activities"></app-day-mobile>
-        <app-week-separator *ngIf="day.date | isSunday" [sunday]="day.date"></app-week-separator>
-      </div>
+      </ng-container>
     </div>
   </ng-template>
 </section>

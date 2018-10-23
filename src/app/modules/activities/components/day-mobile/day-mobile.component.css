@@ -6,7 +6,7 @@
 
   display: grid;
   grid-template-columns: 75px auto;
-  grid-template-rows: auto 25px;
+  grid-template-rows: auto auto;
 
   padding-right: 10px;
   padding-top: 10px;
@@ -16,7 +16,7 @@
 
 .selector {
   position: sticky;
-  top: calc(var(--header-height) + 80px);
+  top: calc(var(--header-height) + 110px);
 
   min-width: 50px;
   height: fit-content;
@@ -127,8 +127,6 @@
   justify-content: space-between;
 
   align-items: center;
-
-  padding-right: 10px;
   color: var(--font-color-light);
 
   grid-column-start: 2;
@@ -136,7 +134,8 @@
 
 .add-activity-button {
   position: relative;
-  width: fit-content;
+  width: 100%;
+  min-height: 70px;
 
   display: flex;
   flex-direction: row;
@@ -148,9 +147,9 @@
   border: none;
   outline: none;
 
-  background-color: #5cb85c;
+  background-color: #ffffff48;
 
-  color: white;
+  color: var(--font-color-light);
 
   border-radius: 5px;
 
@@ -165,24 +164,25 @@
 }
 
 .add-activity-button:active {
-  background-color: #428142;
+  background-color: #acacac48;
 }
 
-.footer .total-hours {
+.selector .total-hours {
   display: flex;
   flex-direction: row;
   align-items: center;
   white-space: nowrap;
+  margin-top: 5px;
 }
 
-.total-hours .icon {
+.selector.total-hours .icon {
   position: relative;
   top: -3px;
   margin-right: 3px;
   color: var(--font-color-light);
 }
 
-.total-hours .digit {
+.selector.total-hours .digit {
   color: var(--font-color);
   margin: 0px 5px;
 }

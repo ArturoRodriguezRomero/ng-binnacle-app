@@ -1,6 +1,6 @@
 <div class="week-separator">
   <div class="day-range">{{ monday | date:"d" }} - {{ sunday | date:"d" }}</div>
-  <div class="hours">Total Semana
+  <div class="hours">Total semana
     <ng-container *ngIf="isLoadingFromServer; then showLoadingSpinner; else showTotalMinutes">
     </ng-container>
 

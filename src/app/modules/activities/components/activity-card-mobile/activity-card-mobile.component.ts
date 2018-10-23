@@ -25,11 +25,18 @@ export class ActivityCardMobileComponent implements OnInit {
   }
 
   onLongPress() {
+    console.log('long press');
     this.dispatchSetActivityDetail();
   }
 
   onLongPressEnd() {
-    this.dispatchUnsetActivityDetail();
+    /*this.store
+      .selectOnce(state => state.activityDetail)
+      .subscribe((activityDetailState: ActivityDetailStateModel) => {
+        if (activityDetailState.activity != null) {
+          this.dispatchUnsetActivityDetail();
+        }
+      });*/
   }
 
   dispatchSetActivityDetail() {

@@ -1,4 +1,4 @@
-<div class="activity-preview-container" [ngClass]="{'deployed': (activityDetailState$ | async)?.activity}">
+<div class="activity-preview-container" [ngClass]="{'deployed': (activityDetailState$ | async)?.activity}" (click)="onContainerClick()">
   <div class="activity-preview" [ngClass]="(activityDetailState$ | async)?.activity ? 'deployed' : 'hidden'">
     <div *ngIf="(activityDetailState$ | async)?.activity" class="wrapper">
       <div class="title row">

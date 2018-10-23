@@ -16,6 +16,7 @@ import { ActivityPreviewComponent } from './components/activity-preview/activity
 import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
 import { ActivityFormComponent } from './pages/activity-form/activity-form.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
 
 @NgModule({
   imports: [CommonModule, ComponentsModule, AppRoutingModule],
@@ -32,7 +33,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ActivityPreviewComponent,
     LongPressDirective,
     TruncatePipe,
-    ActivityFormComponent
+    ActivityFormComponent,
+    IsMondayPipe
   ]
 })
 export class ActivitiesModule {}

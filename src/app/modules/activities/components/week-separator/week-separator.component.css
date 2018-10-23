@@ -1,11 +1,9 @@
 .week-separator {
-  position: relative;
+  position: sticky;
+  top: 110px;
 
   width: 100%;
   height: 35px;
-
-  margin-bottom: 10px;
-  margin-top: 10px;
 
   padding: 10px;
 
@@ -16,7 +14,9 @@
   color: white;
   background-color: var(--company-color);
 
-  box-shadow: 0px 0px 0px 10px var(--app-background-color);
+  z-index: 4;
+
+  box-shadow: var(--card-box-shadow);
 }
 
 .day-range {
