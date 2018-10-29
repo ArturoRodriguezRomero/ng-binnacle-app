@@ -56,7 +56,7 @@
 }
 
 .time-control input {
-  width: 5em;
+  width: 6em;
 
   border: none;
   outline: none;
@@ -76,4 +76,18 @@
   display: flex;
   align-items: center;
   font-size: 0.8em;
+}
+
+.duration-controls {
+  width: 6em;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.duration-controls input {
+  width: 50%;
+  width: 2em;
 }

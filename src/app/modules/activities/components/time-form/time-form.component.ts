@@ -28,7 +28,8 @@ export class TimeFormComponent implements OnInit {
 
   startTime;
   endTime;
-  duration: number;
+  durationHours: number;
+  durationMinutes: number;
 
   constructor() {}
 
@@ -43,7 +44,8 @@ export class TimeFormComponent implements OnInit {
       this.activityStartDate,
       this.activityDuration
     );
-    this.duration = this.activityDuration;
+    this.durationHours = this.activityDuration / 60;
+    this.durationMinutes = this.activityDuration % 60;
   }
 
   notifyParent() {
@@ -51,7 +53,7 @@ export class TimeFormComponent implements OnInit {
       startDate: new Date(
         format(this.activityStartDate, 'yyyy-MM-dd:') + this.startTime
       ),
-      duration: this.duration
+      duration: this.durationHours * 60 + this.durationMinutes
     });
   }
 
@@ -72,16 +74,28 @@ export class TimeFormComponent implements OnInit {
   }
 
   updateDurationInput() {
-    this.duration = this.getDifferenceInMinutesBetweenTimes(
-      this.startTime,
-      this.endTime,
-      this.activityStartDate
+    this.durationMinutes =
+      this.getDifferenceInMinutesBetweenTimes(
+        this.startTime,
+        this.endTime,
+        this.activityStartDate
+      ) % 60;
+
+    this.durationHours = Math.floor(
+      this.getDifferenceInMinutesBetweenTimes(
+        this.startTime,
+        this.endTime,
+        this.activityStartDate
+      ) / 60
     );
   }
 
   updateEndTimeInput() {
     const startDate = parse(this.startTime, 'HH:mm', this.activityStartDate);
-    const endDate = addMinutes(startDate, this.duration);
+    const endDate = addMinutes(
+      startDate,
+      this.durationHours * 60 + this.durationMinutes
+    );
 
     this.endTime = format(endDate, 'kk:mm');
   }
@@ -99,11 +113,15 @@ export class TimeFormComponent implements OnInit {
   }
 
   isDurationValid() {
-    return this.duration >= 0;
+    return (
+      this.durationHours > 0 ||
+      (this.durationHours == 0 && this.durationMinutes > 0)
+    );
   }
 
   setDurationToZero() {
-    this.duration = 0;
+    this.durationHours = 0;
+    this.durationMinutes = 0;
     this.updateEndTimeInput();
   }
 
