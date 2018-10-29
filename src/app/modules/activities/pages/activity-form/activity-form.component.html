@@ -6,40 +6,30 @@
       </i>
     </a>
     <div class="title">
-      Actividad
+      {{ date | date:"EE d LLLL"}}
     </div>
   </header>
   <div class="form">
-    <div class="form-row">
-      <div class="legend">
-        <i class="material-icons icon">
-          access_time
-        </i>
-        <div class="title">Tiempo</div>
-      </div>
-      <div class="time-control">
-        <label class="label">Inicio</label>
-        <input type="time">
-      </div>
-      <div class="time-control">
-        <label class="label">Fin</label>
-        <input type="time">
-      </div>
-      <div class="time-control">
-        <label class="label">Total</label>
-        <input type="time">
-      </div>
-    </div>
+
+    <app-time-form [activityStartDate]="activity.startDate" [activityDuration]="activity.duration" (onChange)="onTimeFormChange($event)"></app-time-form>
     <div class="form-row billable">
-      <div class="legend">
+      <div class="legend billable">
         <i class="material-icons icon">
           euro_symbol
         </i>
         <div class="title">Facturable</div>
       </div>
       <div class="form-control billable">
-        <button type="button" class="billable-button negative">No</button>
-        <button type="button" class="billable-button positive">Sí</button>
+        <label class="switch" for="checkbox">
+          <input type="checkbox" id="checkbox" [(ngModel)]="formValue.billable" />
+          <div class="slider round"></div>
+        </label>
+        <div class="client-warning" [ngClass]="{'visible': formValue.billable}">
+          <i class="material-icons icon">
+            warning
+          </i>
+          El cliente leerá la descripción.
+        </div>
       </div>
     </div>
     <div class="form-row description">
@@ -50,59 +40,22 @@
         <div class="title">Descripción</div>
       </div>
       <div class="description">
-        <div class="client-warning">
-          <i class="material-icons icon">
-            warning
-          </i>
-          El cliente leerá esta descripción.
-        </div>
-        <textarea class="textarea"></textarea>
+        <textarea class="textarea" [(ngModel)]="formValue.description" placeholder="Tareas realizadas..."></textarea>
       </div>
     </div>
-    <div class="form-row proyect">
-      <div class="legend">
-        <i class="material-icons icon">
-          assignment
-        </i>
-        <div class="title">Proyecto</div>
-      </div>
-      <div class="shortcut-label">Recientes</div>
-      <div class="shortcut-list">
-        <div class="shortcut">BBVA Global Tech</div>
-        <div class="shortcut">KN Localization</div>
-        <div class="shortcut">IBERIA Fly Away</div>
-      </div>
-      <div class="form-control">
-        <i class="material-icons icon">
-          account_balance
-        </i>
-        <div class="label">Organización</div>
-        <input list="organizations">
-        <datalist id="organizations">
-        </datalist>
-      </div>
-      <div class="form-control">
-        <i class="material-icons icon">
-          group
-        </i>
-        <div class="label">Proyecto</div>
-        <input list="organizations">
-        <datalist id="organizations">
-        </datalist>
-      </div>
-      <div class="form-control">
-        <i class="material-icons icon">
-          person
-        </i>
-        <div class="label">Rol</div>
-        <input list="organizations">
-        <datalist id="organizations">
-        </datalist>
-      </div>
-    </div>
+    <app-project-form [date]="activity.startDate" [activityProjectRole]="activity.projectRole" (onChange)="onProjectRoleChange($event)"></app-project-form>
     <div class="footer">
-      <button type="button" class="button delete">Eliminar</button>
-      <button type="button" class="button save">Guardar</button>
+      <ng-container *ngIf="databaseChangeLoading$ | async; then databaseChangeLoading; else showButtons">
+      </ng-container>
+      <ng-template #showButtons>
+        <button type="button" class="button delete" *ngIf="isModifying" (click)="onDeleteActivity()">Eliminar</button>
+        <button type="button" class="button save" (click)="onSaveActivity()" [disabled]="!isFormValid()">Guardar</button>
+      </ng-template>
+      <ng-template #databaseChangeLoading>
+        <div class="footer-loading">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+      </ng-template>
     </div>
   </div>
 </section>

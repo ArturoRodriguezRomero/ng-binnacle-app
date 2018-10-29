@@ -6,6 +6,10 @@ import {
   UnsetActivityDetail
 } from 'src/app/shared/store/activity-detail/activity-detail.actions';
 import { Router } from '@angular/router';
+import {
+  SetFormDate,
+  SetFormActivity
+} from 'src/app/shared/store/activity-form/activity-form.actions';
 
 @Component({
   selector: 'app-activity-card-mobile',
@@ -21,11 +25,17 @@ export class ActivityCardMobileComponent implements OnInit {
   ngOnInit() {}
 
   onClick() {
-    this.router.navigate(['activities/new']);
+    this.store.selectOnce(state => state.activityForm.date).subscribe(date => {
+      if (this.activity.startDate != date) {
+        this.store.dispatch(new SetFormDate(this.activity.startDate));
+        this.store.dispatch(new SetFormActivity(this.activity));
+      }
+    });
+
+    this.router.navigate([`activities/${this.activity.id}`]);
   }
 
   onLongPress() {
-    console.log('long press');
     this.dispatchSetActivityDetail();
   }
 

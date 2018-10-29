@@ -32,6 +32,7 @@ import { HolidaysState } from './shared/store/holidays/holidays.state';
 import { ActivityDetailState } from './shared/store/activity-detail/activity-detail.state';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './shared/misc/custom.reuse.strategy';
+import { ActivityFormState } from './shared/store/activity-form/activity-form.state';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -46,7 +47,8 @@ registerLocaleData(localeEs, 'es');
       ActivitiesState,
       CalendarState,
       HolidaysState,
-      ActivityDetailState
+      ActivityDetailState,
+      ActivityFormState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
@@ -72,7 +74,8 @@ registerLocaleData(localeEs, 'es');
     /*{
       provide: RouteReuseStrategy,
       useClass: CustomReuseStrategy
-    }*/ AuthorizationGuardService,
+    },*/
+    AuthorizationGuardService,
     { provide: LOCALE_ID, useValue: 'es' }
   ],
   bootstrap: [AppComponent]

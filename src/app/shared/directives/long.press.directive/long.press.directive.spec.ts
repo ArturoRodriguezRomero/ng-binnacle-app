@@ -7,12 +7,8 @@ import { By } from '@angular/platform-browser';
   template: `<div long-press [duration]="300" ((onLongPress)="onLongPress()" (onLongPressEnd)="onLongPressEnd()"></div>`
 })
 class TestLongPressDirectiveComponent {
-  onLongPress() {
-    console.log('onLongPress');
-  }
-  onLongPressEnd() {
-    console.log('onLongPressEnd');
-  }
+  onLongPress() {}
+  onLongPressEnd() {}
 }
 
 describe('Long Press Directive', () => {

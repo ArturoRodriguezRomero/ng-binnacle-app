@@ -24,6 +24,11 @@ export const routes: Routes = [
     path: 'activities/new',
     component: ActivityFormComponent,
     canActivate: [AuthorizationGuardService]
+  },
+  {
+    path: 'activities/:id',
+    component: ActivityFormComponent,
+    canActivate: [AuthorizationGuardService]
   }
 ];
 

@@ -1,0 +1,20 @@
+<div class="time-form">
+  <div class="legend">
+    <i class="material-icons icon">
+      access_time
+    </i>
+    <div class="title">Tiempo</div>
+  </div>
+  <div class="time-control">
+    <label class="label">Inicio</label>
+    <input type="time" step="900" [(ngModel)]="startTime" (change)="onTimeChange()">
+  </div>
+  <div class="time-control">
+    <label class="label">Fin</label>
+    <input type="time" step="900" [(ngModel)]="endTime" (change)="onTimeChange()">
+  </div>
+  <div class="time-control">
+    <label class="label">Duración (min)</label>
+    <input type="number" min="0" step="15" max="1380" [(ngModel)]="duration" (change)="onDurationChange()">
+  </div>
+</div>

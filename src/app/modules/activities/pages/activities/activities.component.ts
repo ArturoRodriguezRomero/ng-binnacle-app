@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked
+} from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { GetActivitiesByDatesRequest } from '../../../../shared/store/activities/activities.actions';
 import { Observable } from 'rxjs';
@@ -17,7 +23,7 @@ import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.css']
 })
-export class ActivitiesComponent implements OnInit {
+export class ActivitiesComponent implements OnInit, AfterViewChecked {
   @Select(state => state.activities)
   activitiesState$: Observable<ActivitiesStateModel>;
 
@@ -30,52 +36,48 @@ export class ActivitiesComponent implements OnInit {
   @ViewChild('monthButtonLabel')
   monthButtonLabel: ElementRef;
 
+  @ViewChild('dayList')
+  dayList: ElementRef;
+
   isCalendarMenuDeployed: boolean = false;
 
   constructor(public store: Store) {}
 
-  ngOnInit() {
-    this.subscribeToSelectedDateChanged();
-    this.dispatchGetHolidays();
-  }
+  ngOnInit() {}
+
+  ngAfterViewChecked() {}
 
   toggleCalendarMenu() {
     this.isCalendarMenuDeployed = !this.isCalendarMenuDeployed;
-  }
-
-  subscribeToSelectedDateChanged() {
-    this.store
-      .select(state => state.calendar.selectedDate)
-      .subscribe(selectedDate => {
-        this.onSelectedDateChanged(selectedDate);
-      });
-  }
-
-  onSelectedDateChanged(selectedDate: Date) {
-    const firstDate = startOfMonth(selectedDate);
-    const lastDate = endOfMonth(selectedDate);
-
-    this.store.dispatch(new GetActivitiesByDatesRequest(firstDate, lastDate));
-    this.store.dispatch(new GetImputedDaysByDatesRequest(firstDate, lastDate));
   }
 
   changeSelectedDate(newDate: Date) {
     this.store
       .selectOnce(state => state.calendar.selectedDate)
       .subscribe(selectedDate => {
-        if (!isSameMonth(selectedDate, newDate)) {
-          this.store.dispatch(new SetSelectedDate(newDate));
-        }
+        this.store.dispatch(new SetSelectedDate(newDate));
         this.isCalendarMenuDeployed = false;
       });
   }
 
-  dispatchGetHolidays() {
+  scrollToSelectedDate() {
     this.store
-      .selectOnce(state => state.holidays)
-      .subscribe((holidaysState: HolidaysStateModel) => {
-        if (holidaysState.publicHolidays.length == 0) {
-          this.store.dispatch(new GetHolidaysRequest());
+      .select(state => state.calendar.selectedDate)
+      .subscribe(selectedDate => {
+        if (this.dayList) {
+          //console.warn(selectedDate);
+          const day = selectedDate.getDate();
+          const days = this.dayList.nativeElement.querySelectorAll('.day');
+          const selectedDay = days[day - 1];
+
+          //console.log(selectedDay.getBoundingClientRect().top);
+
+          window.scrollTo({
+            top: selectedDay.getBoundingClientRect().top,
+            behavior: 'instant'
+          });
+
+          //console.log(selectedDay);
         }
       });
   }

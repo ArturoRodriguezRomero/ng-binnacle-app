@@ -15,3 +15,8 @@ export class GetActivitiesByDatesError {
   static readonly type = '[activities store] Get Activities By Dates Error';
   constructor(public error: HttpErrorResponse) {}
 }
+
+export class UpdateActivity {
+  static readonly type = '[activities store] Update Activity';
+  constructor(public activity: Activity) {}
+}

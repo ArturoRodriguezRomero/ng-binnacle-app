@@ -1,0 +1,71 @@
+<div class="form-row proyect">
+  <div class="legend">
+    <i class="material-icons icon">
+      assignment
+    </i>
+    <div class="title">Proyecto</div>
+  </div>
+  <ng-container *ngIf="!(previousMonthActivitiesLoading$ | async) && recentProjectRoles.length > 0">
+    <div class="shortcut-label">Proyectos recientes</div>
+    <div class="shortcut-list">
+      <div class="shortcut" *ngFor="let role of recentProjectRoles" [ngClass]="{'selected': roleId == role.id}" (click)="onShortcutClick(role)">
+        <div class="project">{{role.project.name}}</div>
+        <div class="role">{{role.name}}</div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="form-control">
+    <i class="material-icons icon">
+      account_balance
+    </i>
+    <div class="label">Organización</div>
+
+    <ng-container *ngIf="(organizationsLoading$ | async); then showOrganizationsLoading; else showOrganizations">
+    </ng-container>
+    <ng-template #showOrganizationsLoading>
+      <div class="select-loading">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    </ng-template>
+    <ng-template #showOrganizations>
+      <ng-select [items]="organizations$ | async" bindLabel="name" bindValue="id" (change)="onOrganizationChange($event)"
+        [(ngModel)]="organizationId" class="project-select">
+      </ng-select>
+    </ng-template>
+  </div>
+  <div class="form-control">
+    <i class="material-icons icon">
+      group
+    </i>
+    <div class="label">Proyecto</div>
+    <ng-container *ngIf="(organizationsLoading$ | async) || (projectsLoading$ | async); then showProjectsLoading; else showProjects">
+    </ng-container>
+    <ng-template #showProjectsLoading>
+      <div class="select-loading">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    </ng-template>
+    <ng-template #showProjects>
+      <ng-select [items]="projects$ | async" bindLabel="name" bindValue="id" (change)="onProjectChange($event)"
+        [(ngModel)]="projectId" class="project-select">
+      </ng-select>
+    </ng-template>
+  </div>
+  <div class="form-control">
+    <i class="material-icons icon">
+      person
+    </i>
+    <div class="label">Rol</div>
+    <ng-container *ngIf="(organizationsLoading$ | async) || (projectsLoading$ | async) || (rolesLoading$ | async); then showRolesLoading; else showRoles">
+    </ng-container>
+    <ng-template #showRolesLoading>
+      <div class="select-loading">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    </ng-template>
+    <ng-template #showRoles>
+      <ng-select [items]="roles$ | async" bindLabel="name" bindValue="id" [(ngModel)]="roleId" class="project-select">
+      </ng-select>
+    </ng-template>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 <div class="activity-preview-container" [ngClass]="{'deployed': (activityDetailState$ | async)?.activity}" (click)="onContainerClick()">
-  <div class="activity-preview" [ngClass]="(activityDetailState$ | async)?.activity ? 'deployed' : 'hidden'">
+  <div class="activity-preview" [ngClass]="{'deployed': (activityDetailState$ | async)?.activity}">
     <div *ngIf="(activityDetailState$ | async)?.activity" class="wrapper">
       <div class="title row">
         {{ (activityDetailState$ | async)?.activity?.startDate | date:"EEEE d LLLL y"}}

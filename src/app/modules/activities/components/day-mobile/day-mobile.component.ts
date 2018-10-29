@@ -1,10 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
 import { toDate, isAfter, isBefore } from 'date-fns';
 import { isSameDay } from 'date-fns/esm';
+import {
+  SetFormDate,
+  SetFormActivity
+} from 'src/app/shared/store/activity-form/activity-form.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-day-mobile',
@@ -28,7 +33,7 @@ export class DayMobileComponent implements OnInit {
   isPublicHoliday: boolean = false;
   isPrivateHoliday: boolean = false;
 
-  constructor() {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
     this.getIsPrivateHoliday();
@@ -57,5 +62,16 @@ export class DayMobileComponent implements OnInit {
             isBefore(this.date, holiday.finalDate))
       );
     });
+  }
+
+  onAddActivity() {
+    this.store.selectOnce(state => state.activityForm.date).subscribe(date => {
+      if (this.date != date) {
+        this.store.dispatch(new SetFormDate(this.date));
+        this.store.dispatch(new SetFormActivity(null));
+      }
+    });
+
+    this.router.navigate(['activities/new']);
   }
 }

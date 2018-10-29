@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@ng-select/ng-select": "^2.11.1",
     "@ngxs/devtools-plugin": "^3.2.0",
     "@ngxs/logger-plugin": "^3.2.0",
     "@ngxs/store": "^3.2.0",

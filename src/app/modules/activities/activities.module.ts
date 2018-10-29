@@ -17,9 +17,20 @@ import { LongPressDirective } from 'src/app/shared/directives/long.press.directi
 import { ActivityFormComponent } from './pages/activity-form/activity-form.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { TimeFormComponent } from './components/time-form/time-form.component';
 
 @NgModule({
-  imports: [CommonModule, ComponentsModule, AppRoutingModule],
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgSelectModule
+  ],
   declarations: [
     ActivitiesComponent,
     ActivityCardMobileComponent,
@@ -34,7 +45,9 @@ import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe
     LongPressDirective,
     TruncatePipe,
     ActivityFormComponent,
-    IsMondayPipe
+    IsMondayPipe,
+    ProjectFormComponent,
+    TimeFormComponent
   ]
 })
 export class ActivitiesModule {}
