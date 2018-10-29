@@ -10,6 +10,7 @@ export class TruncatePipe implements PipeTransform {
     completeWords = false,
     ellipsis = '...'
   ) {
+    value = value ? value : '';
     if (completeWords && value.length > limit) {
       limit = value.substr(0, limit).lastIndexOf(' ');
     }

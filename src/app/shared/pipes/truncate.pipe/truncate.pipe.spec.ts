@@ -57,4 +57,15 @@ describe('Truncate Pipe', () => {
 
     expect(result).toEqual(expected);
   });
+
+  it('should return empty string when value is null', () => {
+    const value = null;
+    const limit = 10;
+    const ellipsis = '_im an ellipsis, look at me!_';
+    const expected = '';
+
+    const result = pipe.transform(value, limit, true, ellipsis);
+
+    expect(result).toEqual(expected);
+  });
 });
