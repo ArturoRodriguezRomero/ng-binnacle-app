@@ -20,15 +20,22 @@
       </div>
     </div-->
     <div class="details">
-      <div class="description">Este mes: </div>
-      <div class="hours">
-        <span class="hours__total">{{ totalWorkedMinutes | hoursAndMinutes }} h</span>
-        /
-        <span class="hours__workable">{{ totalWorkableMinutesThisMonth | hoursAndMinutes }} h</span>
+      <div class="item">
+        <div class="total">{{ totalWorkedMinutes | hoursAndMinutes }} h</div>
+        <div class="label">Hasta ahora</div>
       </div>
-      <span class="difference" [ngClass]="minutesDifference >= 0 ? 'positive' : 'negative'" *ngIf="!isSelectedDateInTheFuture">
-        {{ minutesDifference >= 0 ? "+" : "-"}} {{ minutesDifference | hoursAndMinutes }}h
-      </span>
+      <div class="item">
+        <div class="workable">{{ totalWorkableMinutesThisMonth | hoursAndMinutes }} h</div>
+        <div class="label">Total</div>
+      </div>
+      <div class="item" *ngIf="!isSelectedDateInTheFuture">
+        <div class="difference" [ngClass]="minutesDifference >= 0 ? 'positive' : 'negative'">
+          {{ minutesDifference >= 0 ? "+" : "-"}} {{ minutesDifference | hoursAndMinutes }}h
+        </div>
+        <div class="label">Balance actual</div>
+      </div>
+
+
     </div>
   </ng-template>
 
