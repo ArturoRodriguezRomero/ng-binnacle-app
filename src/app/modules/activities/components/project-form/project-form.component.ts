@@ -14,6 +14,7 @@ import {
   UnsetProjects,
   UnsetRoles
 } from 'src/app/shared/store/activity-form/activity-form.actions';
+import { take } from 'rxjs/operators';
 
 export interface ProjectFormOutputModel {
   organizationId: number;
@@ -69,9 +70,11 @@ export class ProjectFormComponent implements OnInit {
   }
 
   getPreviousMonthActivities() {
+    console.warn('ESTO SE LLAMA NG ON INIT');
     this.store
       .selectOnce(state => state.activities)
       .subscribe((activitiesState: ActivitiesStateModel) => {
+        console.warn('STATE SELECT ONE ACTIVITIES SUBSCRIBE');
         const totalActivitiesAmount = this.getTotalAmountOfActivities(
           activitiesState.activities
         );
@@ -88,20 +91,26 @@ export class ProjectFormComponent implements OnInit {
   setPreviousMonthActivitiesFromLocalState(activities) {
     this.previousMonthActivities = activities;
     this.recentProjectRoles = this.getRecentProjectRoles(activities);
-    if (activities.length > 0) {
-      this.setProyectToLastImputedActivity(activities);
+    console.log('local state', this.recentProjectRoles, 'from', activities);
+    if (this.activityProjectRole) {
+      this.setProyectControlsValue();
     }
   }
 
   setPreviousMonthActivitiesFromServer() {
+    console.warn('set Previous Month Activities From Server');
     this.store.dispatch(new GetPreviousMonthActivitiesRequest(this.date));
+
     this.store
-      .selectOnce(state => state.activityForm.previousMonthActivities)
+      .select(state => state.activityForm.previousMonthActivities)
+      .pipe(take(2))
       .subscribe(activities => {
+        console.warn('STATE ACTIVITY FORM PREVIOUS MONTH SELECT');
         this.previousMonthActivities = activities;
         this.recentProjectRoles = this.getRecentProjectRoles(activities);
-        if (activities.length > 0) {
-          this.setProyectToLastImputedActivity(activities);
+        console.log('server ', this.recentProjectRoles, 'from', activities);
+        if (this.activityProjectRole) {
+          this.setProyectControlsValue();
         }
       });
   }
@@ -164,37 +173,42 @@ export class ProjectFormComponent implements OnInit {
   }
 
   onShortcutClick(role: Role) {
-    this.roleId = role.id;
-    this.projectId = role.project.id;
-    this.organizationId = role.project.organization.id;
+    if (role.id != this.roleId) {
+      this.roleId = role.id;
+      this.projectId = role.project.id;
+      this.organizationId = role.project.organization.id;
 
-    this.getRolesByProjectId();
-    this.getProjectsByOrganizationId();
+      this.getRolesByProjectId();
+      this.getProjectsByOrganizationId();
 
-    this.notifyParent();
+      this.notifyParent();
+    }
   }
 
   onOrganizationChange(organization) {
     if (this.hasSelectedAValue(organization)) {
       this.organizationId = organization.id;
       this.getProjectsByOrganizationId();
-      this.onChange.emit({
-        projectId: this.projectId,
-        organizationId: this.organizationId,
-        roleId: this.roleId
-      });
     }
     this.unsetRoles();
     this.unsetProjects();
+    this.notifyParent();
   }
 
   onProjectChange(project) {
     if (this.hasSelectedAValue(project)) {
       this.projectId = project.id;
       this.getRolesByProjectId();
-      this.notifyParent();
     }
     this.unsetRoles();
+    this.notifyParent();
+  }
+
+  onRoleChange(role) {
+    if (this.hasSelectedAValue(role)) {
+      this.roleId = role.id;
+    }
+    this.notifyParent();
   }
 
   getProjectsByOrganizationId() {

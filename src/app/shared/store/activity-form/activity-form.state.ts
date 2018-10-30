@@ -39,6 +39,7 @@ import { RolesService } from 'src/app/core/services/roles/roles.service';
 import { subMonths, startOfMonth, endOfMonth } from 'date-fns';
 import { GetActivitiesByDatesRequest } from '../activities/activities.actions';
 import { Router } from '@angular/router';
+import { NgZone } from '@angular/core';
 
 export interface ActivityFormStateModel {
   date: Date;
@@ -83,7 +84,8 @@ export class ActivityFormState {
     private organizationsService: OrganizationsService,
     private projectsService: ProjectsService,
     private rolesService: RolesService,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private zone: NgZone
   ) {}
 
   @Action(SetFormDate)
@@ -131,7 +133,9 @@ export class ActivityFormState {
         endOfMonth(stateContext.getState().date)
       )
     );
-    this.router.navigate(['/activities']);
+    this.zone.run(() => {
+      this.router.navigate(['/activities']);
+    });
   }
 
   @Action(SaveActivityError)
@@ -171,7 +175,9 @@ export class ActivityFormState {
         endOfMonth(stateContext.getState().date)
       )
     );
-    this.router.navigate(['/activities']);
+    this.zone.run(() => {
+      this.router.navigate(['/activities']);
+    });
   }
 
   @Action(ModifyActivityError)
@@ -213,7 +219,9 @@ export class ActivityFormState {
         endOfMonth(stateContext.getState().date)
       )
     );
-    this.router.navigate(['/activities']);
+    this.zone.run(() => {
+      this.router.navigate(['/activities']);
+    });
   }
 
   @Action(DeleteActivityError)

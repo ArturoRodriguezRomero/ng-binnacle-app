@@ -26,4 +26,8 @@
   --billable-color: #5cb85c;
 
   --active-background-color: #0000000d;
+
+  --faded-background-color: #00000073;
+
+  --error-color: #d9534f;
 }

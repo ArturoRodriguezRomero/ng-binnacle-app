@@ -25,28 +25,13 @@ export class ActivityCardMobileComponent implements OnInit {
   ngOnInit() {}
 
   onClick() {
-    this.store.selectOnce(state => state.activityForm.date).subscribe(date => {
-      if (this.activity.startDate != date) {
-        this.store.dispatch(new SetFormDate(this.activity.startDate));
-        this.store.dispatch(new SetFormActivity(this.activity));
-      }
-    });
-
+    this.store.dispatch(new SetFormDate(this.activity.startDate));
+    this.store.dispatch(new SetFormActivity(this.activity));
     this.router.navigate([`activities/${this.activity.id}`]);
   }
 
   onLongPress() {
     this.dispatchSetActivityDetail();
-  }
-
-  onLongPressEnd() {
-    /*this.store
-      .selectOnce(state => state.activityDetail)
-      .subscribe((activityDetailState: ActivityDetailStateModel) => {
-        if (activityDetailState.activity != null) {
-          this.dispatchUnsetActivityDetail();
-        }
-      });*/
   }
 
   dispatchSetActivityDetail() {

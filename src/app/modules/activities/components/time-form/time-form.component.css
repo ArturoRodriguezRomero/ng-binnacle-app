@@ -1,17 +1,7 @@
 .time-form {
   position: relative;
 
-  max-width: 100vw;
-
   border: none;
-
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-
-  padding-top: 25px;
-  padding-bottom: 35px;
-  border-bottom: 1px dashed lightgray;
 }
 
 .legend {

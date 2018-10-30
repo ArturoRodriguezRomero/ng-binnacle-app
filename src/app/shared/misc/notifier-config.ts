@@ -3,7 +3,7 @@ import { NotifierOptions } from 'angular-notifier';
 export const notifierOptions: NotifierOptions = {
   position: {
     horizontal: {
-      position: 'middle',
+      position: 'left',
       distance: 12
     },
     vertical: {
@@ -32,5 +32,9 @@ export const notifierOptions: NotifierOptions = {
       easing: 'ease'
     },
     overlap: 150
+  },
+  behaviour: {
+    stacking: 1,
+    autoHide: 800
   }
 };

@@ -6,16 +6,11 @@ import {
   AfterViewChecked
 } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { GetActivitiesByDatesRequest } from '../../../../shared/store/activities/activities.actions';
 import { Observable } from 'rxjs';
 import { ActivitiesStateModel } from '../../../../shared/store/activities/activities.state';
-import { startOfMonth, endOfMonth, isSameMonth } from 'date-fns';
-import {
-  SetSelectedDate,
-  GetImputedDaysByDatesRequest
-} from '../../../../shared/store/calendar/calendar.actions';
+
+import { SetSelectedDate } from '../../../../shared/store/calendar/calendar.actions';
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
-import { GetHolidaysRequest } from 'src/app/shared/store/holidays/holidays.actions';
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
 
 @Component({
@@ -49,6 +44,10 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
 
   toggleCalendarMenu() {
     this.isCalendarMenuDeployed = !this.isCalendarMenuDeployed;
+    console.log(
+      'toggle calendar menu, deployed: ',
+      this.isCalendarMenuDeployed
+    );
   }
 
   changeSelectedDate(newDate: Date) {
@@ -65,19 +64,14 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
       .select(state => state.calendar.selectedDate)
       .subscribe(selectedDate => {
         if (this.dayList) {
-          //console.warn(selectedDate);
           const day = selectedDate.getDate();
           const days = this.dayList.nativeElement.querySelectorAll('.day');
           const selectedDay = days[day - 1];
-
-          //console.log(selectedDay.getBoundingClientRect().top);
 
           window.scrollTo({
             top: selectedDay.getBoundingClientRect().top,
             behavior: 'instant'
           });
-
-          //console.log(selectedDay);
         }
       });
   }

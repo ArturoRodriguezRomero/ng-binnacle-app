@@ -51,7 +51,7 @@ registerLocaleData(localeEs, 'es');
       ActivityFormState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    //NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,
     LoginModule,
     ActivitiesModule,

@@ -1,15 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Activity } from 'src/app/shared/models/Activity';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Store, Select, Actions } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { ActivityFormStateModel } from 'src/app/shared/store/activity-form/activity-form.state';
-import {
-  startOfHour,
-  addHours,
-  getHours,
-  startOfMonth,
-  endOfMonth
-} from 'date-fns';
+import { startOfHour, addHours, getHours } from 'date-fns';
 import { Observable } from 'rxjs';
 import { TimeFormOutputModel } from '../../components/time-form/time-form.component';
 import { ProjectFormOutputModel } from '../../components/project-form/project-form.component';
@@ -18,17 +11,14 @@ import {
   ModifyActivityRequest,
   DeleteActivityRequest
 } from 'src/app/shared/store/activity-form/activity-form.actions';
-import { GetActivitiesByDatesRequest } from 'src/app/shared/store/activities/activities.actions';
 
 export class ActivityFormValue {
   id?: number;
   startDate: Date;
   duration: number;
-  description: string;
-  //projectId: number;
+  description: string = '';
   roleId: number;
-  //organizationId: number;
-  billable: boolean;
+  billable: boolean = false;
 }
 
 @Component({
@@ -46,6 +36,18 @@ export class ActivityFormComponent implements OnInit {
   databaseChangeLoading$: Observable<boolean>;
 
   formValue: ActivityFormValue = new ActivityFormValue();
+
+  @ViewChild('timeForm')
+  timeForm: ElementRef;
+
+  @ViewChild('descriptionForm')
+  descriptionForm: ElementRef;
+
+  @ViewChild('projectForm')
+  projectForm: ElementRef;
+
+  showErrors: boolean = false;
+  showDeleteCard: boolean = false;
 
   constructor(private store: Store) {}
 
@@ -72,8 +74,6 @@ export class ActivityFormComponent implements OnInit {
         } else {
           this.isModifying = true;
           this.activity = activityFormState.activity;
-        }
-        if (this.isModifying) {
           this.fillInputsWithActivityValues(this.activity);
         }
       });
@@ -91,6 +91,7 @@ export class ActivityFormComponent implements OnInit {
   onTimeFormChange(timeFormOutput: TimeFormOutputModel) {
     this.formValue.startDate = timeFormOutput.startDate;
     this.formValue.duration = timeFormOutput.duration;
+    console.log('timeform output', timeFormOutput);
   }
 
   onProjectRoleChange(projectFormOutput: ProjectFormOutputModel) {
@@ -98,13 +99,21 @@ export class ActivityFormComponent implements OnInit {
   }
 
   onSaveActivity() {
-    console.log(this.formValue);
-    if (this.isModifying) {
-      this.formValue.id = this.activity.id;
-      this.store.dispatch(new SaveActivityRequest(this.formValue));
+    if (this.isFormValid()) {
+      if (this.isModifying) {
+        this.formValue.id = this.activity.id;
+        this.store.dispatch(new ModifyActivityRequest(this.formValue));
+      } else {
+        this.store.dispatch(new SaveActivityRequest(this.formValue));
+      }
     } else {
-      this.store.dispatch(new ModifyActivityRequest(this.formValue));
+      this.showErrors = true;
+      this.scrollToInvalidForm();
     }
+  }
+
+  onDeleteButton() {
+    this.showDeleteCard = true;
   }
 
   onDeleteActivity() {
@@ -112,7 +121,52 @@ export class ActivityFormComponent implements OnInit {
     this.store.dispatch(new DeleteActivityRequest(this.formValue));
   }
 
+  hideDeleteCard() {
+    console.log('hide delete card');
+    this.showDeleteCard = false;
+    console.log(this.showDeleteCard);
+  }
+
+  scrollToInvalidForm() {
+    let element;
+    if (!this.isRoleValid()) {
+      element = this.projectForm.nativeElement;
+    }
+    if (!this.isDescriptionValid()) {
+      element = this.descriptionForm.nativeElement;
+    }
+
+    if (!this.isDurationValid()) {
+      element = this.timeForm.nativeElement;
+    }
+    this.scrollToElement(element);
+  }
+
   isFormValid() {
-    return true;
+    return (
+      this.formValue.startDate &&
+      this.isDurationValid() &&
+      this.isDescriptionValid() &&
+      this.isRoleValid()
+    );
+  }
+
+  scrollToElement(element) {
+    window.scrollTo({
+      top: element.offsetTop - 50,
+      behavior: 'smooth'
+    });
+  }
+
+  isDurationValid() {
+    return this.formValue.duration > 0;
+  }
+
+  isDescriptionValid() {
+    return this.formValue.description != '';
+  }
+
+  isRoleValid() {
+    return this.formValue.roleId;
   }
 }

@@ -38,7 +38,7 @@
   width: 100%;
   height: 100%;
 
-  background-color: #00000073;
+  background-color: var(--faded-background-color);
 
   z-index: -1;
 }

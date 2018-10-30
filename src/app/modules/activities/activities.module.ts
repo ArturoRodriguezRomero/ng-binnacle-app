@@ -21,6 +21,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { TimeFormComponent } from './components/time-form/time-form.component';
+import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { TimeFormComponent } from './components/time-form/time-form.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    TextareaAutosizeModule
   ],
   declarations: [
     ActivitiesComponent,

@@ -5,6 +5,7 @@ import { Credentials } from '../../models/Credentials';
 import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
 import { SetUser } from '../user/user.actions';
 import { ErrorHandlerService } from '../../../core/handlers/error/error-handler.service';
+import { NgZone } from '@angular/core';
 
 export interface LoginStateModel {
   loading: boolean;
@@ -21,7 +22,8 @@ export class LoginState {
     private authorizationService: AuthorizationService,
     private router: Router,
     private store: Store,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private zone: NgZone
   ) {}
 
   @Action(LoginRequest)
@@ -48,7 +50,9 @@ export class LoginState {
   @Action(LoginSuccess)
   LoginSuccess(stateContext: StateContext<LoginStateModel>) {
     stateContext.patchState({ loading: false });
-    this.router.navigate(['/activities']);
+    this.zone.run(() => {
+      this.router.navigate(['/activities']);
+    });
   }
 
   @Action(LoginError)

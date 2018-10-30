@@ -44,11 +44,12 @@ export class TimeFormComponent implements OnInit {
       this.activityStartDate,
       this.activityDuration
     );
-    this.durationHours = this.activityDuration / 60;
+    this.durationHours = Math.floor(this.activityDuration / 60);
     this.durationMinutes = this.activityDuration % 60;
   }
 
   notifyParent() {
+    console.log(this.durationHours, this.durationMinutes);
     this.onChange.emit({
       startDate: new Date(
         format(this.activityStartDate, 'yyyy-MM-dd:') + this.startTime
