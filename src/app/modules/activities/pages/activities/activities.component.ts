@@ -44,10 +44,6 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
 
   toggleCalendarMenu() {
     this.isCalendarMenuDeployed = !this.isCalendarMenuDeployed;
-    console.log(
-      'toggle calendar menu, deployed: ',
-      this.isCalendarMenuDeployed
-    );
   }
 
   changeSelectedDate(newDate: Date) {
@@ -56,23 +52,6 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
       .subscribe(selectedDate => {
         this.store.dispatch(new SetSelectedDate(newDate));
         this.isCalendarMenuDeployed = false;
-      });
-  }
-
-  scrollToSelectedDate() {
-    this.store
-      .select(state => state.calendar.selectedDate)
-      .subscribe(selectedDate => {
-        if (this.dayList) {
-          const day = selectedDate.getDate();
-          const days = this.dayList.nativeElement.querySelectorAll('.day');
-          const selectedDay = days[day - 1];
-
-          window.scrollTo({
-            top: selectedDay.getBoundingClientRect().top,
-            behavior: 'instant'
-          });
-        }
       });
   }
 }

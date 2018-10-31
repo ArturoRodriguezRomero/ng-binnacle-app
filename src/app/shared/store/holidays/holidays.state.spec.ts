@@ -13,7 +13,7 @@ import { AppRoutingModule } from '../../../app-routing.module';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { LoginComponent } from '../../../modules/login/pages/login/login.component';
 import { ActivitiesComponent } from '../../../modules/activities/pages/activities/activities.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { MonthProgressBarComponent } from '../../../modules/activities/components/month-progress-bar/month-progress-bar.component';
 import { DayMobileComponent } from '../../../modules/activities/components/day-mobile/day-mobile.component';
@@ -37,6 +37,10 @@ import { ActivityPreviewComponent } from 'src/app/modules/activities/components/
 import { TruncatePipe } from '../../pipes/truncate.pipe/truncate.pipe';
 import { LongPressDirective } from '../../directives/long.press.directive/long.press.directive';
 import { ActivityFormComponent } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
+import { IsMondayPipe } from '../../pipes/is.monday.pipe/is.monday.pipe';
+import { TimeFormComponent } from 'src/app/modules/activities/components/time-form/time-form.component';
+import { ProjectFormComponent } from 'src/app/modules/activities/components/project-form/project-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('Holidays State', () => {
   let store: Store;
@@ -62,13 +66,18 @@ describe('Holidays State', () => {
         ActivityPreviewComponent,
         TruncatePipe,
         LongPressDirective,
-        ActivityFormComponent
+        ActivityFormComponent,
+        IsMondayPipe,
+        TimeFormComponent,
+        ProjectFormComponent
       ],
       imports: [
         CommonModule,
         AppRoutingModule,
         NgxsModule.forRoot([HolidaysState]),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule,
+        NgSelectModule
       ],
       providers: [
         AppRoutingModule,

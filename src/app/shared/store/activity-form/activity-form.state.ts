@@ -189,8 +189,6 @@ export class ActivityFormState {
     this.errorHandlerService.throw(action.error);
   }
 
-  //_____________
-
   @Action(DeleteActivityRequest)
   DeleteActivityRequest(
     stateContext: StateContext<ActivityFormStateModel>,
@@ -332,7 +330,7 @@ export class ActivityFormState {
     stateContext.patchState({
       projectsLoading: true
     });
-    this.projectsService.getByOrganization(action.id).subscribe(
+    this.projectsService.getByOrganizationId(action.id).subscribe(
       projects => {
         this.store.dispatch(new GetProjectsByOrganizationIdSuccess(projects));
       },

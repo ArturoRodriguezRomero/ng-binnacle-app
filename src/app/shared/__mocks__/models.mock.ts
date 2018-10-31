@@ -40,6 +40,12 @@ export namespace ModelsMock {
     billable: true
   };
 
+  export const ActivityDay = {
+    activities: [Activity, Activity, Activity],
+    date: new Date(),
+    total_hours: 1
+  };
+
   export const PrivateHoliday = {
     beginDate: new Date(),
     finalDate: new Date(),

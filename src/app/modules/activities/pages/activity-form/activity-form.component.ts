@@ -49,7 +49,7 @@ export class ActivityFormComponent implements OnInit {
   showErrors: boolean = false;
   showDeleteCard: boolean = false;
 
-  constructor(private store: Store) {}
+  constructor(public store: Store) {}
 
   ngOnInit() {
     window.scrollTo({
@@ -84,14 +84,12 @@ export class ActivityFormComponent implements OnInit {
     this.formValue.duration = activity.duration;
     this.formValue.billable = activity.billable;
     this.formValue.description = activity.description;
-    activity.projectRole.project.organization.id;
     this.formValue.roleId = activity.projectRole.id;
   }
 
   onTimeFormChange(timeFormOutput: TimeFormOutputModel) {
     this.formValue.startDate = timeFormOutput.startDate;
     this.formValue.duration = timeFormOutput.duration;
-    console.log('timeform output', timeFormOutput);
   }
 
   onProjectRoleChange(projectFormOutput: ProjectFormOutputModel) {
@@ -122,9 +120,7 @@ export class ActivityFormComponent implements OnInit {
   }
 
   hideDeleteCard() {
-    console.log('hide delete card');
     this.showDeleteCard = false;
-    console.log(this.showDeleteCard);
   }
 
   scrollToInvalidForm() {

@@ -9,7 +9,7 @@ describe('Endpoints', () => {
     const startDate = new Date('2000-1-1');
     const endDate = new Date('2000-2-2');
     expect(Endpoints.Activities.getByDates(startDate, endDate)).toEqual(
-      'activitiesByDates?startDate=2000-01-01T00:00:00Z&endDate=2000-02-02T00:00:00Z'
+      'activities?startDate=2000-01-01&endDate=2000-02-02'
     );
   });
 

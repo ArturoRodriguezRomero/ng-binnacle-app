@@ -17,8 +17,6 @@ import {
 import { take } from 'rxjs/operators';
 
 export interface ProjectFormOutputModel {
-  organizationId: number;
-  projectId: number;
   roleId: number;
 }
 
@@ -54,6 +52,7 @@ export class ProjectFormComponent implements OnInit {
   @Select(state => state.activityForm.previousMonthActivitiesLoading)
   previousMonthActivitiesLoading$: Observable<boolean>;
 
+  neededActivitiesAmount = 10;
   previousMonthActivities: Activity[];
 
   recentProjectRoles: Role[];
@@ -62,7 +61,7 @@ export class ProjectFormComponent implements OnInit {
   projectId: number;
   roleId: number;
 
-  constructor(private store: Store) {}
+  constructor(public store: Store) {}
 
   ngOnInit() {
     this.getOrganizations();
@@ -70,20 +69,18 @@ export class ProjectFormComponent implements OnInit {
   }
 
   getPreviousMonthActivities() {
-    console.warn('ESTO SE LLAMA NG ON INIT');
     this.store
       .selectOnce(state => state.activities)
       .subscribe((activitiesState: ActivitiesStateModel) => {
-        console.warn('STATE SELECT ONE ACTIVITIES SUBSCRIBE');
         const totalActivitiesAmount = this.getTotalAmountOfActivities(
           activitiesState.activities
         );
         if (this.areThereEnoughActivities(totalActivitiesAmount)) {
-          this.setPreviousMonthActivitiesFromServer();
-        } else {
           this.setPreviousMonthActivitiesFromLocalState(
             activitiesState.activities
           );
+        } else {
+          this.setPreviousMonthActivitiesFromServer();
         }
       });
   }
@@ -91,24 +88,21 @@ export class ProjectFormComponent implements OnInit {
   setPreviousMonthActivitiesFromLocalState(activities) {
     this.previousMonthActivities = activities;
     this.recentProjectRoles = this.getRecentProjectRoles(activities);
-    console.log('local state', this.recentProjectRoles, 'from', activities);
     if (this.activityProjectRole) {
       this.setProyectControlsValue();
     }
   }
 
   setPreviousMonthActivitiesFromServer() {
-    console.warn('set Previous Month Activities From Server');
     this.store.dispatch(new GetPreviousMonthActivitiesRequest(this.date));
 
     this.store
       .select(state => state.activityForm.previousMonthActivities)
       .pipe(take(2))
       .subscribe(activities => {
-        console.warn('STATE ACTIVITY FORM PREVIOUS MONTH SELECT');
         this.previousMonthActivities = activities;
         this.recentProjectRoles = this.getRecentProjectRoles(activities);
-        console.log('server ', this.recentProjectRoles, 'from', activities);
+
         if (this.activityProjectRole) {
           this.setProyectControlsValue();
         }
@@ -238,7 +232,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   areThereEnoughActivities(amount: number) {
-    return amount < 10;
+    return amount > this.neededActivitiesAmount;
   }
 
   hasSelectedAValue(event) {
@@ -251,8 +245,6 @@ export class ProjectFormComponent implements OnInit {
 
   notifyParent() {
     this.onChange.emit({
-      projectId: this.projectId,
-      organizationId: this.organizationId,
       roleId: this.roleId
     });
   }

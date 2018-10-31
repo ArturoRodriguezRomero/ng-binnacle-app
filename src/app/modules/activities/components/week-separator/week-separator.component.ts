@@ -42,8 +42,8 @@ export class WeekSeparatorComponent implements OnInit {
         const mondayIndex = activities.findIndex(day =>
           isSameDay(day.date, this.monday)
         );
-        const sundayIndex = activities.findIndex(
-          day => day.date == this.sunday
+        const sundayIndex = activities.findIndex(day =>
+          isSameDay(day.date, this.sunday)
         );
 
         if (this.isDayIndexFromNextMonth(sundayIndex)) {

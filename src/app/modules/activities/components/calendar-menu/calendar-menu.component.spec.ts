@@ -186,11 +186,12 @@ describe('CalendarMenuComponent', () => {
   });
 
   it('emits new selected date when #setSelectedDate', () => {
+    const expectedDate = new Date();
     spyOn(component.onDaySelected, 'emit').and.returnValue(null);
 
-    component.setSelectedDate(new Date());
+    component.setSelectedDate(expectedDate);
 
-    expect(component.onDaySelected.emit).toHaveBeenCalledWith(new Date());
+    expect(component.onDaySelected.emit).toHaveBeenCalledWith(expectedDate);
   });
 
   it('emits #onDaySelected on #setSelectedDate', () => {

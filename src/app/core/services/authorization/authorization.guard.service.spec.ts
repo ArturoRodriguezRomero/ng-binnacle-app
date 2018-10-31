@@ -6,7 +6,7 @@ import { AuthorizationGuardService } from './authorization.guard.service';
 import { AppRoutingModule } from '../../../app-routing.module';
 import { LoginComponent } from '../../../modules/login/pages/login/login.component';
 import { ActivitiesComponent } from '../../../modules/activities/pages/activities/activities.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { MonthProgressBarComponent } from '../../../modules/activities/components/month-progress-bar/month-progress-bar.component';
 import { DayMobileComponent } from '../../../modules/activities/components/day-mobile/day-mobile.component';
@@ -22,6 +22,10 @@ import { ActivityPreviewComponent } from 'src/app/modules/activities/components/
 import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
 import { ActivityFormComponent } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
+import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
+import { TimeFormComponent } from 'src/app/modules/activities/components/time-form/time-form.component';
+import { ProjectFormComponent } from 'src/app/modules/activities/components/project-form/project-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('AuthorizationService', () => {
   let authorizationGuardService: AuthorizationGuardService;
@@ -48,9 +52,17 @@ describe('AuthorizationService', () => {
         ActivityPreviewComponent,
         LongPressDirective,
         TruncatePipe,
-        ActivityFormComponent
+        ActivityFormComponent,
+        IsMondayPipe,
+        TimeFormComponent,
+        ProjectFormComponent
       ],
-      imports: [AppRoutingModule, ReactiveFormsModule],
+      imports: [
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgSelectModule
+      ],
       providers: [
         AuthorizationGuardService,
         {

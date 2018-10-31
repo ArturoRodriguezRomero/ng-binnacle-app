@@ -37,7 +37,6 @@ export class ActivitiesService {
   }
 
   deleteActivity(activity: ActivityFormValue) {
-    console.warn(Endpoints.Activity.deleteById(activity.id));
     return this.http.delete<any>(Endpoints.Activity.deleteById(activity.id));
   }
 }

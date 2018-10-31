@@ -5,10 +5,7 @@ import { CalculateEndDatePipe } from 'src/app/shared/pipes/calculate.end.date.pi
 import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe/hours.and.minutes.pipe';
 import { ModelsMock } from 'src/app/shared/__mocks__/models.mock';
 import { Actions, ofActionDispatched, NgxsModule } from '@ngxs/store';
-import {
-  SetActivityDetail,
-  UnsetActivityDetail
-} from 'src/app/shared/store/activity-detail/activity-detail.actions';
+import { SetActivityDetail } from 'src/app/shared/store/activity-detail/activity-detail.actions';
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
 import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
 import { ActivityDetailState } from 'src/app/shared/store/activity-detail/activity-detail.state';
@@ -17,9 +14,8 @@ import { routes } from 'src/app/app-routing.module';
 import { LoginComponent } from 'src/app/modules/login/pages/login/login.component';
 import { ActivitiesComponent } from '../../pages/activities/activities.component';
 import { ActivityFormComponent } from '../../pages/activity-form/activity-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginState } from 'src/app/shared/store/login/login.state';
 import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinner/loading-spinner.component';
 import { ActivityPreviewComponent } from '../activity-preview/activity-preview.component';
 import { CalendarMenuComponent } from '../calendar-menu/calendar-menu.component';
@@ -27,6 +23,16 @@ import { MonthProgressBarComponent } from '../month-progress-bar/month-progress-
 import { DayMobileComponent } from '../day-mobile/day-mobile.component';
 import { IsSundayPipe } from 'src/app/shared/pipes/is.sunday.pipe/is.sunday.pipe';
 import { WeekSeparatorComponent } from '../week-separator/week-separator.component';
+import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
+import { TimeFormComponent } from '../time-form/time-form.component';
+import { ProjectFormComponent } from '../project-form/project-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { Activity } from 'src/app/shared/models/Activity';
+import {
+  SetFormDate,
+  SetFormActivity
+} from 'src/app/shared/store/activity-form/activity-form.actions';
+import { AuthorizationGuardService } from 'src/app/core/services/authorization/authorization.guard.service';
 
 describe('ActivityCardMobileComponent', () => {
   let component: ActivityCardMobileComponent;
@@ -50,16 +56,21 @@ describe('ActivityCardMobileComponent', () => {
         MonthProgressBarComponent,
         DayMobileComponent,
         IsSundayPipe,
-        WeekSeparatorComponent
+        WeekSeparatorComponent,
+        IsMondayPipe,
+        TimeFormComponent,
+        ProjectFormComponent
       ],
       imports: [
         NgxsModule.forRoot([ActivityDetailState]),
         RouterTestingModule.withRoutes(routes),
         ReactiveFormsModule,
-
+        FormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
-      ]
+        RouterTestingModule,
+        NgSelectModule
+      ],
+      providers: [AuthorizationGuardService]
     }).compileComponents();
   }));
 
@@ -76,24 +87,39 @@ describe('ActivityCardMobileComponent', () => {
   });
 
   it('should dispatch @Action(Set Activity Detail) #onLongPress', () => {
-    actions$
-      .pipe(ofActionDispatched(SetActivityDetail))
-      .subscribe((action: SetActivityDetail) => {
-        expect(action).toBeTruthy();
-        expect(action.activity).toEqual(
-          component.activity,
-          'expected activity'
-        );
-      });
+    const expectedActivity = <Activity>{ startDate: new Date(), id: 1 };
+    component.activity = expectedActivity;
+    spyOn(component.store, 'dispatch').and.callThrough();
 
     component.onLongPress();
+
+    expect(component.store.dispatch).toHaveBeenCalledWith(
+      new SetActivityDetail(expectedActivity)
+    );
   });
 
-  it('should dispatch @Action(Unset Activity Detail #onLongPressEnd', () => {
-    actions$.pipe(ofActionDispatched(UnsetActivityDetail)).subscribe(action => {
-      expect(action).toBeTruthy();
-    });
+  it('should dispatch @Action(Set Activity Detail) #onClick', () => {
+    const expectedActivity = <Activity>{ startDate: new Date(), id: 1 };
+    component.activity = expectedActivity;
+    spyOn(component.store, 'dispatch').and.callThrough();
 
-    component.onLongPressEnd();
+    component.onClick();
+
+    expect(component.store.dispatch).toHaveBeenCalledWith(
+      new SetFormDate(expectedActivity.startDate)
+    );
+    expect(component.store.dispatch).toHaveBeenCalledWith(
+      new SetFormActivity(expectedActivity)
+    );
+  });
+
+  it('should navigate to /activities/:id #onClick', () => {
+    const expectedActivity = <Activity>{ startDate: new Date(), id: 1 };
+    component.activity = expectedActivity;
+    spyOn(component.router, 'navigate');
+
+    component.onClick();
+
+    expect(component.router.navigate).toHaveBeenCalledWith([`activities/1`]);
   });
 });

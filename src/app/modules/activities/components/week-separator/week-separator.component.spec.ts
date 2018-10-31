@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { ActivitiesService } from '../../../../core/services/activities/activities.service';
 import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinner/loading-spinner.component';
 import { activitiesServiceStub } from 'src/app/core/services/__mocks__/activities.service.stub';
+import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
 
 describe('WeekSeparatorComponent', () => {
   let component: WeekSeparatorComponent;
@@ -22,7 +23,8 @@ describe('WeekSeparatorComponent', () => {
       declarations: [
         WeekSeparatorComponent,
         HoursAndMinutesPipe,
-        LoadingSpinnerComponent
+        LoadingSpinnerComponent,
+        IsMondayPipe
       ],
       imports: [HttpClientModule, NgxsModule.forRoot([ActivitiesState])],
       providers: [
@@ -42,7 +44,7 @@ describe('WeekSeparatorComponent', () => {
     fixture = TestBed.createComponent(WeekSeparatorComponent);
     component = fixture.componentInstance;
 
-    component.sunday = new Date('2018-7-10');
+    component.monday = new Date('2018-7-1');
     fixture.detectChanges();
   });
 
@@ -50,25 +52,25 @@ describe('WeekSeparatorComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should #getMonday and #setUpTotalMinutes when #ngOnInit', () => {
-    spyOn(component, 'getMonday').and.callThrough();
+  it('should #getSunday and #setUpTotalMinutes when #ngOnInit', () => {
+    spyOn(component, 'getSunday').and.callThrough();
     spyOn(component, 'setUpTotalMinutes').and.callThrough();
 
     component.ngOnInit();
 
-    expect(component.getMonday).toHaveBeenCalled();
+    expect(component.getSunday).toHaveBeenCalled();
     expect(component.setUpTotalMinutes).toHaveBeenCalled();
   });
 
   it('should #getMonday correctly', () => {
-    component.sunday = new Date('2018-10-7');
+    component.monday = new Date('2018-10-1');
 
-    component.getMonday();
+    component.getSunday();
 
     expect(component.monday).toEqual(new Date('2018-10-1'));
   });
 
-  it('should call #calculateTotalMinutesFromServer when monday is from previous month', () => {
+  it('should call #calculateTotalMinutesFromServer when sunday is from next month', () => {
     const activitiesMock = [
       {
         date: '2018-09-01T00:00:00.000+0200'
@@ -80,7 +82,7 @@ describe('WeekSeparatorComponent', () => {
     Object.defineProperty(component, 'activitiesState$', { writable: true });
     component.activitiesState$ = of(activitiesMock);
     component.sunday = new Date('2018-09-02');
-    component.getMonday();
+    component.getSunday();
     spyOn(component, 'calculateTotalMinutesFromServer').and.callThrough();
 
     component.setUpTotalMinutes();
@@ -88,17 +90,19 @@ describe('WeekSeparatorComponent', () => {
     expect(component.calculateTotalMinutesFromServer).toHaveBeenCalled();
   });
 
-  it('should call #calculateTotalMinutesFromLocalActivities when monday is already in the local activities', () => {
+  it('should call #calculateTotalMinutesFromLocalActivities when sunday is already in the local activities', () => {
     const activitiesMock = [
       {
-        date: '2018-09-03T00:00:00.000+0200'
+        date: new Date('2018-10-1')
       },
       {
-        date: '2018-09-09T00:00:00.000+0200'
+        date: new Date('2018-10-7')
       }
     ];
-    component.sunday = new Date('2018-09-09');
-    component.getMonday();
+    component.monday = new Date('2018-10-1');
+    component.getSunday();
+    console.log(component.monday);
+    console.log(component.sunday);
     spyOn(component.store, 'selectOnce').and.returnValue(of(activitiesMock));
 
     spyOn(

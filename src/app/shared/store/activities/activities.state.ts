@@ -2,12 +2,10 @@ import { State, StateContext, Action, Store } from '@ngxs/store';
 import {
   GetActivitiesByDatesRequest,
   GetActivitiesByDatesSuccess,
-  GetActivitiesByDatesError,
-  UpdateActivity
+  GetActivitiesByDatesError
 } from './activities.actions';
 import { ActivitiesService } from '../../../core/services/activities/activities.service';
 import { ErrorHandlerService } from '../../../core/handlers/error/error-handler.service';
-import { Activity } from '../../models/Activity';
 
 export interface ActivitiesStateModel {
   loading: boolean;

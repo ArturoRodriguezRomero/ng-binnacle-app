@@ -49,7 +49,6 @@ export class TimeFormComponent implements OnInit {
   }
 
   notifyParent() {
-    console.log(this.durationHours, this.durationMinutes);
     this.onChange.emit({
       startDate: new Date(
         format(this.activityStartDate, 'yyyy-MM-dd:') + this.startTime
@@ -60,7 +59,7 @@ export class TimeFormComponent implements OnInit {
 
   onTimeChange() {
     this.updateDurationInput();
-    if (this.isEndTimeAfterStartTime()) {
+    if (this.isEndTimeBeforeStartTime()) {
       this.setEndTimeValueToStartTimeValue();
     }
     this.notifyParent();
@@ -68,9 +67,6 @@ export class TimeFormComponent implements OnInit {
 
   onDurationChange() {
     this.updateEndTimeInput();
-    if (!this.isDurationValid()) {
-      this.setDurationToZero();
-    }
     this.notifyParent();
   }
 
@@ -101,7 +97,7 @@ export class TimeFormComponent implements OnInit {
     this.endTime = format(endDate, 'kk:mm');
   }
 
-  isEndTimeAfterStartTime() {
+  isEndTimeBeforeStartTime() {
     const startDate = parse(this.startTime, 'HH:mm', this.activityStartDate);
     const endDate = parse(this.endTime, 'HH:mm', this.activityStartDate);
 
@@ -111,19 +107,6 @@ export class TimeFormComponent implements OnInit {
   setEndTimeValueToStartTimeValue() {
     this.endTime = this.startTime;
     this.onTimeChange();
-  }
-
-  isDurationValid() {
-    return (
-      this.durationHours > 0 ||
-      (this.durationHours == 0 && this.durationMinutes > 0)
-    );
-  }
-
-  setDurationToZero() {
-    this.durationHours = 0;
-    this.durationMinutes = 0;
-    this.updateEndTimeInput();
   }
 
   getEndTime(startDate: Date, minutes: number) {

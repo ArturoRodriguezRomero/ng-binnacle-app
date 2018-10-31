@@ -21,7 +21,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { TimeFormComponent } from './components/time-form/time-form.component';
-import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
+import { AutosizeDirective } from 'src/app/shared/directives/autosize.directive/autosize.directive';
 
 @NgModule({
   imports: [
@@ -30,8 +30,7 @@ import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgSelectModule,
-    TextareaAutosizeModule
+    NgSelectModule
   ],
   declarations: [
     ActivitiesComponent,
@@ -49,7 +48,8 @@ import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
     ActivityFormComponent,
     IsMondayPipe,
     ProjectFormComponent,
-    TimeFormComponent
+    TimeFormComponent,
+    AutosizeDirective
   ]
 })
 export class ActivitiesModule {}

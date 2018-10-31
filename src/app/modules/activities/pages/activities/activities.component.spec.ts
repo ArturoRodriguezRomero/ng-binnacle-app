@@ -14,13 +14,8 @@ import { ActivitiesState } from 'src/app/shared/store/activities/activities.stat
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NotifierService } from 'angular-notifier';
 import { CalendarMenuComponent } from '../../components/calendar-menu/calendar-menu.component';
-import {
-  SetSelectedDate,
-  GetImputedDaysByDatesRequest
-} from 'src/app/shared/store/calendar/calendar.actions';
+import { SetSelectedDate } from 'src/app/shared/store/calendar/calendar.actions';
 import { CalendarState } from 'src/app/shared/store/calendar/calendar.state';
-import { GetActivitiesByDatesRequest } from 'src/app/shared/store/activities/activities.actions';
-import { endOfMonth, startOfDay } from 'date-fns';
 import { of } from 'rxjs';
 import { ActivityPreviewComponent } from '../../components/activity-preview/activity-preview.component';
 import { LongPressDirective } from 'src/app/shared/directives/long.press.directive/long.press.directive';
@@ -29,9 +24,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from 'src/app/app-routing.module';
 import { LoginComponent } from 'src/app/modules/login/pages/login/login.component';
 import { ActivityFormComponent } from '../activity-form/activity-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HolidaysState } from 'src/app/shared/store/holidays/holidays.state';
-import { GetHolidaysRequest } from 'src/app/shared/store/holidays/holidays.actions';
+import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
+import { TimeFormComponent } from '../../components/time-form/time-form.component';
+import { ProjectFormComponent } from '../../components/project-form/project-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('ActivitiesComponent', () => {
   let component: ActivitiesComponent;
@@ -58,7 +56,10 @@ describe('ActivitiesComponent', () => {
         DayMobileComponent,
         IsSundayPipe,
         WeekSeparatorComponent,
-        ActivityFormComponent
+        ActivityFormComponent,
+        IsMondayPipe,
+        TimeFormComponent,
+        ProjectFormComponent
       ],
       imports: [
         NgxsModule.forRoot([ActivitiesState, CalendarState, HolidaysState]),
@@ -66,7 +67,9 @@ describe('ActivitiesComponent', () => {
         RouterTestingModule.withRoutes(routes),
         ReactiveFormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        FormsModule,
+        NgSelectModule
       ],
       providers: [
         {
@@ -87,16 +90,6 @@ describe('ActivitiesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should setup on #ngOnInit', () => {
-    spyOn(component, 'subscribeToSelectedDateChanged').and.callThrough();
-    spyOn(component, 'dispatchGetHolidays').and.callThrough();
-
-    component.ngOnInit();
-
-    expect(component.subscribeToSelectedDateChanged).toHaveBeenCalled();
-    expect(component.dispatchGetHolidays).toHaveBeenCalled();
-  });
-
   it("should set #isCalendarMenuDeployed false when it's true", () => {
     component.isCalendarMenuDeployed = true;
 
@@ -111,35 +104,6 @@ describe('ActivitiesComponent', () => {
     component.toggleCalendarMenu();
 
     expect(component.isCalendarMenuDeployed).toEqual(true);
-  });
-
-  it('should call #onSelectedDateChanged when state selectedDate changes', () => {
-    spyOn(component, 'onSelectedDateChanged').and.callThrough();
-    const expectedDate = new Date();
-    component.subscribeToSelectedDateChanged();
-
-    actions$.pipe(ofActionDispatched(SetSelectedDate)).subscribe(action => {
-      expect(component.onSelectedDateChanged).toHaveBeenCalledWith(
-        expectedDate
-      );
-    });
-    component.store.dispatch(new SetSelectedDate(expectedDate));
-  });
-
-  it('should dispatch @Action(GetActivitiesByDatesRequest) and @Action(GetImputedDaysByDatesRequest) when #onSelectedDateChanged', () => {
-    spyOn(component.store, 'dispatch').and.callThrough();
-    const date = new Date('2018-1-1');
-    const firstDate = startOfDay(date);
-    const lastDate = endOfMonth(date);
-
-    component.onSelectedDateChanged(date);
-
-    expect(component.store.dispatch).toHaveBeenCalledWith(
-      new GetActivitiesByDatesRequest(firstDate, lastDate)
-    );
-    expect(component.store.dispatch).toHaveBeenCalledWith(
-      new GetImputedDaysByDatesRequest(firstDate, lastDate)
-    );
   });
 
   it('should dispatch @Action(SetSelectedDate) when #changeSelectedDate and !isSameMonth', () => {
@@ -169,17 +133,5 @@ describe('ActivitiesComponent', () => {
     });
 
     component.changeSelectedDate(expectedDate);
-  });
-
-  it('should dispatch @Action(Get Holiday Request) ONLY when holiday state is empty', () => {
-    spyOn(component.store, 'selectOnce').and.returnValue(
-      of({ publicHolidays: { length: 3 } })
-    );
-
-    actions$.pipe(ofActionDispatched(GetHolidaysRequest)).subscribe(action => {
-      expect(action).toBeTruthy();
-    });
-
-    component.dispatchGetHolidays();
   });
 });

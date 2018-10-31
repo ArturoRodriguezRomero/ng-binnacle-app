@@ -19,7 +19,7 @@ import {
 } from './activities.actions';
 import { LoginComponent } from 'src/app/modules/login/pages/login/login.component';
 import { ActivitiesComponent } from 'src/app/modules/activities/pages/activities/activities.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { MonthProgressBarComponent } from 'src/app/modules/activities/components/month-progress-bar/month-progress-bar.component';
 import { DayMobileComponent } from 'src/app/modules/activities/components/day-mobile/day-mobile.component';
@@ -37,6 +37,10 @@ import { ActivityPreviewComponent } from 'src/app/modules/activities/components/
 import { LongPressDirective } from '../../directives/long.press.directive/long.press.directive';
 import { TruncatePipe } from '../../pipes/truncate.pipe/truncate.pipe';
 import { ActivityFormComponent } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
+import { IsMondayPipe } from '../../pipes/is.monday.pipe/is.monday.pipe';
+import { TimeFormComponent } from 'src/app/modules/activities/components/time-form/time-form.component';
+import { ProjectFormComponent } from 'src/app/modules/activities/components/project-form/project-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('ActivitiesState', () => {
   let store: Store;
@@ -64,13 +68,18 @@ describe('ActivitiesState', () => {
         ActivityPreviewComponent,
         LongPressDirective,
         TruncatePipe,
-        ActivityFormComponent
+        ActivityFormComponent,
+        IsMondayPipe,
+        TimeFormComponent,
+        ProjectFormComponent
       ],
       imports: [
         CommonModule,
         AppRoutingModule,
         NgxsModule.forRoot([ActivitiesState]),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule,
+        NgSelectModule
       ],
       providers: [
         {

@@ -21,7 +21,7 @@ import { LongPressDirective } from 'src/app/shared/directives/long.press.directi
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
 import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from 'src/app/app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { WeekSeparatorComponent } from '../week-separator/week-separator.component';
 import { IsSundayPipe } from 'src/app/shared/pipes/is.sunday.pipe/is.sunday.pipe';
@@ -32,6 +32,10 @@ import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinn
 import { ActivityFormComponent } from '../../pages/activity-form/activity-form.component';
 import { ActivitiesComponent } from '../../pages/activities/activities.component';
 import { LoginComponent } from 'src/app/modules/login/pages/login/login.component';
+import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
+import { TimeFormComponent } from '../time-form/time-form.component';
+import { ProjectFormComponent } from '../project-form/project-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('DayMobileComponent', () => {
   let component: DayMobileComponent;
@@ -54,7 +58,11 @@ describe('DayMobileComponent', () => {
         MonthProgressBarComponent,
         DayMobileComponent,
         IsSundayPipe,
-        WeekSeparatorComponent
+        WeekSeparatorComponent,
+        IsMondayPipe,
+        ActivityFormComponent,
+        TimeFormComponent,
+        ProjectFormComponent
       ],
       imports: [
         HttpClientModule,
@@ -62,7 +70,9 @@ describe('DayMobileComponent', () => {
         RouterTestingModule.withRoutes(routes),
         ReactiveFormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        FormsModule,
+        NgSelectModule
       ],
       providers: [
         {

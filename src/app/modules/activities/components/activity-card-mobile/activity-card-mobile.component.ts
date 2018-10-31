@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Activity } from '../../../../shared/models/Activity';
 import { Store } from '@ngxs/store';
-import {
-  SetActivityDetail,
-  UnsetActivityDetail
-} from 'src/app/shared/store/activity-detail/activity-detail.actions';
+import { SetActivityDetail } from 'src/app/shared/store/activity-detail/activity-detail.actions';
 import { Router } from '@angular/router';
 import {
   SetFormDate,
@@ -20,7 +17,7 @@ export class ActivityCardMobileComponent implements OnInit {
   @Input()
   activity: Activity;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(public store: Store, public router: Router) {}
 
   ngOnInit() {}
 
@@ -36,9 +33,5 @@ export class ActivityCardMobileComponent implements OnInit {
 
   dispatchSetActivityDetail() {
     this.store.dispatch(new SetActivityDetail(this.activity));
-  }
-
-  dispatchUnsetActivityDetail() {
-    this.store.dispatch(new UnsetActivityDetail());
   }
 }
