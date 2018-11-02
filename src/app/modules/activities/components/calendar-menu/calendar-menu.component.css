@@ -112,7 +112,7 @@
 }
 
 .day:active {
-  background-color: var(--active-background-color);;
+  background-color: var(--active-background-color);
 }
 
 .day.week-day {
@@ -151,7 +151,6 @@
   content: '';
 
   position: absolute;
-  left: 0px;
   bottom: 3px;
 
   height: 35px;

@@ -12,6 +12,7 @@ import { ActivitiesStateModel } from '../../../../shared/store/activities/activi
 import { SetSelectedDate } from '../../../../shared/store/calendar/calendar.actions';
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
+import { endOfMonth } from 'date-fns';
 
 @Component({
   selector: 'app-activities',
@@ -47,11 +48,7 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
   }
 
   changeSelectedDate(newDate: Date) {
-    this.store
-      .selectOnce(state => state.calendar.selectedDate)
-      .subscribe(selectedDate => {
-        this.store.dispatch(new SetSelectedDate(newDate));
-        this.isCalendarMenuDeployed = false;
-      });
+    this.store.dispatch(new SetSelectedDate(endOfMonth(newDate)));
+    this.isCalendarMenuDeployed = false;
   }
 }

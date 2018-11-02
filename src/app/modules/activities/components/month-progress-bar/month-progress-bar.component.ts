@@ -76,7 +76,7 @@ export class MonthProgressBarComponent implements OnInit {
 
                 this.isSelectedDateInTheFuture = isAfter(
                   selectedDate,
-                  new Date()
+                  endOfMonth(new Date())
                 );
 
                 this.updateHoursDifference();

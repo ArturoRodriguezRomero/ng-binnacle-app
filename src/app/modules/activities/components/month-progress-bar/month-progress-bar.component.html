@@ -22,7 +22,7 @@
     <div class="details">
       <div class="item">
         <div class="total">{{ totalWorkedMinutes | hoursAndMinutes }} h</div>
-        <div class="label">Hasta ahora</div>
+        <div class="label">Imputado</div>
       </div>
       <div class="item">
         <div class="workable">{{ totalWorkableMinutesThisMonth | hoursAndMinutes }} h</div>
@@ -32,7 +32,7 @@
         <div class="difference" [ngClass]="minutesDifference >= 0 ? 'positive' : 'negative'">
           {{ minutesDifference >= 0 ? "+" : "-"}} {{ minutesDifference | hoursAndMinutes }}h
         </div>
-        <div class="label">Balance actual</div>
+        <div class="label">Balance mes</div>
       </div>
 
 
