@@ -65,16 +65,36 @@ export class ActivityFormComponent implements OnInit {
       .subscribe((activityFormState: ActivityFormStateModel) => {
         this.date = activityFormState.date;
         if (activityFormState.activity == null) {
+          this.getLastImputedActivity();
+        } else {
+          this.isModifying = true;
+          this.activity = activityFormState.activity;
+          this.fillInputsWithActivityValues(this.activity);
+        }
+      });
+  }
+
+  getLastImputedActivity() {
+    this.store
+      .selectOnce(state => state.activities.activities)
+      .subscribe((activities: Array<Activity>) => {
+        if (activities.length > 0) {
+          const lastActivity = activities[activities.length - 1];
+          lastActivity.startDate = addHours(
+            startOfHour(this.date),
+            getHours(new Date())
+          );
+          lastActivity.duration = 60;
+          lastActivity.description = '';
+          this.activity = lastActivity;
+          this.fillInputsWithActivityValues(this.activity);
+        } else {
           this.activity = {
             startDate: addHours(startOfHour(this.date), getHours(new Date())),
             billable: false,
             description: '',
             duration: 60
           };
-        } else {
-          this.isModifying = true;
-          this.activity = activityFormState.activity;
-          this.fillInputsWithActivityValues(this.activity);
         }
       });
   }

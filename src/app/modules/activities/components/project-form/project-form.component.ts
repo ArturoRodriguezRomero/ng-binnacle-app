@@ -55,7 +55,7 @@ export class ProjectFormComponent implements OnInit {
   neededActivitiesAmount = 10;
   previousMonthActivities: Activity[];
 
-  recentProjectRoles: Role[];
+  recentProjectRoles: Role[] = [];
 
   organizationId: number;
   projectId: number;
@@ -70,15 +70,11 @@ export class ProjectFormComponent implements OnInit {
 
   getPreviousMonthActivities() {
     this.store
-      .selectOnce(state => state.activities)
-      .subscribe((activitiesState: ActivitiesStateModel) => {
-        const totalActivitiesAmount = this.getTotalAmountOfActivities(
-          activitiesState.activities
-        );
+      .selectOnce(state => state.activities.activities)
+      .subscribe((activities: Activity[]) => {
+        const totalActivitiesAmount = activities.length;
         if (this.areThereEnoughActivities(totalActivitiesAmount)) {
-          this.setPreviousMonthActivitiesFromLocalState(
-            activitiesState.activities
-          );
+          this.setPreviousMonthActivitiesFromLocalState(activities);
         } else {
           this.setPreviousMonthActivitiesFromServer();
         }
@@ -95,11 +91,10 @@ export class ProjectFormComponent implements OnInit {
 
   setPreviousMonthActivitiesFromServer() {
     this.store.dispatch(new GetPreviousMonthActivitiesRequest(this.date));
-
     this.store
       .select(state => state.activityForm.previousMonthActivities)
       .pipe(take(2))
-      .subscribe(activities => {
+      .subscribe((activities: Array<Activity>) => {
         this.previousMonthActivities = activities;
         this.recentProjectRoles = this.getRecentProjectRoles(activities);
 
@@ -110,8 +105,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   setProyectToLastImputedActivity(activities: Array<any>) {
-    const allActivities = this.getAllActivities(activities);
-    const lastImputedActivity = this.getLastImputedActivity(allActivities);
+    const lastImputedActivity = activities[activities.length - 1];
 
     this.activityProjectRole = lastImputedActivity.projectRole;
     this.roleId = lastImputedActivity.projectRole.id;
@@ -137,25 +131,13 @@ export class ProjectFormComponent implements OnInit {
   }
 
   getRecentProjectRoles(activities: Array<any>) {
-    const allActivities = this.getAllActivities(activities);
-
-    const projectRoles = allActivities.reduce((projectRoles, activity) => {
+    const projectRoles = activities.reduce((projectRoles, activity) => {
       return [...projectRoles, ...activity.projectRole];
     }, []);
 
     const uniqueProjectRoles = this.removeDuplicates(projectRoles, 'id');
 
     return uniqueProjectRoles;
-  }
-
-  getAllActivities(activities: Array<any>) {
-    return activities.reduce((allActivities, activity) => {
-      return [...allActivities, ...activity.activities];
-    }, []);
-  }
-
-  getLastImputedActivity(activities: Array<any>): Activity {
-    return activities[activities.length - 1];
   }
 
   getTotalAmountOfActivities(activities) {

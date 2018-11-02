@@ -16,6 +16,7 @@ import {
   isAfter,
   isWeekend
 } from 'date-fns';
+import { ActivityDay } from 'src/app/shared/models/ActivityDay';
 
 @Component({
   selector: 'app-month-progress-bar',
@@ -57,7 +58,7 @@ export class MonthProgressBarComponent implements OnInit {
             this.store
               .selectOnce(state => state.calendar.selectedDate)
               .subscribe(selectedDate => {
-                this.updateTotalMinutes(activitiesState.activities);
+                this.updateTotalMinutes(activitiesState.days);
 
                 this.totalWorkableMinutesUntilNow = this.getTotalWorkableMinutesUntilSelectedDate(
                   userState,
@@ -170,9 +171,9 @@ export class MonthProgressBarComponent implements OnInit {
     return weekendDays;
   }
 
-  updateTotalMinutes(activities: Array<any>) {
-    const totalActivitiesMinutes = activities.reduce(
-      (accumulator, activity) => (accumulator += activity.total_hours),
+  updateTotalMinutes(days: Array<ActivityDay>) {
+    const totalActivitiesMinutes = days.reduce(
+      (accumulator, day) => (accumulator += day.total_hours),
       0
     );
 

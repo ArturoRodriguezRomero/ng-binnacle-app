@@ -1,5 +1,6 @@
 import { Activity } from '../../models/Activity';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivityDay } from '../../models/ActivityDay';
 
 export class GetActivitiesByDatesRequest {
   static readonly type = '[activities store] Get Activities By Dates Request';
@@ -8,7 +9,7 @@ export class GetActivitiesByDatesRequest {
 
 export class GetActivitiesByDatesSuccess {
   static readonly type = '[activities store] Get Activities By Dates Success';
-  constructor(public activities: Activity[]) {}
+  constructor(public days: ActivityDay[]) {}
 }
 
 export class GetActivitiesByDatesError {

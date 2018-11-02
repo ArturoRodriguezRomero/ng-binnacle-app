@@ -30,8 +30,6 @@ import { registerLocaleData } from '@angular/common';
 import { CalendarState } from './shared/store/calendar/calendar.state';
 import { HolidaysState } from './shared/store/holidays/holidays.state';
 import { ActivityDetailState } from './shared/store/activity-detail/activity-detail.state';
-import { RouteReuseStrategy } from '@angular/router';
-import { CustomReuseStrategy } from './shared/misc/custom.reuse.strategy';
 import { ActivityFormState } from './shared/store/activity-form/activity-form.state';
 registerLocaleData(localeEs, 'es');
 

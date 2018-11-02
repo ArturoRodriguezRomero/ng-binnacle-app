@@ -263,8 +263,14 @@ export class ActivityFormState {
   ) {
     stateContext.patchState({
       previousMonthActivitiesLoading: false,
-      previousMonthActivities: action.activities
+      previousMonthActivities: this.getActivities(action.days)
     });
+  }
+
+  getActivities(days: Array<any>) {
+    return days.reduce((allActivities, activity) => {
+      return [...allActivities, ...activity.activities];
+    }, []);
   }
 
   @Action(GetPreviousMonthActivitiesError)

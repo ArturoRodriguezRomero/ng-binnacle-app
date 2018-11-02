@@ -30,6 +30,7 @@ import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe
 import { TimeFormComponent } from '../../components/time-form/time-form.component';
 import { ProjectFormComponent } from '../../components/project-form/project-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { endOfMonth } from 'date-fns';
 
 describe('ActivitiesComponent', () => {
   let component: ActivitiesComponent;
@@ -107,10 +108,9 @@ describe('ActivitiesComponent', () => {
   });
 
   it('should dispatch @Action(SetSelectedDate) when #changeSelectedDate and !isSameMonth', () => {
-    const expectedDate = new Date('2018-1-1');
-    spyOn(component.store, 'selectOnce').and.returnValue(
-      of(new Date('2017-1-1'))
-    );
+    const selectedDate = new Date('2018-1-1');
+    const expectedDate = endOfMonth(selectedDate);
+    spyOn(component.store, 'selectOnce').and.returnValue(of(selectedDate));
 
     actions$.pipe(ofActionDispatched(SetSelectedDate)).subscribe(action => {
       expect(action.date).toEqual(expectedDate, 'expected date');

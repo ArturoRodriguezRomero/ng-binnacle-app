@@ -6,16 +6,20 @@ import {
 } from './activities.actions';
 import { ActivitiesService } from '../../../core/services/activities/activities.service';
 import { ErrorHandlerService } from '../../../core/handlers/error/error-handler.service';
+import { Activity } from '../../models/Activity';
+import { ActivityDay } from '../../models/ActivityDay';
 
 export interface ActivitiesStateModel {
   loading: boolean;
-  activities;
+  days: Array<ActivityDay>;
+  activities: Array<Activity>;
 }
 
 @State<ActivitiesStateModel>({
   name: 'activities',
   defaults: {
     loading: false,
+    days: [],
     activities: []
   }
 })
@@ -50,7 +54,8 @@ export class ActivitiesState {
     action: GetActivitiesByDatesSuccess
   ) {
     stateContext.patchState({ loading: false });
-    stateContext.patchState({ activities: action.activities });
+    const activities = this.getActivities(action.days);
+    stateContext.patchState({ days: action.days, activities: activities });
   }
 
   @Action(GetActivitiesByDatesError)
@@ -60,5 +65,11 @@ export class ActivitiesState {
   ) {
     stateContext.patchState({ loading: false });
     this.errorHandlerService.throw(action.error);
+  }
+
+  getActivities(days: Array<any>) {
+    return days.reduce((allActivities, activity) => {
+      return [...allActivities, ...activity.activities];
+    }, []);
   }
 }

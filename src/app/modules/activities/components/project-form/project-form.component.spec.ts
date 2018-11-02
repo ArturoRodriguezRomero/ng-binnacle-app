@@ -21,7 +21,6 @@ import {
 import { ModelsMock } from 'src/app/shared/__mocks__/models.mock';
 import { of } from 'rxjs';
 import { Role } from 'src/app/shared/models/Role';
-import { Organization } from 'src/app/shared/models/Organization';
 
 describe('ProjectFormComponent', () => {
   let component: ProjectFormComponent;
@@ -69,7 +68,7 @@ describe('ProjectFormComponent', () => {
   it('should get activities from the state if there are enough', () => {
     component.neededActivitiesAmount = 1;
     spyOn(component.store, 'selectOnce').and.returnValue(
-      of({ activities: [ModelsMock.ActivityDay, ModelsMock.ActivityDay] })
+      of([ModelsMock.ActivityDay, ModelsMock.ActivityDay])
     );
     spyOn(
       component,
@@ -85,8 +84,8 @@ describe('ProjectFormComponent', () => {
 
   it('should get activities from server if there are not enough in the state', () => {
     component.neededActivitiesAmount = 10;
-    spyOn(component.store, 'selectOnce').and.returnValue(
-      of({ activities: [ModelsMock.ActivityDay, ModelsMock.ActivityDay] })
+    spyOn(component.store, 'select').and.returnValue(
+      of([ModelsMock.Activity, ModelsMock.Activity])
     );
     spyOn(component, 'setPreviousMonthActivitiesFromServer').and.callThrough();
 
@@ -95,9 +94,7 @@ describe('ProjectFormComponent', () => {
     expect(component.setPreviousMonthActivitiesFromServer).toHaveBeenCalled();
   });
 
-  it('should return correct recent project roles getRecentProjectRoles()', () => {});
-
-  it('should select role correctly #onShortcurClick', () => {
+  it('should select role correctly #onShortcutClick', () => {
     const expected = { id: 1, project: { id: 1, organization: { id: 1 } } };
     component.roleId = 5;
     spyOn(component.store, 'dispatch').and.callThrough();

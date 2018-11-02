@@ -156,18 +156,18 @@ describe('ActivitiesState', () => {
   });
 
   it('should set #loading = false and #activities when @Action GetActivitiesByDatesSuccess', () => {
-    const expectedActivities = [
-      ModelsMock.Activity,
-      ModelsMock.Activity,
-      ModelsMock.Activity
+    const expectedDays = [
+      ModelsMock.ActivityDay,
+      ModelsMock.ActivityDay,
+      ModelsMock.ActivityDay
     ];
 
-    store.dispatch(new GetActivitiesByDatesSuccess(expectedActivities));
+    store.dispatch(new GetActivitiesByDatesSuccess(expectedDays));
 
-    store.selectOnce(state => state.activities).subscribe(state => {
+    store.selectOnce(state => state.days).subscribe(state => {
       expect(state.loading).toEqual(false, 'Is not loading');
       expect(state.activities).toEqual(
-        expectedActivities,
+        expectedDays,
         'Expected Activities Array'
       );
     });

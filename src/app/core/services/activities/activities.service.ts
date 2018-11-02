@@ -3,6 +3,7 @@ import { Endpoints } from '../endpoints';
 import { HttpClient } from '@angular/common/http';
 import { Activity } from '../../../shared/models/Activity';
 import { ActivityFormValue } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
+import { ActivityDay } from 'src/app/shared/models/ActivityDay';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ActivitiesService {
   constructor(private http: HttpClient) {}
 
   getActivitiesByDates(startDate: Date, endDate: Date) {
-    return this.http.get<Activity[]>(
+    return this.http.get<ActivityDay[]>(
       Endpoints.Activities.getByDates(startDate, endDate)
     );
   }

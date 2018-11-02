@@ -4,6 +4,7 @@ import { Organization } from '../../models/Organization';
 import { Project } from '../../models/Project';
 import { Role } from '../../models/Role';
 import { ActivityFormValue } from 'src/app/modules/activities/pages/activity-form/activity-form.component';
+import { ActivityDay } from '../../models/ActivityDay';
 
 export class SetFormDate {
   static readonly type = '[activity form store] Set Form Date';
@@ -69,7 +70,7 @@ export class GetPreviousMonthActivitiesRequest {
 export class GetPreviousMonthActivitiesSuccess {
   static readonly type =
     '[activity form store] Get Previous Month Activities Success';
-  constructor(public activities: Activity[]) {}
+  constructor(public days: ActivityDay[]) {}
 }
 
 export class GetPreviousMonthActivitiesError {

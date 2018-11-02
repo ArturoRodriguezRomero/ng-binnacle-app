@@ -101,8 +101,6 @@ describe('WeekSeparatorComponent', () => {
     ];
     component.monday = new Date('2018-10-1');
     component.getSunday();
-    console.log(component.monday);
-    console.log(component.sunday);
     spyOn(component.store, 'selectOnce').and.returnValue(of(activitiesMock));
 
     spyOn(
