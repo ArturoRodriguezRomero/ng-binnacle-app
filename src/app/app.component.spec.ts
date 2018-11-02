@@ -14,6 +14,7 @@ import { GetHolidaysRequest } from './shared/store/holidays/holidays.actions';
 import { startOfMonth, endOfMonth } from 'date-fns';
 import { GetActivitiesByDatesRequest } from './shared/store/activities/activities.actions';
 import { GetImputedDaysByDatesRequest } from './shared/store/calendar/calendar.actions';
+import { NavigationDrawerComponent } from './shared/components/navigation-drawer/navigation-drawer.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -27,7 +28,7 @@ describe('AppComponent', () => {
         NgxsModule.forRoot([CalendarState, HolidaysState, ActivitiesState]),
         HttpClientTestingModule
       ],
-      declarations: [AppComponent],
+      declarations: [AppComponent, NavigationDrawerComponent],
       providers: [
         {
           provide: APP_BASE_HREF,

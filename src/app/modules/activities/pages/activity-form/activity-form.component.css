@@ -323,16 +323,17 @@ input:checked + .slider:before {
 
 .form-row.description .textarea {
   min-width: 100%;
+  min-height: 5em;
 
   background-color: var(--app-background-color);
   border: none;
   border-radius: 5px;
 
-  resize: vertical;
-
   padding: 10px;
 
   word-break: normal;
+
+  word-break: break-word;
 }
 
 .footer {

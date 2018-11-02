@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { HideNaviationDrawer } from '../../store/navigation-drawer/navigation-drawer.actions';
+import { Router } from '@angular/router';
+import { UnsetUser } from '../../store/user/user.actions';
 
 @Component({
   selector: 'app-navigation-drawer',
@@ -6,10 +11,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation-drawer.component.css']
 })
 export class NavigationDrawerComponent implements OnInit {
+  @Select(state => state.navigationDrawer.isNavigationDrawerVisible)
+  isNavigationDrawerVisible$: Observable<boolean>;
 
-  constructor() { }
+  @Select(state => state.user.user)
+  user$: Observable<string>;
 
-  ngOnInit() {
+  constructor(public store: Store, public router: Router) {}
+
+  ngOnInit() {}
+
+  hideNavigationDrawer() {
+    this.store.dispatch(new HideNaviationDrawer());
   }
 
+  onBinnacleButtonClick() {
+    this.router.navigate(['activities']);
+  }
+
+  onLogoutClick() {
+    this.store.dispatch(new UnsetUser());
+    this.router.navigate(['login']);
+  }
 }

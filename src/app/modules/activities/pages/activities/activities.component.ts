@@ -13,6 +13,7 @@ import { SetSelectedDate } from '../../../../shared/store/calendar/calendar.acti
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
 import { endOfMonth } from 'date-fns';
+import { ShowNavigationDrawer } from 'src/app/shared/store/navigation-drawer/navigation-drawer.actions';
 
 @Component({
   selector: 'app-activities',
@@ -50,5 +51,9 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
   changeSelectedDate(newDate: Date) {
     this.store.dispatch(new SetSelectedDate(endOfMonth(newDate)));
     this.isCalendarMenuDeployed = false;
+  }
+
+  showNavigationDrawer() {
+    this.store.dispatch(new ShowNavigationDrawer());
   }
 }

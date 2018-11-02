@@ -1,0 +1,171 @@
+.container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 100;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+.container.visible {
+  pointer-events: all;
+}
+
+.container::after {
+  content: '';
+  top: 0px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  background-color: transparent;
+
+  z-index: -1;
+  pointer-events: all;
+
+  transition: 0.4s ease;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+.container.visible::after {
+  content: '';
+  top: 0px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  background-color: var(--faded-background-color);
+
+  z-index: -1;
+}
+
+.navigation-drawer {
+  width: 100%;
+  height: 100%;
+  max-width: 300px;
+
+  background-color: var(--card-background-color);
+
+  z-index: 101;
+
+  box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.3);
+
+  transform: translateX(-105%);
+
+  transition: 0.4s ease;
+}
+
+.navigation-drawer.visible {
+  transform: translateX(0%);
+}
+
+.header {
+  position: relative;
+  padding: 20px 10px;
+
+  border-bottom: 1px solid lightgray;
+
+  background-image: url(https://www.autentia.com/wp-content/uploads/2018/04/captura720.jpg);
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  color: var(--card-background-color);
+}
+
+.header .user {
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px;
+}
+
+.header .company-logo {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  margin: 10px;
+
+  font-size: 1.2em;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.user .name {
+}
+
+.user .picture .material-icons {
+  font-size: 4.5em;
+  margin-bottom: 10px;
+}
+
+.navigation-buttons {
+  margin: 10px 0px;
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 15px 10px;
+
+  border: none;
+  background-color: transparent;
+}
+
+.button:active {
+  background-color: var(--active-background-color);
+}
+
+.button.selected {
+  background-color: var(--active-background-color);
+}
+
+.button.binnacle.selected {
+  color: var(--company-color);
+}
+
+.button.holidays.selected {
+  color: var(--private-holiday-color);
+}
+
+.button.stats.selected {
+  color: var(--negative-hours-difference);
+}
+
+.button .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.button.binnacle .icon .material-icons {
+  color: var(--company-color);
+}
+
+.button.holidays .icon .material-icons {
+  color: var(--private-holiday-color);
+}
+
+.button.stats .icon .material-icons {
+  color: var(--negative-hours-difference);
+}
+
+.button .label {
+}
+
+.button.logout {
+  position: absolute;
+  bottom: 0px;
+  color: var(--error-color);
+}
