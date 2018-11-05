@@ -66,6 +66,9 @@ export class TimeFormComponent implements OnInit {
   }
 
   onDurationChange() {
+    if (!this.isDurationValid()) {
+      this.setDurationValid();
+    }
     this.updateEndTimeInput();
     this.notifyParent();
   }
@@ -104,9 +107,25 @@ export class TimeFormComponent implements OnInit {
     return isBefore(endDate, startDate);
   }
 
+  isDurationValid() {
+    return (
+      (this.durationHours == 0 && this.durationMinutes > 0) ||
+      (this.durationHours > 0 && this.durationMinutes >= 0)
+    );
+  }
+
   setEndTimeValueToStartTimeValue() {
     this.endTime = this.startTime;
     this.onTimeChange();
+  }
+
+  setDurationValid() {
+    if (this.durationHours < 0) {
+      this.durationHours = 0;
+    }
+    if (this.durationMinutes < 0) {
+      this.durationMinutes = 0;
+    }
   }
 
   getEndTime(startDate: Date, minutes: number) {

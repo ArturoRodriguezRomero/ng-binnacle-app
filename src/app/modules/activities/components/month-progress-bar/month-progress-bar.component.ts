@@ -17,6 +17,7 @@ import {
   isWeekend
 } from 'date-fns';
 import { ActivityDay } from 'src/app/shared/models/ActivityDay';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-month-progress-bar',
@@ -50,15 +51,16 @@ export class MonthProgressBarComponent implements OnInit {
   }
 
   subscribeToActivitiesChange() {
-    this.store.select(state => state.activities).subscribe(activitiesState => {
+    this.store.select(state => state.activities.days).subscribe(days => {
       this.store.selectOnce(state => state.user).subscribe(userState => {
         this.store
-          .selectOnce(state => state.holidays)
-          .subscribe(holidaysState => {
+          .selectOnce(state => state.calendar.selectedDate)
+          .subscribe(selectedDate => {
             this.store
-              .selectOnce(state => state.calendar.selectedDate)
-              .subscribe(selectedDate => {
-                this.updateTotalMinutes(activitiesState.days);
+              .select(state => state.holidays)
+              .pipe(take(3))
+              .subscribe(holidaysState => {
+                this.updateTotalMinutes(days);
 
                 this.totalWorkableMinutesUntilNow = this.getTotalWorkableMinutesUntilSelectedDate(
                   userState,

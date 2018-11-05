@@ -22,7 +22,7 @@
   </ng-template>
   <ng-template #showOrganizations>
     <ng-select [items]="organizations$ | async" bindLabel="name" bindValue="id" (change)="onOrganizationChange($event)"
-      [(ngModel)]="organizationId" class="project-select">
+      [(ngModel)]="organizationId" class="project-select" placeholder="Buscar..." notFoundText="No encontrado.">
     </ng-select>
   </ng-template>
 </div>
@@ -40,7 +40,7 @@
   </ng-template>
   <ng-template #showProjects>
     <ng-select [items]="projects$ | async" bindLabel="name" bindValue="id" (change)="onProjectChange($event)"
-      [(ngModel)]="projectId" class="project-select">
+      [(ngModel)]="projectId" class="project-select" placeholder="Buscar..." notFoundText="No encontrado." [disabled]="organizationId == null">
     </ng-select>
   </ng-template>
 </div>
@@ -58,7 +58,7 @@
   </ng-template>
   <ng-template #showRoles>
     <ng-select [items]="roles$ | async" bindLabel="name" bindValue="id" [(ngModel)]="roleId" class="project-select"
-      (change)="onRoleChange($event)">
+      (change)="onRoleChange($event)" placeholder="Buscar..." notFoundText="No encontrado." [disabled]="organizationId == null || projectId == null">
     </ng-select>
   </ng-template>
 </div>

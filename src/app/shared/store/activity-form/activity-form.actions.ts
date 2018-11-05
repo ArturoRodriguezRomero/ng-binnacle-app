@@ -16,6 +16,11 @@ export class SetFormActivity {
   constructor(public activity: Activity) {}
 }
 
+export class UnsetFormActivity {
+  static readonly type = '[activity form store] Unset Form Activity';
+  constructor() {}
+}
+
 export class SaveActivityRequest {
   static readonly type = '[activity form store] Save Activity Request';
   constructor(public activity: ActivityFormValue) {}

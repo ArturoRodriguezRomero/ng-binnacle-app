@@ -3,7 +3,6 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { HideNaviationDrawer } from '../../store/navigation-drawer/navigation-drawer.actions';
 import { Router } from '@angular/router';
-import { UnsetUser } from '../../store/user/user.actions';
 import { UnlockScroll } from '../../store/page-scroll/page-scroll.actions';
 
 @Component({

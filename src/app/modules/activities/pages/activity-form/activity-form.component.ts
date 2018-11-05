@@ -9,8 +9,10 @@ import { ProjectFormOutputModel } from '../../components/project-form/project-fo
 import {
   SaveActivityRequest,
   ModifyActivityRequest,
-  DeleteActivityRequest
+  DeleteActivityRequest,
+  UnsetFormActivity
 } from 'src/app/shared/store/activity-form/activity-form.actions';
+import { Router } from '@angular/router';
 
 export class ActivityFormValue {
   id?: number;
@@ -49,7 +51,7 @@ export class ActivityFormComponent implements OnInit {
   showErrors: boolean = false;
   showDeleteCard: boolean = false;
 
-  constructor(public store: Store) {}
+  constructor(public store: Store, public router: Router) {}
 
   ngOnInit() {
     window.scrollTo({
@@ -136,7 +138,13 @@ export class ActivityFormComponent implements OnInit {
 
   onDeleteActivity() {
     this.formValue.id = this.activity.id;
+    this.store.dispatch(new UnsetFormActivity());
     this.store.dispatch(new DeleteActivityRequest(this.formValue));
+  }
+
+  onBackButtonClick() {
+    this.store.dispatch(new UnsetFormActivity());
+    this.router.navigate(['/activities']);
   }
 
   hideDeleteCard() {

@@ -159,3 +159,129 @@
   border: 1px solid var(--company-color);
   border-radius: 50%;
 }
+
+.legends-container {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: var(--faded-background-color);
+
+  z-index: 100;
+
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.4s ease;
+}
+
+.legends-container.deployed {
+  pointer-events: all;
+  opacity: 1;
+  visibility: visible;
+}
+
+.legends {
+  position: relative;
+
+  top: 90px;
+
+  background-color: var(--card-background-color);
+
+  border-radius: 5px;
+
+  margin: 10px;
+  padding: 10px;
+
+  box-shadow: var(--card-box-shadow);
+
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  transform: scale(0.7) translateX(20px) translateY(-40px);
+  opacity: 0;
+}
+
+.legends.deployed {
+  transform: scale(1) translateX(0px) translateY(0px);
+  opacity: 1;
+}
+
+.legends-button {
+  position: absolute;
+  right: 15px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 10px;
+
+  color: var(--font-color-light);
+}
+
+.legends-button .material-icons {
+  color: var(--font-color-light);
+}
+
+.legends-button:active {
+  background-color: var(--active-background-color);
+}
+
+.legend-button .material-icons {
+  font-size: 0.7em;
+}
+
+.legends .title {
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  text-align: center;
+
+  color: var(--font-color-light);
+  border-bottom: 1px solid var(--font-color-light);
+}
+
+.legend-list {
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  overflow: hidden;
+
+  transition: 0.4s ease;
+
+  justify-content: center;
+}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 50%;
+}
+
+.legend .example {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.legend .description {
+  font-size: 0.8em;
+}
+
+.legend .description.public-holiday {
+  color: var(--public-holiday-color);
+}
+
+.legend .description.private-holiday {
+  color: var(--private-holiday-color);
+}

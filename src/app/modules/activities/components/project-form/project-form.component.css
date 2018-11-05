@@ -136,6 +136,10 @@
   background-color: var(--company-color);
 }
 
+.shortcut.selected:active {
+  background-color: var(--company-color-dark);
+}
+
 .shortcut:active {
   background-color: #555454;
 }

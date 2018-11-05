@@ -3,6 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { isSameDay, endOfWeek } from 'date-fns';
 import { ActivitiesService } from '../../../../core/services/activities/activities.service';
+import { ActivityDay } from 'src/app/shared/models/ActivityDay';
 
 @Component({
   selector: 'app-week-separator',
@@ -36,38 +37,38 @@ export class WeekSeparatorComponent implements OnInit {
   }
 
   setUpTotalMinutes() {
-    this.store
-      .selectOnce(state => state.activities.activities)
-      .subscribe(activities => {
-        const mondayIndex = activities.findIndex(day =>
-          isSameDay(day.date, this.monday)
-        );
-        const sundayIndex = activities.findIndex(day =>
-          isSameDay(day.date, this.sunday)
-        );
+    this.store.selectOnce(state => state.activities.days).subscribe(days => {
+      const mondayIndex = days.findIndex(day =>
+        isSameDay(day.date, this.monday)
+      );
+      const sundayIndex = days.findIndex(day =>
+        isSameDay(day.date, this.sunday)
+      );
 
-        if (this.isDayIndexFromNextMonth(sundayIndex)) {
-          this.calculateTotalMinutesFromServer();
-        } else {
-          this.calculateTotalMinutesFromLocalActivities(
-            activities,
-            mondayIndex,
-            sundayIndex
-          );
-        }
-      });
+      if (this.isDayIndexFromNextMonth(sundayIndex)) {
+        this.calculateTotalMinutesFromServer();
+      } else {
+        this.calculateTotalMinutesFromLocalActivities(
+          days,
+          mondayIndex,
+          sundayIndex
+        );
+      }
+    });
   }
 
   calculateTotalMinutesFromLocalActivities(
-    activities,
+    days: ActivityDay[],
     mondayIndex: number,
     sundayIndex: number
   ) {
-    const weekDays = activities.slice(mondayIndex, sundayIndex + 1);
+    console.log('from local activities');
+    const weekDays = days.slice(mondayIndex, sundayIndex + 1);
     this.totalMinutes = this.getTotalMinutesOfWeek(weekDays);
   }
 
   calculateTotalMinutesFromServer() {
+    console.log('from server');
     this.isLoadingFromServer = true;
     this.activitiesService
       .getActivitiesTimeByDates(this.monday, this.sunday)

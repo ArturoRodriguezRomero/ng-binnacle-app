@@ -1,5 +1,7 @@
 :root {
   --company-color: #3148aa; /** #79BD8F **/
+  --company-color-dark: #27377d;
+
   --company-contrast-color: #3fefef;
 
   --app-background-color: #f2f2f2;
@@ -30,4 +32,9 @@
   --faded-background-color: #00000073;
 
   --error-color: #d9534f;
+
+  --save-activity-color: var(--company-color);
+
+  --delete-activity-color: crimson;
+  --delete-activity-color-dark: #b10f2e;
 }

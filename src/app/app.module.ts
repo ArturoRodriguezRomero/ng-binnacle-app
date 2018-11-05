@@ -53,7 +53,7 @@ registerLocaleData(localeEs, 'es');
       PageScrollState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    //NgxsLoggerPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,
     LoginModule,
     ActivitiesModule,

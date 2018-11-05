@@ -26,11 +26,23 @@
   <ng-template #showDayList>
     <span class="rail"></span>
     <div class="day-list" #dayList>
+
+      <!--div class="change-month-button"><i class="material-icons">
+          arrow_back
+        </i>{{(activitiesState$ | async)?.days[(activitiesState$ | async)?.days.length -
+        1].date | date:"LLLL"}}</div-->
+
       <ng-container *ngFor="let day of (activitiesState$ | async)?.days; index as index">
         <app-week-separator *ngIf="day.date | isMonday" [monday]="day.date"></app-week-separator>
         <app-day-mobile id="day-{{index}}" ng-if="day.activities.length > 0" [date]="day.date" [totalHours]="day.total_hours"
           [activities]="day.activities"></app-day-mobile>
       </ng-container>
+
+      <!--div class="change-month-button">{{ (activitiesState$ | async)?.days[(activitiesState$ | async)?.days.length -
+        1].date | date:"LLLL" }}<i class="material-icons">
+          arrow_forward
+        </i></div-->
+
     </div>
   </ng-template>
 </section>

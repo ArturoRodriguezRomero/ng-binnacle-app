@@ -29,7 +29,8 @@ import {
   ModifyActivityError,
   DeleteActivityRequest,
   DeleteActivitySuccess,
-  DeleteActivityError
+  DeleteActivityError,
+  UnsetFormActivity
 } from './activity-form.actions';
 import { ErrorHandlerService } from 'src/app/core/handlers/error/error-handler.service';
 import { ActivitiesService } from 'src/app/core/services/activities/activities.service';
@@ -102,6 +103,19 @@ export class ActivityFormState {
     action: SetFormActivity
   ) {
     stateContext.patchState({ activity: action.activity });
+  }
+
+  @Action(UnsetFormActivity)
+  UnsetFormActivity(
+    stateContext: StateContext<ActivityFormStateModel>,
+    action: UnsetFormActivity
+  ) {
+    stateContext.patchState({
+      activity: null,
+      organizations: [],
+      projects: [],
+      roles: []
+    });
   }
 
   @Action(SaveActivityRequest)

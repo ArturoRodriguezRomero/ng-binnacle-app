@@ -1,10 +1,10 @@
 <section class="activity-form">
   <header class="header">
-    <a class="back-button" [routerLink]="['/activities']">
+    <button class="back-button" (click)="onBackButtonClick()">
       <i class="material-icons">
         arrow_back
       </i>
-    </a>
+    </button>
     <div class="title">
       {{ date | date:"EE d LLLL"}}
     </div>
@@ -48,7 +48,7 @@
           description
         </i>
         <div class="title">Descripción</div>
-        <div class="validation-warning" [ngClass]="{'visible': showErrors &&  formValue.description == ''}">Debes
+        <div class="validation-warning" [ngClass]="{'visible': showErrors &&  formValue.description == ''}">Debe
           escribir algo.</div>
       </div>
       <div class="description">
@@ -62,8 +62,8 @@
           assignment
         </i>
         <div class="title">Proyecto</div>
-        <div class="validation-warning" [ngClass]="{'visible': showErrors && !formValue.roleId}">Selecciona un proyecto
-          y rol.</div>
+        <div class="validation-warning" [ngClass]="{'visible': showErrors && !formValue.roleId}">Rellene todos los
+          campos.</div>
       </div>
       <app-project-form [date]="activity.startDate" [activityProjectRole]="activity.projectRole" (onChange)="onProjectRoleChange($event)"></app-project-form>
     </div>

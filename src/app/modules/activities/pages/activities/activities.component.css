@@ -90,3 +90,22 @@
 
   background-color: var(--company-color);
 }
+
+.change-month-button {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--company-color);
+
+  color: white;
+
+  text-transform: capitalize;
+}
+
+.change-month-button:active {
+  background-color: var(--company-color-dark);
+}

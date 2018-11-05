@@ -52,6 +52,8 @@ export class CalendarMenuComponent implements OnInit {
   firstDayOfCalendar: Date;
   lastDayOfCalendar: Date;
 
+  isLegendDeployed: boolean = false;
+
   constructor(public store: Store) {}
 
   ngOnInit() {
@@ -197,5 +199,9 @@ export class CalendarMenuComponent implements OnInit {
     return endOfWeek(endOfMonth(this.selectedDate), {
       weekStartsOn: 1
     });
+  }
+
+  onLegendClick() {
+    this.isLegendDeployed = !this.isLegendDeployed;
   }
 }
