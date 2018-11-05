@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  AfterViewChecked
+  AfterContentInit,
+  AfterViewInit
 } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -14,13 +15,17 @@ import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
 import { endOfMonth } from 'date-fns';
 import { ShowNavigationDrawer } from 'src/app/shared/store/navigation-drawer/navigation-drawer.actions';
+import {
+  LockScroll,
+  UnlockScroll
+} from 'src/app/shared/store/page-scroll/page-scroll.actions';
 
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.css']
 })
-export class ActivitiesComponent implements OnInit, AfterViewChecked {
+export class ActivitiesComponent implements OnInit {
   @Select(state => state.activities)
   activitiesState$: Observable<ActivitiesStateModel>;
 
@@ -42,18 +47,33 @@ export class ActivitiesComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {}
 
-  ngAfterViewChecked() {}
-
   toggleCalendarMenu() {
     this.isCalendarMenuDeployed = !this.isCalendarMenuDeployed;
+    this.isCalendarMenuDeployed
+      ? this.store.dispatch(new LockScroll())
+      : this.store.dispatch(new UnlockScroll());
   }
 
   changeSelectedDate(newDate: Date) {
     this.store.dispatch(new SetSelectedDate(endOfMonth(newDate)));
+    this.store.dispatch(new UnlockScroll());
     this.isCalendarMenuDeployed = false;
   }
 
   showNavigationDrawer() {
     this.store.dispatch(new ShowNavigationDrawer());
+    this.store.dispatch(new LockScroll());
+  }
+
+  scrollToSelectedDay(date: Date) {
+    const day = document.querySelector(`#day-${date.getDate() - 1}`);
+    this.scrollToElement(day, -150);
+  }
+
+  scrollToElement(element, offset) {
+    window.scrollTo({
+      top: element.offsetTop + offset,
+      behavior: 'smooth'
+    });
   }
 }

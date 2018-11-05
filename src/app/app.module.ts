@@ -32,6 +32,7 @@ import { HolidaysState } from './shared/store/holidays/holidays.state';
 import { ActivityDetailState } from './shared/store/activity-detail/activity-detail.state';
 import { ActivityFormState } from './shared/store/activity-form/activity-form.state';
 import { NavigationDrawerState } from './shared/store/navigation-drawer/navigation-drawer.state';
+import { PageScrollState } from './shared/store/page-scroll/page-scroll.state';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -48,10 +49,11 @@ registerLocaleData(localeEs, 'es');
       HolidaysState,
       ActivityDetailState,
       ActivityFormState,
-      NavigationDrawerState
+      NavigationDrawerState,
+      PageScrollState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    //NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,
     LoginModule,
     ActivitiesModule,

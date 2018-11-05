@@ -70,7 +70,7 @@ export class GetPreviousMonthActivitiesRequest {
 export class GetPreviousMonthActivitiesSuccess {
   static readonly type =
     '[activity form store] Get Previous Month Activities Success';
-  constructor(public days: ActivityDay[]) {}
+  constructor(public activities: Activity[]) {}
 }
 
 export class GetPreviousMonthActivitiesError {

@@ -155,7 +155,7 @@ export class ActivityFormComponent implements OnInit {
     if (!this.isDurationValid()) {
       element = this.timeForm.nativeElement;
     }
-    this.scrollToElement(element);
+    this.scrollToElement(element, -50);
   }
 
   isFormValid() {
@@ -167,9 +167,9 @@ export class ActivityFormComponent implements OnInit {
     );
   }
 
-  scrollToElement(element) {
+  scrollToElement(element, offset) {
     window.scrollTo({
-      top: element.offsetTop - 50,
+      top: element.offsetTop + offset,
       behavior: 'smooth'
     });
   }

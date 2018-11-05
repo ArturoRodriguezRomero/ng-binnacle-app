@@ -11,7 +11,7 @@ export class ErrorHandlerService {
   constructor(private notifier: NotifierService) {
     this.errorMessages.set(0, 'No hay conexión a Internet.');
     this.errorMessages.set(400, 'Error del servidor. Inténtalo más tarde.');
-    this.errorMessages.set(401, 'No autorizado.');
+    this.errorMessages.set(401, 'Usuario o contraseña incorrecto.');
     this.errorMessages.set(404, 'Recurso no encontrado.');
     this.errorMessages.set(500, 'Error del servidor. Inténtalo más tarde.');
   }

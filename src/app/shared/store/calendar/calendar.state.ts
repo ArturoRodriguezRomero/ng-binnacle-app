@@ -7,10 +7,12 @@ import {
   GetImputedDaysByDatesError
 } from './calendar.actions';
 import { ActivitiesService } from '../../../core/services/activities/activities.service';
+import { endOfMonth } from 'date-fns';
 
 export interface CalendarStateModel {
   loading: boolean;
   selectedDate: Date;
+  selectedMonth: Date;
   imputedDays: string[];
 }
 
@@ -19,6 +21,7 @@ export interface CalendarStateModel {
   defaults: {
     loading: false,
     selectedDate: new Date(),
+    selectedMonth: endOfMonth(new Date()),
     imputedDays: []
   }
 })
@@ -34,7 +37,10 @@ export class CalendarState {
     stateContext: StateContext<CalendarStateModel>,
     action: SetSelectedDate
   ) {
-    stateContext.patchState({ selectedDate: action.date });
+    stateContext.patchState({
+      selectedDate: action.date,
+      selectedMonth: endOfMonth(action.date)
+    });
   }
 
   @Action(GetImputedDaysByDatesRequest)

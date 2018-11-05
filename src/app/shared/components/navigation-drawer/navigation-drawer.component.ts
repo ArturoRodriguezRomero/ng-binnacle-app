@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HideNaviationDrawer } from '../../store/navigation-drawer/navigation-drawer.actions';
 import { Router } from '@angular/router';
 import { UnsetUser } from '../../store/user/user.actions';
+import { UnlockScroll } from '../../store/page-scroll/page-scroll.actions';
 
 @Component({
   selector: 'app-navigation-drawer',
@@ -23,6 +24,7 @@ export class NavigationDrawerComponent implements OnInit {
 
   hideNavigationDrawer() {
     this.store.dispatch(new HideNaviationDrawer());
+    this.store.dispatch(new UnlockScroll());
   }
 
   onBinnacleButtonClick() {
@@ -30,7 +32,7 @@ export class NavigationDrawerComponent implements OnInit {
   }
 
   onLogoutClick() {
-    this.store.dispatch(new UnsetUser());
+    this.hideNavigationDrawer();
     this.router.navigate(['login']);
   }
 }

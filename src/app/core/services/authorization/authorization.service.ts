@@ -8,7 +8,7 @@ import { User } from '../../../shared/models/User';
 })
 export class AuthorizationService {
   private endpoint = 'user';
-  private token = 'YWRtaW46YWRtaW5hZG1pbg==';
+  private token = '';
 
   constructor(private http: HttpClient) {}
 

@@ -3,6 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ActivityDetailStateModel } from 'src/app/shared/store/activity-detail/activity-detail.state';
 import { UnsetActivityDetail } from 'src/app/shared/store/activity-detail/activity-detail.actions';
+import { UnlockScroll } from 'src/app/shared/store/page-scroll/page-scroll.actions';
 
 @Component({
   selector: 'app-activity-preview',
@@ -18,10 +19,7 @@ export class ActivityPreviewComponent implements OnInit {
   ngOnInit() {}
 
   onContainerClick() {
-    this.unsetActivityDetail();
-  }
-
-  unsetActivityDetail() {
     this.store.dispatch(new UnsetActivityDetail());
+    this.store.dispatch(new UnlockScroll());
   }
 }

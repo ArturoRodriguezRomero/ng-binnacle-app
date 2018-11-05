@@ -16,7 +16,7 @@
 
 .selector {
   position: sticky;
-  top: calc(var(--header-height) + 110px);
+  top: calc(var(--header-height) + 95px);
 
   min-width: 50px;
   height: fit-content;

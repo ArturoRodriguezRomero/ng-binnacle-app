@@ -104,18 +104,6 @@ export class ProjectFormComponent implements OnInit {
       });
   }
 
-  setProyectToLastImputedActivity(activities: Array<any>) {
-    const lastImputedActivity = activities[activities.length - 1];
-
-    this.activityProjectRole = lastImputedActivity.projectRole;
-    this.roleId = lastImputedActivity.projectRole.id;
-    this.projectId = lastImputedActivity.projectRole.project.id;
-    this.organizationId =
-      lastImputedActivity.projectRole.project.organization.id;
-
-    this.setProyectControlsValue();
-  }
-
   setProyectControlsValue() {
     this.organizationId = this.activityProjectRole.project.organization.id;
 

@@ -245,9 +245,9 @@ export class ActivityFormState {
         action.date
       )
       .subscribe(
-        activities => {
+        days => {
           this.store.dispatch(
-            new GetPreviousMonthActivitiesSuccess(activities)
+            new GetPreviousMonthActivitiesSuccess(this.getActivities(days))
           );
         },
         error => {
@@ -263,7 +263,7 @@ export class ActivityFormState {
   ) {
     stateContext.patchState({
       previousMonthActivitiesLoading: false,
-      previousMonthActivities: this.getActivities(action.days)
+      previousMonthActivities: action.activities
     });
   }
 

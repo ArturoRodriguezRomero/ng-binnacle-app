@@ -22,6 +22,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { TimeFormComponent } from './components/time-form/time-form.component';
 import { AutosizeDirective } from 'src/app/shared/directives/autosize.directive/autosize.directive';
+import { ActivitiesContainerComponent } from './pages/activities-container/activities-container.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { AutosizeDirective } from 'src/app/shared/directives/autosize.directive/
     IsMondayPipe,
     ProjectFormComponent,
     TimeFormComponent,
-    AutosizeDirective
+    AutosizeDirective,
+    ActivitiesContainerComponent
   ]
 })
 export class ActivitiesModule {}

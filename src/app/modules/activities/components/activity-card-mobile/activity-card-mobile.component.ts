@@ -7,6 +7,7 @@ import {
   SetFormDate,
   SetFormActivity
 } from 'src/app/shared/store/activity-form/activity-form.actions';
+import { LockScroll } from 'src/app/shared/store/page-scroll/page-scroll.actions';
 
 @Component({
   selector: 'app-activity-card-mobile',
@@ -28,10 +29,7 @@ export class ActivityCardMobileComponent implements OnInit {
   }
 
   onLongPress() {
-    this.dispatchSetActivityDetail();
-  }
-
-  dispatchSetActivityDetail() {
     this.store.dispatch(new SetActivityDetail(this.activity));
+    this.store.dispatch(new LockScroll());
   }
 }
