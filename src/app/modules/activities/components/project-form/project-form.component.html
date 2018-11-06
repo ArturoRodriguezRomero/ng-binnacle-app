@@ -2,7 +2,14 @@
   <div class="shortcut-label">Proyectos recientes</div>
   <div class="shortcut-list">
     <div class="shortcut" *ngFor="let role of recentProjectRoles" [ngClass]="{'selected': roleId == role.id}" (click)="onShortcutClick(role)">
+
+      <i class="material-icons icon">
+        group
+      </i>
       <div class="project">{{role.project.name}}</div>
+      <i class="material-icons icon">
+        person
+      </i>
       <div class="role">{{role.name}}</div>
     </div>
   </div>

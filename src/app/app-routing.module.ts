@@ -4,6 +4,7 @@ import { AuthorizationGuardService } from './core/services/authorization/authori
 import { LoginComponent } from './modules/login/pages/login/login.component';
 import { ActivityFormComponent } from './modules/activities/pages/activity-form/activity-form.component';
 import { ActivitiesContainerComponent } from './modules/activities/pages/activities-container/activities-container.component';
+import { ActivitiesComponent } from './modules/activities/pages/activities/activities.component';
 
 export const routes: Routes = [
   {
@@ -18,17 +19,24 @@ export const routes: Routes = [
   {
     path: 'activities',
     component: ActivitiesContainerComponent,
-    canActivate: [AuthorizationGuardService]
-  },
-  {
-    path: 'activities/new',
-    component: ActivityFormComponent,
-    canActivate: [AuthorizationGuardService]
-  },
-  {
-    path: 'activities/:id',
-    component: ActivityFormComponent,
-    canActivate: [AuthorizationGuardService]
+    canActivate: [AuthorizationGuardService],
+    children: [
+      {
+        path: '',
+        component: ActivitiesComponent,
+        canActivate: [AuthorizationGuardService]
+      },
+      {
+        path: 'new',
+        component: ActivityFormComponent,
+        canActivate: [AuthorizationGuardService]
+      },
+      {
+        path: ':id',
+        component: ActivityFormComponent,
+        canActivate: [AuthorizationGuardService]
+      }
+    ]
   }
 ];
 

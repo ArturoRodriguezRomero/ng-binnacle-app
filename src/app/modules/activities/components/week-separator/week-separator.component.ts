@@ -62,13 +62,11 @@ export class WeekSeparatorComponent implements OnInit {
     mondayIndex: number,
     sundayIndex: number
   ) {
-    console.log('from local activities');
     const weekDays = days.slice(mondayIndex, sundayIndex + 1);
     this.totalMinutes = this.getTotalMinutesOfWeek(weekDays);
   }
 
   calculateTotalMinutesFromServer() {
-    console.log('from server');
     this.isLoadingFromServer = true;
     this.activitiesService
       .getActivitiesTimeByDates(this.monday, this.sunday)

@@ -8,6 +8,7 @@ import {
   SetFormActivity
 } from 'src/app/shared/store/activity-form/activity-form.actions';
 import { LockScroll } from 'src/app/shared/store/page-scroll/page-scroll.actions';
+import { SetSelectedDate } from 'src/app/shared/store/calendar/calendar.actions';
 
 @Component({
   selector: 'app-activity-card-mobile',
@@ -25,7 +26,8 @@ export class ActivityCardMobileComponent implements OnInit {
   onClick() {
     this.store.dispatch(new SetFormDate(this.activity.startDate));
     this.store.dispatch(new SetFormActivity(this.activity));
-    this.router.navigate([`activities/${this.activity.id}`]);
+    this.store.dispatch(new SetSelectedDate(new Date(this.activity.startDate)));
+    this.router.navigate([`activities`, this.activity.id]);
   }
 
   onLongPress() {

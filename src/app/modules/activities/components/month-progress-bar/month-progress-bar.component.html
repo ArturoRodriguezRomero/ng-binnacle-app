@@ -10,15 +10,6 @@
   </ng-template>
 
   <ng-template #showProgress>
-    <!--div class="progress-bar-container">
-      <div class="separators">
-        <div class="separator" style="left: 25%"></div>
-        <div class="separator" style="left: 50%"></div>
-        <div class="separator" style="left: 75%"></div>
-      </div>
-      <div class="progress-bar" [style.width.%]="totalWorkedMinutes / totalWorkableMinutesThisMonth * 100">
-      </div>
-    </div-->
     <div class="details">
       <div class="item">
         <div class="total">{{ totalWorkedMinutes | hoursAndMinutes }} h</div>
@@ -30,7 +21,7 @@
       </div>
       <div class="item" *ngIf="!isSelectedDateInTheFuture">
         <div class="difference" [ngClass]="minutesDifference >= 0 ? 'positive' : 'negative'">
-          {{ minutesDifference >= 0 ? "+" : "-"}} {{ minutesDifference | hoursAndMinutes }}h
+          {{ minutesDifference >= 0 ? "+" : "-"}} {{ minutesDifference | hoursAndMinutes }} h
         </div>
         <div class="label">Balance mes</div>
       </div>

@@ -27,6 +27,7 @@ export class NavigationDrawerComponent implements OnInit {
   }
 
   onBinnacleButtonClick() {
+    this.hideNavigationDrawer();
     this.router.navigate(['activities']);
   }
 

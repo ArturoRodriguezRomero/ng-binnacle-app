@@ -147,6 +147,10 @@
   border-radius: 50%;
 }
 
+.day.current-day {
+  color: var(--card-background-color);
+}
+
 .day.current-day::before {
   content: '';
 
@@ -156,8 +160,14 @@
   height: 35px;
   width: 35px;
 
-  border: 1px solid var(--company-color);
+  background-color: var(--company-color);
   border-radius: 50%;
+
+  z-index: -1;
+}
+
+.day.current-day::after {
+  background-color: var(--card-background-color);
 }
 
 .legends-container {
@@ -229,6 +239,7 @@
 
 .legends-button .material-icons {
   color: var(--font-color-light);
+  font-size: 0.9em;
 }
 
 .legends-button:active {
@@ -279,9 +290,7 @@
 }
 
 .legend .description.public-holiday {
-  color: var(--public-holiday-color);
 }
 
 .legend .description.private-holiday {
-  color: var(--private-holiday-color);
 }

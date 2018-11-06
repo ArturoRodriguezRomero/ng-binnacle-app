@@ -31,20 +31,21 @@
   font-size: 0.8em;
 }
 
-.selector.current-day::after {
-  content: '';
+.selector.current-day .monthday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  position: absolute;
-
-  top: -4px;
-  left: 2px;
-  width: 44px;
-  height: 44px;
+  width: 1.7em;
+  height: 1.7em;
 
   margin: 0 auto;
 
-  border: 2px solid var(--company-color);
+  background-color: var(--company-color);
+  color: var(--app-background-color);
   border-radius: 50%;
+
+  margin-bottom: 5px;
 }
 
 .point {
@@ -82,7 +83,8 @@
 .weekday {
   text-align: center;
   color: var(--font-color-light);
-  text-transform: capitalize;
+  text-transform: uppercase;
+  margin-bottom: 5px;
 }
 
 .weekday.public-holiday {
@@ -158,6 +160,10 @@
 
   z-index: 3;
   user-select: none;
+}
+
+.add-activity-button.weekend {
+  opacity: 0.4;
 }
 
 .add-activity-button:hover {

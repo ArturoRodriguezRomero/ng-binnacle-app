@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="{'visible': isNavigationDrawerVisible$ | async}" (click)="hideNavigationDrawer()">
+<div class="container" [ngClass]="{'visible': isNavigationDrawerVisible$ | async}">
   <div class="navigation-drawer" [ngClass]="{'visible': isNavigationDrawerVisible$ | async}">
     <div class="header">
       <div class="user">
@@ -36,4 +36,5 @@
       </button>
     </div>
   </div>
+  <div class="faded-background" (click)="hideNavigationDrawer()" [ngClass]="{'visible': isNavigationDrawerVisible$ | async}"></div>
 </div>

@@ -58,6 +58,7 @@ export class ActivityFormComponent implements OnInit {
       top: 0,
       behavior: 'instant'
     });
+
     this.getFormDataFromState();
   }
 
@@ -67,6 +68,7 @@ export class ActivityFormComponent implements OnInit {
       .subscribe((activityFormState: ActivityFormStateModel) => {
         this.date = activityFormState.date;
         if (activityFormState.activity == null) {
+          this.setDefaultActivity();
           this.getLastImputedActivity();
         } else {
           this.isModifying = true;
@@ -90,15 +92,17 @@ export class ActivityFormComponent implements OnInit {
           lastActivity.description = '';
           this.activity = lastActivity;
           this.fillInputsWithActivityValues(this.activity);
-        } else {
-          this.activity = {
-            startDate: addHours(startOfHour(this.date), getHours(new Date())),
-            billable: false,
-            description: '',
-            duration: 60
-          };
         }
       });
+  }
+
+  setDefaultActivity() {
+    this.activity = {
+      startDate: addHours(startOfHour(this.date), getHours(new Date())),
+      billable: false,
+      description: '',
+      duration: 60
+    };
   }
 
   fillInputsWithActivityValues(activity: Activity) {

@@ -1,12 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
+import { Store, Select, Actions, ofActionDispatched } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ActivitiesStateModel } from '../../../../shared/store/activities/activities.state';
 
 import { SetSelectedDate } from '../../../../shared/store/calendar/calendar.actions';
 import { CalendarStateModel } from 'src/app/shared/store/calendar/calendar.state';
 import { HolidaysStateModel } from 'src/app/shared/store/holidays/holidays.state';
-import { endOfMonth } from 'date-fns';
+import { endOfMonth, isSameMonth } from 'date-fns';
 import { ShowNavigationDrawer } from 'src/app/shared/store/navigation-drawer/navigation-drawer.actions';
 import {
   LockScroll,
@@ -18,7 +26,7 @@ import {
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.css']
 })
-export class ActivitiesComponent implements OnInit {
+export class ActivitiesComponent implements OnInit, AfterViewInit {
   @Select(state => state.activities)
   activitiesState$: Observable<ActivitiesStateModel>;
 
@@ -31,14 +39,20 @@ export class ActivitiesComponent implements OnInit {
   @ViewChild('monthButtonLabel')
   monthButtonLabel: ElementRef;
 
-  @ViewChild('dayList')
-  dayList: ElementRef;
+  @ViewChildren('dayList')
+  dayList: QueryList<any>;
+  isDayListRendered: boolean = false;
 
   isCalendarMenuDeployed: boolean = false;
 
-  constructor(public store: Store) {}
+  constructor(public store: Store, public actions$: Actions) {}
 
   ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    this.scrollToSelectedDayFromState();
+    this.subscribeToSelectedDateChanged();
+  }
 
   toggleCalendarMenu() {
     this.isCalendarMenuDeployed = !this.isCalendarMenuDeployed;
@@ -48,9 +62,9 @@ export class ActivitiesComponent implements OnInit {
   }
 
   changeSelectedDate(newDate: Date) {
-    this.store.dispatch(new SetSelectedDate(endOfMonth(newDate)));
-    this.store.dispatch(new UnlockScroll());
     this.isCalendarMenuDeployed = false;
+    this.store.dispatch(new UnlockScroll());
+    this.store.dispatch(new SetSelectedDate(newDate));
   }
 
   showNavigationDrawer() {
@@ -58,15 +72,50 @@ export class ActivitiesComponent implements OnInit {
     this.store.dispatch(new LockScroll());
   }
 
+  subscribeToSelectedDateChanged() {
+    this.dayList.changes.subscribe(queryList => {
+      this.onDayListChanged();
+    });
+
+    this.actions$
+      .pipe(ofActionDispatched(SetSelectedDate))
+      .subscribe((action: SetSelectedDate) => {
+        this.onSetSelectedDateDispatched(action.date);
+      });
+  }
+
+  onDayListChanged() {
+    this.scrollToSelectedDayFromState();
+  }
+
+  scrollToSelectedDayFromState() {
+    this.store
+      .selectOnce(state => state.calendar.selectedDate)
+      .subscribe(selectedDate => {
+        this.isDayListRendered = this.getIsListRendered(selectedDate);
+        this.scrollToSelectedDay(selectedDate);
+      });
+  }
+
+  onSetSelectedDateDispatched(date: Date) {
+    this.scrollToSelectedDay(date);
+  }
+
   scrollToSelectedDay(date: Date) {
-    const day = document.querySelector(`#day-${date.getDate() - 1}`);
-    this.scrollToElement(day, -150);
+    if (this.isDayListRendered) {
+      const day = document.querySelector(`#day-${date.getDate() - 1}`);
+      this.scrollToElement(day, -129);
+    }
   }
 
   scrollToElement(element, offset) {
     window.scrollTo({
       top: element.offsetTop + offset,
-      behavior: 'smooth'
+      behavior: 'instant'
     });
+  }
+
+  getIsListRendered(date: Date) {
+    return this.dayList.length > 0 && isSameMonth(this.dayList.last.date, date);
   }
 }
