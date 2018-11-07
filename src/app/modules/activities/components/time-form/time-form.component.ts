@@ -110,7 +110,10 @@ export class TimeFormComponent implements OnInit {
   isDurationValid() {
     return (
       (this.durationHours == 0 && this.durationMinutes > 0) ||
-      (this.durationHours > 0 && this.durationMinutes >= 0)
+      (this.durationHours > 0 &&
+        this.durationMinutes >= 0 &&
+        this.durationHours < 24 &&
+        this.durationMinutes < 60)
     );
   }
 
@@ -125,6 +128,12 @@ export class TimeFormComponent implements OnInit {
     }
     if (this.durationMinutes < 0) {
       this.durationMinutes = 0;
+    }
+    if (this.durationHours > 23) {
+      this.durationHours = 23;
+    }
+    if (this.durationMinutes > 59) {
+      this.durationMinutes = 59;
     }
   }
 
