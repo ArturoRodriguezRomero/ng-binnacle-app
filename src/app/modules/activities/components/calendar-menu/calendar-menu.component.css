@@ -100,6 +100,9 @@
 .day {
   position: relative;
 
+  width: 100%;
+  height: 100%;
+
   justify-self: center;
   align-self: center;
 
@@ -109,6 +112,8 @@
 
   padding: 15px 10px;
   font-size: 0.8em;
+
+  align-self: stretch;
 }
 
 .day:active {
@@ -283,6 +288,8 @@
 .legend .example {
   margin-right: 10px;
   margin-left: 10px;
+
+  width: auto;
 }
 
 .legend .description {

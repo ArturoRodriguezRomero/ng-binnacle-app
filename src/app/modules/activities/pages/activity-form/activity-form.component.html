@@ -1,86 +1,133 @@
 <section class="activity-form">
   <header class="header">
     <button class="back-button" (click)="onBackButtonClick()">
-      <i class="material-icons">
-        arrow_back
-      </i>
+      <i class="material-icons"> arrow_back </i>
     </button>
-    <div class="title">
-      {{ date | date:"EEEE d LLLL"}}
-    </div>
+    <div class="title">{{ date | date: 'EEEE d LLLL' }}</div>
   </header>
   <div class="form">
     <div class="form-row" #timeForm>
-      <div class="legend" [ngClass]="{'validation-error': showErrors && formValue.duration == 0}">
-        <i class="material-icons icon">
-          access_time
-        </i>
+      <div
+        class="legend"
+        [ngClass]="{
+          'validation-error': showErrors && formValue.duration == 0
+        }"
+      >
+        <i class="material-icons icon"> access_time </i>
         <div class="title">Tiempo</div>
-        <div class="validation-warning" [ngClass]="{'visible': showErrors && (!formValue.duration || formValue.duration == 0)}">La
-          duración no
-          puede ser cero.</div>
+        <div
+          class="validation-warning"
+          [ngClass]="{
+            visible:
+              showErrors && (!formValue.duration || formValue.duration == 0)
+          }"
+        >
+          La duración no puede ser cero.
+        </div>
       </div>
-      <app-time-form [activityStartDate]="activity.startDate" [activityDuration]="activity.duration" (onChange)="onTimeFormChange($event)"></app-time-form>
+      <app-time-form
+        [activityStartDate]="activity.startDate"
+        [activityDuration]="activity.duration"
+        (onChange)="onTimeFormChange($event)"
+      ></app-time-form>
     </div>
     <div class="form-row billable">
       <div class="legend billable">
-        <i class="material-icons icon">
-          euro_symbol
-        </i>
+        <i class="material-icons icon"> euro_symbol </i>
         <div class="title">Facturable</div>
       </div>
       <div class="form-control billable">
         <label class="switch" for="checkbox">
-          <input type="checkbox" id="checkbox" [(ngModel)]="formValue.billable" />
+          <input
+            type="checkbox"
+            id="checkbox"
+            [(ngModel)]="formValue.billable"
+          />
           <div class="slider round"></div>
         </label>
-        <div class="client-warning" [ngClass]="{'visible': formValue.billable}">
-          <i class="material-icons icon">
-            warning
-          </i>
-          El cliente leerá la descripción.
+        <div class="client-warning" [ngClass]="{ visible: formValue.billable }">
+          <i class="material-icons icon"> warning </i> El cliente leerá la
+          descripción.
         </div>
       </div>
     </div>
     <div class="form-row description" #descriptionForm>
-      <div class="legend description" [ngClass]="{'validation-error': showErrors && formValue.description == ''}">
-        <i class="material-icons icon">
-          description
-        </i>
+      <div
+        class="legend description"
+        [ngClass]="{
+          'validation-error': showErrors && formValue.description == ''
+        }"
+      >
+        <i class="material-icons icon"> description </i>
         <div class="title">Descripción</div>
-        <div class="validation-warning" [ngClass]="{'visible': showErrors &&  formValue.description == ''}">Debe
-          escribir algo.</div>
+        <div
+          class="validation-warning"
+          [ngClass]="{ visible: showErrors && formValue.description == '' }"
+        >
+          Debe escribir algo.
+        </div>
       </div>
       <div class="description">
-        <textarea autosize class="textarea" [(ngModel)]="formValue.description" placeholder="Tareas realizadas..."></textarea>
+        <textarea
+          autosize
+          class="textarea"
+          [(ngModel)]="formValue.description"
+          placeholder="Tareas realizadas..."
+        ></textarea>
       </div>
     </div>
 
     <div class="form-row" #projectForm>
-      <div class="legend" [ngClass]="{'validation-error': showErrors && !formValue.roleId}">
-        <i class="material-icons icon">
-          assignment
-        </i>
+      <div
+        class="legend"
+        [ngClass]="{ 'validation-error': showErrors && !formValue.roleId }"
+      >
+        <i class="material-icons icon"> assignment </i>
         <div class="title">Proyecto</div>
-        <div class="validation-warning" [ngClass]="{'visible': showErrors && !formValue.roleId}">Rellene todos los
-          campos.</div>
+        <div
+          class="validation-warning"
+          [ngClass]="{ visible: showErrors && !formValue.roleId }"
+        >
+          Rellene todos los campos.
+        </div>
       </div>
-      <app-project-form [date]="activity.startDate" [activityProjectRole]="activity.projectRole" (onChange)="onProjectRoleChange($event)"></app-project-form>
+      <app-project-form
+        [date]="activity.startDate"
+        [activityProjectRole]="activity.projectRole"
+        (onChange)="onProjectRoleChange($event)"
+      ></app-project-form>
     </div>
 
     <div class="footer">
-      <ng-container *ngIf="databaseChangeLoading$ | async; then databaseChangeLoading; else showButtons">
+      <ng-container
+        *ngIf="
+          (databaseChangeLoading$ | async);
+          then: databaseChangeLoading;
+          else: showButtons
+        "
+      >
       </ng-container>
       <ng-template #showButtons>
         <div class="button delete" *ngIf="isModifying">
           <div class="clickable" (click)="onDeleteButton()">Eliminar</div>
-          <div class="delete-confirmation-container" (click)="hideDeleteCard()" [ngClass]="{'visible': showDeleteCard}"></div>
-          <div class="delete-confirmation" [ngClass]="{'visible': showDeleteCard}">
+          <div
+            class="delete-confirmation-container"
+            (click)="hideDeleteCard()"
+            [ngClass]="{ visible: showDeleteCard }"
+          ></div>
+          <div
+            class="delete-confirmation"
+            [ngClass]="{ visible: showDeleteCard }"
+          >
             <div class="top">
               <div class="title">¿Desea eliminar la actividad?</div>
             </div>
-            <div class="text">Se eliminará la actividad. Esta acción no se puede deshacer.</div>
-            <div class="button delete" (click)="onDeleteActivity()">Eliminar</div>
+            <div class="text">
+              Se eliminará la actividad. Esta acción no se puede deshacer.
+            </div>
+            <div class="button delete" (click)="onDeleteActivity()">
+              Eliminar
+            </div>
           </div>
         </div>
         <div class="button save" (click)="onSaveActivity()">Guardar</div>

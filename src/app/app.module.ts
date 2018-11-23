@@ -10,17 +10,17 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthorizationInterceptor } from './core/interceptors/authorization.interceptor';
+import { AuthorizationInterceptor } from './core/interceptors/authorization/authorization.interceptor';
 
 import { LoginModule } from './modules/login/login.module';
 import { ActivitiesModule } from './modules/activities/activities.module';
 
 import { NotifierModule } from 'angular-notifier';
-import { AuthorizationGuardService } from './core/services/authorization/authorization.guard.service';
+import { AuthenticationGuardService } from './core/services/authentication/authentication.guard.service';
 import { NgxsModule } from '@ngxs/store';
 import { LoginState } from './shared/store/login/login.state';
 import { UserState } from './shared/store/user/user.state';
-import { APIInterceptor } from './core/interceptors/api.interceptor';
+import { APIInterceptor } from './core/interceptors/api/api.interceptor';
 import { ActivitiesState } from './shared/store/activities/activities.state';
 import { ComponentsModule } from './shared/components/components.module';
 import { notifierOptions } from './shared/misc/notifier-config';
@@ -33,6 +33,7 @@ import { ActivityDetailState } from './shared/store/activity-detail/activity-det
 import { ActivityFormState } from './shared/store/activity-form/activity-form.state';
 import { NavigationDrawerState } from './shared/store/navigation-drawer/navigation-drawer.state';
 import { PageScrollState } from './shared/store/page-scroll/page-scroll.state';
+import { RefreshTokenInterceptor } from './core/interceptors/refresh-token/refresh-token.interceptor';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -53,7 +54,7 @@ registerLocaleData(localeEs, 'es');
       PageScrollState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    // NgxsLoggerPluginModule.forRoot(),
     HttpClientModule,
     LoginModule,
     ActivitiesModule,
@@ -72,12 +73,16 @@ registerLocaleData(localeEs, 'es');
       useClass: APIInterceptor,
       multi: true
     },
-    ,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptor,
+      multi: true
+    },
     /*{
       provide: RouteReuseStrategy,
       useClass: CustomReuseStrategy
     },*/
-    AuthorizationGuardService,
+    AuthenticationGuardService,
     { provide: LOCALE_ID, useValue: 'es' }
   ],
   bootstrap: [AppComponent]

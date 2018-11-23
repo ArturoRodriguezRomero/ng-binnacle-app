@@ -18,9 +18,9 @@ export class ActivityFormValue {
   id?: number;
   startDate: Date;
   duration: number;
-  description: string = '';
+  description = '';
   roleId: number;
-  billable: boolean = false;
+  billable = false;
 }
 
 @Component({
@@ -32,7 +32,7 @@ export class ActivityFormComponent implements OnInit {
   date: Date;
   activity: Activity;
 
-  isModifying: boolean = false;
+  isModifying = false;
 
   @Select(state => state.activityForm.databaseChangeLoading)
   databaseChangeLoading$: Observable<boolean>;
@@ -48,8 +48,8 @@ export class ActivityFormComponent implements OnInit {
   @ViewChild('projectForm')
   projectForm: ElementRef;
 
-  showErrors: boolean = false;
-  showDeleteCard: boolean = false;
+  showErrors = false;
+  showDeleteCard = false;
 
   constructor(public store: Store, public router: Router) {}
 
@@ -191,7 +191,7 @@ export class ActivityFormComponent implements OnInit {
   }
 
   isDescriptionValid() {
-    return this.formValue.description != '';
+    return this.formValue.description !== '';
   }
 
   isRoleValid() {

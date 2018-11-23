@@ -2,7 +2,7 @@ import { Credentials } from '../../../shared/models/Credentials';
 import { of } from 'rxjs';
 import { ModelsMock } from '../../../shared/__mocks__/models.mock';
 
-export const authorizationServiceStub = {
+export const authenticationServiceStub = {
   endpoint: 'endpoint',
   token: 'token',
   checkUser(credentials: Credentials) {

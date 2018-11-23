@@ -4,9 +4,12 @@
 
 export const environment = {
   production: false,
-  //apiUrl: 'http://192.168.168.63:8080/api',
-  //apiUrl: 'http://localhost:8080/api'
-  apiUrl: 'http://192.168.168.117:8080/api'
+  // apiUrl: 'http://192.168.168.63:8080/api',
+  // apiUrl: 'http://localhost:8080',
+  apiUrl: 'http://localhost:8080',
+  // apiUrl: 'http://192.168.168.117:8080/api'
+  clientId: 'tnt-mobile-angular',
+  clientSecret: 'tnt-mobile-angular-secret'
 };
 
 /*

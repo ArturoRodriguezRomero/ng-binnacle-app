@@ -1,26 +1,32 @@
 import { TimeUtils } from '../../shared/utils/time.utils';
 
 export namespace Endpoints {
+  const baseEndpoint = 'api';
+
+  export namespace Authentication {
+
+  }
+
   export namespace Activity {
     export const getById = (id: number) => {
-      return `activity/${id}`;
+      return `${baseEndpoint}/activity/${id}`;
     };
 
     export const addNew = () => {
-      return `activity`;
+      return `${baseEndpoint}/activity`;
     };
 
     export const modify = () => {
-      return `activity`;
+      return `${baseEndpoint}/activity`;
     };
 
     export const deleteById = (id: number) => {
-      return `activity/${id}`;
+      return `${baseEndpoint}/activity/${id}`;
     };
   }
   export namespace Activities {
     export const getByDates = (startDate: Date, endDate: Date) => {
-      return `activities?startDate=${TimeUtils.toDayFormat(
+      return `${baseEndpoint}/activities?startDate=${TimeUtils.toDayFormat(
         startDate
       )}&endDate=${TimeUtils.toDayFormat(endDate)}`;
     };
@@ -29,13 +35,13 @@ export namespace Endpoints {
       startDate: Date,
       endDate: Date
     ) => {
-      return `activitiesTime?startDate=${TimeUtils.toTimeFormat(
+      return `${baseEndpoint}/activitiesTime?startDate=${TimeUtils.toTimeFormat(
         startDate
       )}&endDate=${TimeUtils.toTimeFormat(endDate)}`;
     };
 
     export const getImputedDaysByDates = (startDate: Date, endDate: Date) => {
-      return `imputedDays?startDate=${TimeUtils.toTimeFormat(
+      return `${baseEndpoint}/imputedDays?startDate=${TimeUtils.toTimeFormat(
         startDate
       )}&endDate=${TimeUtils.toTimeFormat(endDate)}`;
     };
@@ -43,28 +49,28 @@ export namespace Endpoints {
 
   export namespace Holidays {
     export const getPublicHolidaysByYear = (year: number) => {
-      return `holidays?year=${year}`;
+      return `${baseEndpoint}/holidays?year=${year}`;
     };
 
     export const getPrivateHolidaysThisYear = () => {
-      return `vacations`;
+      return `${baseEndpoint}/vacations`;
     };
   }
   export namespace Organizations {
     export const getAll = () => {
-      return `organizations`;
+      return `${baseEndpoint}/organizations`;
     };
   }
 
   export namespace Projects {
     export const getByOrganziationId = (id: number) => {
-      return `organization/${id}/projects`;
+      return `${baseEndpoint}/organization/${id}/projects`;
     };
   }
 
   export namespace Roles {
     export const getByProjectId = (id: number) => {
-      return `project/${id}/roles`;
+      return `${baseEndpoint}/project/${id}/roles`;
     };
   }
 }

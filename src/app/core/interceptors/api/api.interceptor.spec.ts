@@ -5,40 +5,29 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
-import { AuthorizationInterceptor } from './authorization.interceptor';
-import { AuthorizationService } from '../services/authorization/authorization.service';
+import { environment } from '../../../../environments/environment';
+import { APIInterceptor } from './api.interceptor';
 
-describe('AuthorizationInterceptor', () => {
-  let authorizationServiceStub = {
-    getToken: () => {
-      return 'token';
-    }
-  };
-
+describe('APIInterceptor', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         {
           provide: HTTP_INTERCEPTORS,
-          useClass: AuthorizationInterceptor,
+          useClass: APIInterceptor,
           multi: true
-        },
-        {
-          provide: AuthorizationService,
-          useValue: authorizationServiceStub
         }
       ]
-    }));
+    })
+  );
 
-  it('should add token from #authorizationService to all requests', inject(
+  it('should add base #apiUrl from enviroment to all requests', inject(
     [HttpClient, HttpTestingController],
     (http: HttpClient, mock: HttpTestingController) => {
       http.get('test').subscribe(response => expect(response).toBeTruthy());
       const request = mock.expectOne(
-        req =>
-          req.headers.has('Authorization') &&
-          req.headers.get('Authorization') == 'Basic token'
+        req => req.url.includes(environment.apiUrl) && req.url.includes('/test')
       );
 
       request.flush({ data: 'test' });

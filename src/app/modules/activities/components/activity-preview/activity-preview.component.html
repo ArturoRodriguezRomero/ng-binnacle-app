@@ -1,46 +1,77 @@
-<div class="activity-preview-container" [ngClass]="{'deployed': (activityDetailState$ | async)?.activity}" (click)="onContainerClick()">
-  <div class="activity-preview" [ngClass]="{'deployed': (activityDetailState$ | async)?.activity}">
+<div
+  class="activity-preview-container"
+  [ngClass]="{ deployed: (activityDetailState$ | async)?.activity }"
+  (click)="onContainerClick()"
+>
+  <div
+    class="activity-preview"
+    [ngClass]="{ deployed: (activityDetailState$ | async)?.activity }"
+  >
     <div *ngIf="(activityDetailState$ | async)?.activity" class="wrapper">
       <div class="title row">
-        {{ (activityDetailState$ | async)?.activity?.startDate | date:"EEEE d LLLL y"}}
-        <div class="billable" *ngIf="(activityDetailState$ | async)?.activity?.billable">Facturable <i class="material-icons billable-icon">
-            euro_symbol
-          </i></div>
+        {{
+          (activityDetailState$ | async)?.activity?.startDate
+            | date: 'EEEE d LLLL y'
+        }}
+        <div
+          class="billable"
+          *ngIf="(activityDetailState$ | async)?.activity?.billable"
+        >
+          Facturable <i class="material-icons billable-icon"> euro_symbol </i>
+        </div>
       </div>
       <div class="times">
         <div class="range">
-          <div class="start">{{ (activityDetailState$ | async)?.activity?.startDate | date:"HH:mm" }}</div>-
-          <div class="end" *ngIf="(activityDetailState$ | async)?.activity">{{
-            (activityDetailState$ | async)?.activity.startDate | calculateEndDate:(activityDetailState$ |
-            async)?.activity?.duration
-            | date:"HH:mm"}}</div>
+          <div class="start">
+            {{
+              (activityDetailState$ | async)?.activity?.startDate
+                | date: 'HH:mm'
+            }}
+          </div>
+          -
+          <div class="end" *ngIf="(activityDetailState$ | async)?.activity">
+            {{
+              (activityDetailState$ | async)?.activity.startDate
+                | calculateEndDate
+                  : (activityDetailState$ | async)?.activity?.duration
+                | date: 'HH:mm'
+            }}
+          </div>
         </div>
-        <div class="total">{{ (activityDetailState$ | async)?.activity?.duration | hoursAndMinutes }} h</div>
+        <div class="total">
+          {{
+            (activityDetailState$ | async)?.activity?.duration | hoursAndMinutes
+          }}
+          h
+        </div>
       </div>
 
       <div class="company row">
-        <div class="icon">
-          <i class="material-icons">
-            account_balance
-          </i>
-        </div> {{ (activityDetailState$ | async)?.activity?.projectRole.project.organization.name | truncate : 60: true
-        : "..."}}
+        <div class="icon"><i class="material-icons"> account_balance </i></div>
+        {{
+          (activityDetailState$ | async)?.activity?.projectRole.project
+            .organization.name | truncate: 60:true:'...'
+        }}
       </div>
       <div class="project row">
-        <div class="icon">
-          <i class="material-icons">
-            group
-          </i>
-        </div> {{ (activityDetailState$ | async)?.activity?.projectRole.project.name | truncate : 60: true : "..."}}
+        <div class="icon"><i class="material-icons"> group </i></div>
+        {{
+          (activityDetailState$ | async)?.activity?.projectRole.project.name
+            | truncate: 60:true:'...'
+        }}
       </div>
       <div class="role row">
-        <div class="icon"><i class="material-icons">
-            person
-          </i></div>
-        {{ (activityDetailState$ | async)?.activity?.projectRole.name | truncate : 60: true : "..."}}
+        <div class="icon"><i class="material-icons"> person </i></div>
+        {{
+          (activityDetailState$ | async)?.activity?.projectRole.name
+            | truncate: 60:true:'...'
+        }}
       </div>
       <div class="description">
-        {{ (activityDetailState$ | async)?.activity?.description | truncate : 400: true : "..."}}
+        {{
+          (activityDetailState$ | async)?.activity?.description
+            | truncate: 400:true:'...'
+        }}
       </div>
     </div>
   </div>

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthorizationService } from './authorization.service';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
-export class AuthorizationGuardService implements CanActivate {
+export class AuthenticationGuardService implements CanActivate {
   constructor(
-    private authorizationService: AuthorizationService,
+    private authenticationService: AuthenticationService,
     private router: Router
   ) {}
 
   canActivate() {
-    if (this.authorizationService.getToken()) {
+    if (this.authenticationService.getAuthentication()) {
       return true;
     } else {
       this.router.navigate(['login']);

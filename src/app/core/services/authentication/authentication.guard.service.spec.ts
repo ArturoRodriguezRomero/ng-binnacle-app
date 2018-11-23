@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthorizationService } from './authorization.service';
-import { HttpClient } from '@angular/common/http';
-import { AuthorizationGuardService } from './authorization.guard.service';
+import { AuthenticationService } from './authentication.service';
+import { AuthenticationGuardService } from './authentication.guard.service';
 import { AppRoutingModule } from '../../../app-routing.module';
 import { LoginComponent } from '../../../modules/login/pages/login/login.component';
 import { ActivitiesComponent } from '../../../modules/activities/pages/activities/activities.component';
@@ -27,13 +26,13 @@ import { TimeFormComponent } from 'src/app/modules/activities/components/time-fo
 import { ProjectFormComponent } from 'src/app/modules/activities/components/project-form/project-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-describe('AuthorizationService', () => {
-  let authorizationGuardService: AuthorizationGuardService;
-  let authorizationServiceSpy: { getToken: jasmine.Spy };
+describe('Authentication Guard Service', () => {
+  let authorizationGuardService: AuthenticationGuardService;
+  let authenticationServiceSpy: { getToken: jasmine.Spy };
   let router: Router;
 
   beforeEach(() => {
-    authorizationServiceSpy = jasmine.createSpyObj('AuthorizationService', [
+    authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', [
       'getToken'
     ]);
     TestBed.configureTestingModule({
@@ -64,10 +63,10 @@ describe('AuthorizationService', () => {
         NgSelectModule
       ],
       providers: [
-        AuthorizationGuardService,
+        AuthenticationGuardService,
         {
-          provide: AuthorizationService,
-          useValue: authorizationServiceSpy
+          provide: AuthenticationService,
+          useValue: authenticationServiceSpy
         },
         {
           provide: APP_BASE_HREF,
@@ -75,7 +74,7 @@ describe('AuthorizationService', () => {
         }
       ]
     });
-    authorizationGuardService = TestBed.get(AuthorizationGuardService);
+    authorizationGuardService = TestBed.get(AuthenticationGuardService);
     router = TestBed.get(Router);
   });
 
@@ -83,8 +82,8 @@ describe('AuthorizationService', () => {
     expect(authorizationGuardService).toBeTruthy();
   });
 
-  it('should return true when #canActivate and #authorizationService.getToken() is true', () => {
-    authorizationServiceSpy.getToken.and.returnValue('test');
+  it('should return true when #canActivate and #authenticationService.getToken() is true', () => {
+    authenticationServiceSpy.getToken.and.returnValue('test');
 
     expect(authorizationGuardService.canActivate()).toEqual(
       true,
@@ -92,8 +91,8 @@ describe('AuthorizationService', () => {
     );
   });
 
-  it('should return false when #canActivate and #authorizationService.getToken() is false', () => {
-    authorizationServiceSpy.getToken.and.returnValue(undefined);
+  it('should return false when #canActivate and #authenticationService.getToken() is false', () => {
+    authenticationServiceSpy.getToken.and.returnValue(undefined);
 
     expect(authorizationGuardService.canActivate()).toEqual(
       false,
@@ -101,8 +100,8 @@ describe('AuthorizationService', () => {
     );
   });
 
-  it('should navigate to /login when #activate and #authorizationService.getToken() is false', () => {
-    authorizationServiceSpy.getToken.and.returnValue(undefined);
+  it('should navigate to /login when #activate and #authenticationService.getToken() is false', () => {
+    authenticationServiceSpy.getToken.and.returnValue(undefined);
     spyOn(router, 'navigate').and.stub();
 
     authorizationGuardService.canActivate();

@@ -1,40 +1,45 @@
-<div class="container" [ngClass]="{'visible': isNavigationDrawerVisible$ | async}">
-  <div class="navigation-drawer" [ngClass]="{'visible': isNavigationDrawerVisible$ | async}">
+<div
+  class="container"
+  [ngClass]="{ visible: isNavigationDrawerVisible$ | async }"
+>
+  <div
+    class="navigation-drawer"
+    [ngClass]="{ visible: isNavigationDrawerVisible$ | async }"
+  >
     <div class="header">
       <div class="user">
-        <div class="picture"><i class="material-icons">
-            account_circle
-          </i></div>
-        <div class="name">{{(user$ | async)?.name}}</div>
+        <div class="picture">
+          <i class="material-icons"> account_circle </i>
+        </div>
+        <div class="name">{{ (user$ | async)?.name }}</div>
       </div>
       <div class="company-logo">n</div>
     </div>
     <div class="navigation-buttons">
-      <button class="button binnacle selected" (click)="onBinnacleButtonClick()">
-        <div class="icon"><i class="material-icons">
-            view_agenda
-          </i></div>
+      <button
+        class="button binnacle selected"
+        (click)="onBinnacleButtonClick()"
+      >
+        <div class="icon"><i class="material-icons"> view_agenda </i></div>
         <div class="label">Bitácora</div>
       </button>
       <button class="button holidays">
-        <div class="icon"><i class="material-icons">
-            landscape
-          </i></div>
+        <div class="icon"><i class="material-icons"> landscape </i></div>
         <div class="label">Vacaciones</div>
       </button>
       <button class="button stats">
-        <div class="icon"><i class="material-icons">
-            assessment
-          </i></div>
+        <div class="icon"><i class="material-icons"> assessment </i></div>
         <div class="label">Estadísticas</div>
       </button>
       <button class="button logout" (click)="onLogoutClick()">
-        <div class="icon"><i class="material-icons">
-            exit_to_app
-          </i></div>
+        <div class="icon"><i class="material-icons"> exit_to_app </i></div>
         <div class="label">Cerrar sesión</div>
       </button>
     </div>
   </div>
-  <div class="faded-background" (click)="hideNavigationDrawer()" [ngClass]="{'visible': isNavigationDrawerVisible$ | async}"></div>
+  <div
+    class="faded-background"
+    (click)="hideNavigationDrawer()"
+    [ngClass]="{ visible: isNavigationDrawerVisible$ | async }"
+  ></div>
 </div>

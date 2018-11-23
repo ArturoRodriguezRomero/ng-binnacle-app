@@ -1,37 +1,51 @@
-<div class="legends-container" [ngClass]="{'deployed': isLegendDeployed}" (click)="onLegendClick()">
-  <div class="legends" [ngClass]="{'deployed': isLegendDeployed}">
+<div
+  class="legends-container"
+  [ngClass]="{ deployed: isLegendDeployed }"
+  (click)="onLegendClick()"
+>
+  <div class="legends" [ngClass]="{ deployed: isLegendDeployed }">
     <div class="title">Leyenda</div>
     <div class="legend-list">
       <div class="legend">
-        <div class="example day current-day">{{ selectedDate | date:"d" }}</div>
+        <div class="example day current-day">
+          {{ selectedDate | date: 'd' }}
+        </div>
         <div class="description current-day">Día actual</div>
       </div>
       <div class="legend">
-        <div class="example day imputed">{{ selectedDate | date:"d" }}</div>
+        <div class="example day imputed">{{ selectedDate | date: 'd' }}</div>
         <div class="description imputed">Día imputado</div>
       </div>
       <div class="legend">
-        <div class="example day public-holiday">{{ selectedDate | date:"d" }}</div>
+        <div class="example day public-holiday">
+          {{ selectedDate | date: 'd' }}
+        </div>
         <div class="description public-holiday">Festivo</div>
       </div>
       <div class="legend">
-        <div class="example day private-holiday">{{ selectedDate | date:"d" }}</div>
+        <div class="example day private-holiday">
+          {{ selectedDate | date: 'd' }}
+        </div>
         <div class="description private-holiday">Vacaciones</div>
       </div>
     </div>
   </div>
 </div>
-<div class="calendar-menu" [ngClass]="{'deployed': isDeployed}">
+<div class="calendar-menu" [ngClass]="{ deployed: isDeployed }">
   <div class="month-bar">
-    <i class="material-icons arrow" (click)="goToPreviousMonth()">keyboard_arrow_left</i>
+    <i class="material-icons arrow" (click)="goToPreviousMonth()"
+      >keyboard_arrow_left</i
+    >
     <div class="selected-date">
-      <div class="month">{{ selectedDate | date:"MMMM" }}</div>
-      <div class="year">{{ selectedDate | date:"y" }}</div>
+      <div class="month">{{ selectedDate | date: 'MMMM' }}</div>
+      <div class="year">{{ selectedDate | date: 'y' }}</div>
     </div>
-    <i class="material-icons arrow" (click)="goToNextMonth()">keyboard_arrow_right</i>
-    <div class="legends-button" (click)="onLegendClick()"><i class="material-icons">
-        info
-      </i></div>
+    <i class="material-icons arrow" (click)="goToNextMonth()"
+      >keyboard_arrow_right</i
+    >
+    <div class="legends-button" (click)="onLegendClick()">
+      <i class="material-icons"> info </i>
+    </div>
   </div>
 
   <div class="calendar-header">
@@ -44,12 +58,27 @@
     <div class="day week-day">D</div>
   </div>
   <div class="calendar">
-    <div *ngIf="(calendarState$ | async)?.loading || (holidaysState$ | async)?.loading" class="calendar-loading">
+    <div
+      *ngIf="
+        (calendarState$ | async)?.loading || (holidaysState$ | async)?.loading
+      "
+      class="calendar-loading"
+    >
       <app-loading-spinner></app-loading-spinner>
     </div>
-    <div class="day" *ngFor="let day of days" [ngClass]="{'public-holiday ': day.isPublicHoliday, 'private-holiday': day.isPrivateHoliday, 'imputed': day.isImputed, 'current-day': day.isCurrentDay, 'different-month': day.isDateFromDifferentMonth}"
-      (click)="setSelectedDate(day.date)">
-      {{ day.date | date:"d"}}
+    <div
+      class="day"
+      *ngFor="let day of days"
+      [ngClass]="{
+        'public-holiday ': day.isPublicHoliday,
+        'private-holiday': day.isPrivateHoliday,
+        imputed: day.isImputed,
+        'current-day': day.isCurrentDay,
+        'different-month': day.isDateFromDifferentMonth
+      }"
+      (click)="setSelectedDate(day.date)"
+    >
+      {{ day.date | date: 'd' }}
     </div>
   </div>
   <div class="statistics"></div>

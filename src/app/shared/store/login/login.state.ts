@@ -2,10 +2,11 @@ import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 import { LoginRequest, LoginSuccess, LoginError } from './login.actions';
 import { Router } from '@angular/router';
 import { Credentials } from '../../models/Credentials';
-import { AuthorizationService } from '../../../core/services/authorization/authorization.service';
+import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { SetUser } from '../user/user.actions';
 import { ErrorHandlerService } from '../../../core/handlers/error/error-handler.service';
 import { NgZone } from '@angular/core';
+import { AuthenticationResponse } from '../../models/AuthenticationResponse';
 
 export interface LoginStateModel {
   loading: boolean;
@@ -19,7 +20,7 @@ export interface LoginStateModel {
 })
 export class LoginState {
   constructor(
-    private authorizationService: AuthorizationService,
+    private authenticationService: AuthenticationService,
     private router: Router,
     private store: Store,
     private errorHandlerService: ErrorHandlerService,
@@ -36,9 +37,10 @@ export class LoginState {
       username: payload.username,
       password: payload.password
     };
-    this.authorizationService.checkUser(credentials).subscribe(
-      user => {
-        this.store.dispatch(new SetUser(user));
+    this.authenticationService.tryAuthenticate(credentials).subscribe(
+      (authentication: AuthenticationResponse) => {
+        this.authenticationService.setAuthentication(authentication);
+        this.store.dispatch(new SetUser(authentication.user));
         this.store.dispatch(new LoginSuccess());
       },
       error => {

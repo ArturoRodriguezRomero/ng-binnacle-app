@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthorizationGuardService } from './core/services/authorization/authorization.guard.service';
+import { AuthenticationGuardService } from './core/services/authentication/authentication.guard.service';
 import { LoginComponent } from './modules/login/pages/login/login.component';
 import { ActivityFormComponent } from './modules/activities/pages/activity-form/activity-form.component';
 import { ActivitiesContainerComponent } from './modules/activities/pages/activities-container/activities-container.component';
@@ -19,22 +19,22 @@ export const routes: Routes = [
   {
     path: 'activities',
     component: ActivitiesContainerComponent,
-    canActivate: [AuthorizationGuardService],
+    canActivate: [AuthenticationGuardService],
     children: [
       {
         path: '',
         component: ActivitiesComponent,
-        canActivate: [AuthorizationGuardService]
+        canActivate: [AuthenticationGuardService]
       },
       {
         path: 'new',
         component: ActivityFormComponent,
-        canActivate: [AuthorizationGuardService]
+        canActivate: [AuthenticationGuardService]
       },
       {
         path: ':id',
         component: ActivityFormComponent,
-        canActivate: [AuthorizationGuardService]
+        canActivate: [AuthenticationGuardService]
       }
     ]
   }

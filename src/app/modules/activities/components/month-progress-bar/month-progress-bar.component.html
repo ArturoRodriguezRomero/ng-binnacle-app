@@ -1,12 +1,16 @@
 <div class="month-progress-bar">
-  <ng-container *ngIf="(activitiesState$ | async)?.loading || (holidaysState$ | async)?.loading; then showLoadingSpinner; else showProgress">
-
+  <ng-container
+    *ngIf="
+      (activitiesState$ | async)?.loading || (holidaysState$ | async)?.loading;
+      then: showLoadingSpinner;
+      else: showProgress
+    "
+  >
   </ng-container>
   <ng-template #showLoadingSpinner>
     <div class="month-progress-loading">
       <app-loading-spinner></app-loading-spinner>
     </div>
-
   </ng-template>
 
   <ng-template #showProgress>
@@ -16,18 +20,21 @@
         <div class="label">Imputado</div>
       </div>
       <div class="item">
-        <div class="workable">{{ totalWorkableMinutesThisMonth | hoursAndMinutes }} h</div>
+        <div class="workable">
+          {{ totalWorkableMinutesThisMonth | hoursAndMinutes }} h
+        </div>
         <div class="label">Total</div>
       </div>
       <div class="item" *ngIf="!isSelectedDateInTheFuture">
-        <div class="difference" [ngClass]="minutesDifference >= 0 ? 'positive' : 'negative'">
-          {{ minutesDifference >= 0 ? "+" : "-"}} {{ minutesDifference | hoursAndMinutes }} h
+        <div
+          class="difference"
+          [ngClass]="minutesDifference >= 0 ? 'positive' : 'negative'"
+        >
+          {{ minutesDifference >= 0 ? '+' : '-' }}
+          {{ minutesDifference | hoursAndMinutes }} h
         </div>
         <div class="label">Balance mes</div>
       </div>
-
-
     </div>
   </ng-template>
-
 </div>

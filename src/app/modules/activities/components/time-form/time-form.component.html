@@ -1,21 +1,49 @@
 <div class="time-form">
-
   <div class="time-control">
     <label class="label">Inicio</label>
-    <input type="time" min="0:00" max="24:00" step="900" [(ngModel)]="startTime" (change)="onTimeChange()">
+    <input
+      type="time"
+      min="0:00"
+      max="24:00"
+      step="900"
+      [(ngModel)]="startTime"
+      (change)="onTimeChange()"
+    />
   </div>
   <div class="time-control">
     <label class="label">Fin</label>
-    <input type="time" min="0:00" max="24:00" step="900" [(ngModel)]="endTime" (change)="onTimeChange()">
+    <input
+      type="time"
+      min="0:00"
+      max="24:00"
+      step="900"
+      [(ngModel)]="endTime"
+      (change)="onTimeChange()"
+    />
   </div>
   <div class="time-control">
     <label class="label">Duración</label>
     <div class="duration-controls">
-      <input type="number" min="0" step="1" max="23" size="2" [(ngModel)]="durationHours" (change)="onDurationChange()">
+      <input
+        type="number"
+        min="0"
+        step="1"
+        max="23"
+        size="2"
+        [(ngModel)]="durationHours"
+        (change)="onDurationChange()"
+      />
       h
-      <input type="number" min="0" step="15" max="59" size="2" [(ngModel)]="durationMinutes" (change)="onDurationChange()">
+      <input
+        type="number"
+        min="0"
+        step="15"
+        max="59"
+        size="2"
+        [(ngModel)]="durationMinutes"
+        (change)="onDurationChange()"
+      />
       m
     </div>
-
   </div>
 </div>

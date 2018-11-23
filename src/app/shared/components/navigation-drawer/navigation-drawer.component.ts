@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HideNaviationDrawer } from '../../store/navigation-drawer/navigation-drawer.actions';
 import { Router } from '@angular/router';
 import { UnlockScroll } from '../../store/page-scroll/page-scroll.actions';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-navigation-drawer',
@@ -15,7 +16,7 @@ export class NavigationDrawerComponent implements OnInit {
   isNavigationDrawerVisible$: Observable<boolean>;
 
   @Select(state => state.user.user)
-  user$: Observable<string>;
+  user$: Observable<User>;
 
   constructor(public store: Store, public router: Router) {}
 
