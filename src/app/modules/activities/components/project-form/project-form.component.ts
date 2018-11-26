@@ -5,7 +5,6 @@ import { Organization } from 'src/app/shared/models/Organization';
 import { Project } from 'src/app/shared/models/Project';
 import { Role } from 'src/app/shared/models/Role';
 import { Activity } from 'src/app/shared/models/Activity';
-import { ActivitiesStateModel } from 'src/app/shared/store/activities/activities.state';
 import {
   GetPreviousMonthActivitiesRequest,
   GetOrganizationsRequest,
@@ -32,7 +31,7 @@ export class ProjectFormComponent implements OnInit {
   activityProjectRole: Role;
 
   @Output()
-  onChange = new EventEmitter<ProjectFormOutputModel>();
+  change = new EventEmitter<ProjectFormOutputModel>();
 
   @Select(state => state.activityForm.organizations)
   organizations$: Observable<Organization[]>;
@@ -137,7 +136,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   onShortcutClick(role: Role) {
-    if (role.id != this.roleId) {
+    if (role.id !== this.roleId) {
       this.roleId = role.id;
       this.projectId = role.project.id;
       this.organizationId = role.project.organization.id;
@@ -206,7 +205,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   hasSelectedAValue(event) {
-    return event != undefined;
+    return event !== undefined;
   }
 
   getOrganizations() {
@@ -214,7 +213,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   notifyParent() {
-    this.onChange.emit({
+    this.change.emit({
       roleId: this.roleId
     });
   }

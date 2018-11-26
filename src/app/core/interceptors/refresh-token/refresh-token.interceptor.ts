@@ -84,7 +84,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
 
       return authService.tryRefreshAuthentication().pipe(
         switchMap((authentication: AuthenticationResponse) => {
-          console.log('new token', authentication);
           if (authentication) {
             this.authenticationService.setAuthentication(authentication);
             this.tokenSubject.next(authentication.access_token);

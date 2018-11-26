@@ -39,6 +39,8 @@ import { IsMondayPipe } from '../../pipes/is.monday.pipe/is.monday.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TimeFormComponent } from 'src/app/modules/activities/components/time-form/time-form.component';
 import { ProjectFormComponent } from 'src/app/modules/activities/components/project-form/project-form.component';
+import { ActivitiesContainerComponent } from 'src/app/modules/activities/pages/activities-container/activities-container.component';
+import { NavigationDrawerComponent } from '../../components/navigation-drawer/navigation-drawer.component';
 
 describe('Login State', () => {
   let store: Store;
@@ -69,7 +71,9 @@ describe('Login State', () => {
         ActivityFormComponent,
         IsMondayPipe,
         TimeFormComponent,
-        ProjectFormComponent
+        ProjectFormComponent,
+        ActivitiesContainerComponent,
+        NavigationDrawerComponent
       ],
       imports: [
         CommonModule,

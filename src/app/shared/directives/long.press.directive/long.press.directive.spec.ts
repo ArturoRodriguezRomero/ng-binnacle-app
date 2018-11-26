@@ -4,7 +4,14 @@ import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  template: `<div long-press [duration]="300" ((onLongPress)="onLongPress()" (onLongPressEnd)="onLongPressEnd()"></div>`
+  template: `
+    <div
+      appLongPress
+      [duration]="300"
+      ((onLongPress)="onLongPress()"
+      (onLongPressEnd)="onLongPressEnd()"
+    ></div>
+  `
 })
 class TestLongPressDirectiveComponent {
   onLongPress() {}

@@ -21,6 +21,7 @@ import {
 import { ModelsMock } from 'src/app/shared/__mocks__/models.mock';
 import { of } from 'rxjs';
 import { Role } from 'src/app/shared/models/Role';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ProjectFormComponent', () => {
   let component: ProjectFormComponent;
@@ -40,6 +41,10 @@ describe('ProjectFormComponent', () => {
         {
           provide: NotifierService,
           useValue: notifierServiceStub
+        },
+        {
+          provide: HttpClientModule,
+          useClass: HttpClientTestingModule
         }
       ]
     }).compileComponents();

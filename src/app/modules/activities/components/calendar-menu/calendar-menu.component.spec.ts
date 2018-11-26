@@ -18,6 +18,7 @@ import {
   endOfWeek,
   endOfMonth
 } from 'date-fns';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CalendarMenuComponent', () => {
   let component: CalendarMenuComponent;
@@ -34,6 +35,10 @@ describe('CalendarMenuComponent', () => {
         {
           provide: NotifierService,
           useValue: notifierServiceStub
+        },
+        {
+          provide: HttpClientModule,
+          useClass: HttpClientTestingModule
         }
       ]
     }).compileComponents();

@@ -31,11 +31,11 @@ export class DayMobileComponent implements OnInit {
   @Select(state => state.holidays)
   holidaysState$: Observable<HolidaysStateModel>;
 
-  isPublicHoliday: boolean = false;
-  isPrivateHoliday: boolean = false;
-  isWeekend: boolean = false;
+  isPublicHoliday = false;
+  isPrivateHoliday = false;
+  isWeekend = false;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(public store: Store, public router: Router) {}
 
   ngOnInit() {
     this.getIsPrivateHoliday();
@@ -72,12 +72,14 @@ export class DayMobileComponent implements OnInit {
   }
 
   onAddActivity() {
-    this.store.selectOnce(state => state.activityForm.date).subscribe(date => {
-      if (this.date != date) {
-        this.store.dispatch(new SetFormDate(this.date));
-        this.store.dispatch(new SetFormActivity(null));
-      }
-    });
+    this.store
+      .selectOnce(state => state.activityForm.date)
+      .subscribe(date => {
+        if (this.date !== date) {
+          this.store.dispatch(new SetFormDate(this.date));
+          this.store.dispatch(new SetFormActivity(null));
+        }
+      });
     this.store.dispatch(new SetSelectedDate(new Date(this.date)));
 
     this.router.navigate(['activities', 'new']);

@@ -4,7 +4,14 @@ import { By } from '@angular/platform-browser';
 import { AutosizeDirective } from './autosize.directive';
 
 @Component({
-  template: `<div long-press [duration]="300" ((onLongPress)="onLongPress()" (onLongPressEnd)="onLongPressEnd()"></div>`
+  template: `
+    <div
+      appLongPress
+      [duration]="300"
+      ((onLongPress)="onLongPress()"
+      (onLongPressEnd)="onLongPressEnd()"
+    ></div>
+  `
 })
 class TestAutosizeDirectiveComponent {
   input() {}

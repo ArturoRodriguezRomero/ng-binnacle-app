@@ -41,6 +41,8 @@ import { IsMondayPipe } from '../../pipes/is.monday.pipe/is.monday.pipe';
 import { TimeFormComponent } from 'src/app/modules/activities/components/time-form/time-form.component';
 import { ProjectFormComponent } from 'src/app/modules/activities/components/project-form/project-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ActivitiesContainerComponent } from 'src/app/modules/activities/pages/activities-container/activities-container.component';
+import { NavigationDrawerComponent } from '../../components/navigation-drawer/navigation-drawer.component';
 
 describe('ActivitiesState', () => {
   let store: Store;
@@ -49,7 +51,7 @@ describe('ActivitiesState', () => {
 
   let actions$: Observable<any>;
 
-  let notifierServiceStub = { notify: () => {} };
+  const notifierServiceStub = { notify: () => {} };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -71,7 +73,9 @@ describe('ActivitiesState', () => {
         ActivityFormComponent,
         IsMondayPipe,
         TimeFormComponent,
-        ProjectFormComponent
+        ProjectFormComponent,
+        ActivitiesContainerComponent,
+        NavigationDrawerComponent
       ],
       imports: [
         CommonModule,
@@ -131,8 +135,8 @@ describe('ActivitiesState', () => {
       .subscribe(actions => {
         actions$
           .pipe(ofActionDispatched(GetActivitiesByDatesSuccess))
-          .subscribe(actions => {
-            expect(actions).toEqual(true);
+          .subscribe(successActions => {
+            expect(successActions).toEqual(true);
           });
       });
   });
@@ -149,8 +153,8 @@ describe('ActivitiesState', () => {
       .subscribe(actions => {
         actions$
           .pipe(ofActionDispatched(GetActivitiesByDatesError))
-          .subscribe(actions => {
-            expect(actions).toEqual(true);
+          .subscribe(errorActions => {
+            expect(errorActions).toEqual(true);
           });
       });
   });
@@ -164,21 +168,25 @@ describe('ActivitiesState', () => {
 
     store.dispatch(new GetActivitiesByDatesSuccess(expectedDays));
 
-    store.selectOnce(state => state.days).subscribe(state => {
-      expect(state.loading).toEqual(false, 'Is not loading');
-      expect(state.activities).toEqual(
-        expectedDays,
-        'Expected Activities Array'
-      );
-    });
+    store
+      .selectOnce(state => state.days)
+      .subscribe(state => {
+        expect(state.loading).toEqual(false, 'Is not loading');
+        expect(state.activities).toEqual(
+          expectedDays,
+          'Expected Activities Array'
+        );
+      });
   });
 
   it('should set #loading = false and when @Action GetActivitiesByDatesError', () => {
     store.dispatch(new GetActivitiesByDatesError(null));
 
-    store.selectOnce(state => state.activities.loading).subscribe(loading => {
-      expect(loading).toEqual(false);
-    });
+    store
+      .selectOnce(state => state.activities.loading)
+      .subscribe(loading => {
+        expect(loading).toEqual(false);
+      });
   });
 
   it('should #errorHandlerService.throw and when @Action GetActivitiesByDatesError', () => {

@@ -37,24 +37,26 @@ export class WeekSeparatorComponent implements OnInit {
   }
 
   setUpTotalMinutes() {
-    this.store.selectOnce(state => state.activities.days).subscribe(days => {
-      const mondayIndex = days.findIndex(day =>
-        isSameDay(day.date, this.monday)
-      );
-      const sundayIndex = days.findIndex(day =>
-        isSameDay(day.date, this.sunday)
-      );
-
-      if (this.isDayIndexFromNextMonth(sundayIndex)) {
-        this.calculateTotalMinutesFromServer();
-      } else {
-        this.calculateTotalMinutesFromLocalActivities(
-          days,
-          mondayIndex,
-          sundayIndex
+    this.store
+      .selectOnce(state => state.activities.days)
+      .subscribe(days => {
+        const mondayIndex = days.findIndex(day =>
+          isSameDay(day.date, this.monday)
         );
-      }
-    });
+        const sundayIndex = days.findIndex(day =>
+          isSameDay(day.date, this.sunday)
+        );
+
+        if (this.isDayIndexFromNextMonth(sundayIndex)) {
+          this.calculateTotalMinutesFromServer();
+        } else {
+          this.calculateTotalMinutesFromLocalActivities(
+            days,
+            mondayIndex,
+            sundayIndex
+          );
+        }
+      });
   }
 
   calculateTotalMinutesFromLocalActivities(
@@ -84,10 +86,10 @@ export class WeekSeparatorComponent implements OnInit {
   }
 
   isDayIndexFromPreviousMonth(mondayIndex: number) {
-    return mondayIndex == -1;
+    return mondayIndex === -1;
   }
 
   isDayIndexFromNextMonth(sundayIndex: number) {
-    return sundayIndex == -1;
+    return sundayIndex === -1;
   }
 }

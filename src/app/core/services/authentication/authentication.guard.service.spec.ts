@@ -25,15 +25,18 @@ import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe
 import { TimeFormComponent } from 'src/app/modules/activities/components/time-form/time-form.component';
 import { ProjectFormComponent } from 'src/app/modules/activities/components/project-form/project-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ActivitiesContainerComponent } from 'src/app/modules/activities/pages/activities-container/activities-container.component';
+import { NavigationDrawerComponent } from 'src/app/shared/components/navigation-drawer/navigation-drawer.component';
 
 describe('Authentication Guard Service', () => {
   let authorizationGuardService: AuthenticationGuardService;
-  let authenticationServiceSpy: { getToken: jasmine.Spy };
+  let authenticationServiceSpy: { getAuthentication: jasmine.Spy };
   let router: Router;
 
   beforeEach(() => {
     authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', [
-      'getToken'
+      'tryAuthenticate',
+      'getAuthentication'
     ]);
     TestBed.configureTestingModule({
       declarations: [
@@ -54,7 +57,9 @@ describe('Authentication Guard Service', () => {
         ActivityFormComponent,
         IsMondayPipe,
         TimeFormComponent,
-        ProjectFormComponent
+        ProjectFormComponent,
+        ActivitiesContainerComponent,
+        NavigationDrawerComponent
       ],
       imports: [
         AppRoutingModule,
@@ -82,8 +87,8 @@ describe('Authentication Guard Service', () => {
     expect(authorizationGuardService).toBeTruthy();
   });
 
-  it('should return true when #canActivate and #authenticationService.getToken() is true', () => {
-    authenticationServiceSpy.getToken.and.returnValue('test');
+  it('should return true when #canActivate and #authenticationService.getAuthentication() is true', () => {
+    authenticationServiceSpy.getAuthentication.and.returnValue('test');
 
     expect(authorizationGuardService.canActivate()).toEqual(
       true,
@@ -91,8 +96,8 @@ describe('Authentication Guard Service', () => {
     );
   });
 
-  it('should return false when #canActivate and #authenticationService.getToken() is false', () => {
-    authenticationServiceSpy.getToken.and.returnValue(undefined);
+  it('should return false when #canActivate and #authenticationService.getAuthentication() is false', () => {
+    authenticationServiceSpy.getAuthentication.and.returnValue(undefined);
 
     expect(authorizationGuardService.canActivate()).toEqual(
       false,
@@ -100,8 +105,8 @@ describe('Authentication Guard Service', () => {
     );
   });
 
-  it('should navigate to /login when #activate and #authenticationService.getToken() is false', () => {
-    authenticationServiceSpy.getToken.and.returnValue(undefined);
+  it('should navigate to /login when #activate and #authenticationService.getAuthentication() is false', () => {
+    authenticationServiceSpy.getAuthentication.and.returnValue(undefined);
     spyOn(router, 'navigate').and.stub();
 
     authorizationGuardService.canActivate();

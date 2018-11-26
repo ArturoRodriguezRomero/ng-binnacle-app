@@ -41,9 +41,10 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('dayList')
   dayList: QueryList<any>;
-  isDayListRendered: boolean = false;
 
-  isCalendarMenuDeployed: boolean = false;
+  isDayListRendered = false;
+
+  isCalendarMenuDeployed = false;
 
   constructor(public store: Store, public actions$: Actions) {}
 

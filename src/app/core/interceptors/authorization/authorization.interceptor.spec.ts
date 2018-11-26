@@ -7,11 +7,14 @@ import {
 } from '@angular/common/http/testing';
 import { AuthorizationInterceptor } from './authorization.interceptor';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AuthenticationResponse } from 'src/app/shared/models/AuthenticationResponse';
 
 describe('AuthorizationInterceptor', () => {
   const authenticationServiceStub = {
-    getToken: () => {
-      return 'token';
+    getAuthentication: () => {
+      return <AuthenticationResponse>{
+        access_token: 'access_token'
+      };
     }
   };
 
@@ -32,14 +35,15 @@ describe('AuthorizationInterceptor', () => {
     })
   );
 
-  it('should add token from #authenticationService to all requests', inject(
+  it('should add token from #authenticationService to request if headers do not contain Authorization', inject(
     [HttpClient, HttpTestingController],
     (http: HttpClient, mock: HttpTestingController) => {
-      http.get('test').subscribe(response => expect(response).toBeTruthy());
+      http.get('test').subscribe();
+
       const request = mock.expectOne(
         req =>
           req.headers.has('Authorization') &&
-          req.headers.get('Authorization') === 'Basic token'
+          req.headers.get('Authorization') === 'Bearer access_token'
       );
 
       request.flush({ data: 'test' });

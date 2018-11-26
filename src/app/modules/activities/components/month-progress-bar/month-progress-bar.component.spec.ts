@@ -11,6 +11,7 @@ import { UserState } from 'src/app/shared/store/user/user.state';
 import { HttpClientModule } from '@angular/common/http';
 import { NotifierService } from 'angular-notifier';
 import { notifierServiceStub } from 'src/app/core/services/__mocks__/notifier.service.stub';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MonthProgressBarComponent', () => {
   let component: MonthProgressBarComponent;
@@ -36,6 +37,10 @@ describe('MonthProgressBarComponent', () => {
         {
           provide: NotifierService,
           useValue: notifierServiceStub
+        },
+        {
+          provide: HttpClientModule,
+          useClass: HttpClientTestingModule
         }
       ]
     }).compileComponents();

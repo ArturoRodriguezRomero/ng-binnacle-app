@@ -45,7 +45,7 @@ export class ActivitiesContainerComponent implements OnInit {
     this.store
       .selectOnce(state => state.holidays)
       .subscribe((holidaysState: HolidaysStateModel) => {
-        if (holidaysState.publicHolidays.length == 0) {
+        if (holidaysState.publicHolidays.length === 0) {
           this.store.dispatch(new GetHolidaysRequest());
         }
       });

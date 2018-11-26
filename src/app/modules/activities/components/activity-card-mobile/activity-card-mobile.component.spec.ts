@@ -32,7 +32,11 @@ import {
   SetFormDate,
   SetFormActivity
 } from 'src/app/shared/store/activity-form/activity-form.actions';
-import { AuthorizationGuardService } from 'src/app/core/services/authorization/authorization.guard.service';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { ActivitiesContainerComponent } from '../../pages/activities-container/activities-container.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NavigationDrawerComponent } from 'src/app/shared/components/navigation-drawer/navigation-drawer.component';
+import { AuthenticationGuardService } from 'src/app/core/services/authentication/authentication.guard.service';
 
 describe('ActivityCardMobileComponent', () => {
   let component: ActivityCardMobileComponent;
@@ -59,7 +63,9 @@ describe('ActivityCardMobileComponent', () => {
         WeekSeparatorComponent,
         IsMondayPipe,
         TimeFormComponent,
-        ProjectFormComponent
+        ProjectFormComponent,
+        ActivitiesContainerComponent,
+        NavigationDrawerComponent
       ],
       imports: [
         NgxsModule.forRoot([ActivityDetailState]),
@@ -70,7 +76,7 @@ describe('ActivityCardMobileComponent', () => {
         RouterTestingModule,
         NgSelectModule
       ],
-      providers: [AuthorizationGuardService]
+      providers: [AuthenticationService, AuthenticationGuardService]
     }).compileComponents();
   }));
 
@@ -120,6 +126,6 @@ describe('ActivityCardMobileComponent', () => {
 
     component.onClick();
 
-    expect(component.router.navigate).toHaveBeenCalledWith([`activities/1`]);
+    expect(component.router.navigate).toHaveBeenCalledWith([`activities`, 1]);
   });
 });

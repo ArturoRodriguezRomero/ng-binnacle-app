@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Example:
  *   {{ 75 | HoursAndMinutesPipe }}
  *   formats to: 1:15
-*/
+ */
 @Pipe({ name: 'hoursAndMinutes' })
 export class HoursAndMinutesPipe implements PipeTransform {
   transform(totalMinutes: number): string {
@@ -19,7 +19,7 @@ export class HoursAndMinutesPipe implements PipeTransform {
     const minutePrefix = Math.abs(minutes) < 10 ? '0' : '';
 
     return `${Math.abs(hours)}${
-      minutes != 0 ? `:${minutePrefix}${Math.abs(minutes)}` : ''
+      minutes !== 0 ? `:${minutePrefix}${Math.abs(minutes)}` : ''
     }`;
   }
 }

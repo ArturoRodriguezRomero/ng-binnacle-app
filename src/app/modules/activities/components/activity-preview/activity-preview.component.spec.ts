@@ -6,6 +6,7 @@ import { HoursAndMinutesPipe } from 'src/app/shared/pipes/hours.and.minutes.pipe
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe/truncate.pipe';
 import { ActivityDetailState } from 'src/app/shared/store/activity-detail/activity-detail.state';
 import { NgxsModule } from '@ngxs/store';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ActivityPreviewComponent', () => {
   let component: ActivityPreviewComponent;

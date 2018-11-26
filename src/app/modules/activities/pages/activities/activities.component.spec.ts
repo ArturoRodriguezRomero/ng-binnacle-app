@@ -31,13 +31,17 @@ import { TimeFormComponent } from '../../components/time-form/time-form.componen
 import { ProjectFormComponent } from '../../components/project-form/project-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { endOfMonth } from 'date-fns';
+import { ActivitiesContainerComponent } from '../activities-container/activities-container.component';
+import { NavigationDrawerComponent } from 'src/app/shared/components/navigation-drawer/navigation-drawer.component';
+import { LockScroll } from 'src/app/shared/store/page-scroll/page-scroll.actions';
+import { ShowNavigationDrawer } from 'src/app/shared/store/navigation-drawer/navigation-drawer.actions';
 
 describe('ActivitiesComponent', () => {
   let component: ActivitiesComponent;
   let fixture: ComponentFixture<ActivitiesComponent>;
   let actions$: Actions;
 
-  let notifierServiceStub = { notify: () => {} };
+  const notifierServiceStub = { notify: () => {} };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -60,7 +64,9 @@ describe('ActivitiesComponent', () => {
         ActivityFormComponent,
         IsMondayPipe,
         TimeFormComponent,
-        ProjectFormComponent
+        ProjectFormComponent,
+        ActivitiesContainerComponent,
+        NavigationDrawerComponent
       ],
       imports: [
         NgxsModule.forRoot([ActivitiesState, CalendarState, HolidaysState]),
@@ -91,7 +97,7 @@ describe('ActivitiesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should set #isCalendarMenuDeployed false when it's true", () => {
+  it('should set #isCalendarMenuDeployed false when its true', () => {
     component.isCalendarMenuDeployed = true;
 
     component.toggleCalendarMenu();
@@ -99,7 +105,7 @@ describe('ActivitiesComponent', () => {
     expect(component.isCalendarMenuDeployed).toEqual(false);
   });
 
-  it("should set #isCalendarMenuDeployed true when it's false", () => {
+  it('should set #isCalendarMenuDeployed true when its false', () => {
     component.isCalendarMenuDeployed = false;
 
     component.toggleCalendarMenu();
@@ -133,5 +139,16 @@ describe('ActivitiesComponent', () => {
     });
 
     component.changeSelectedDate(expectedDate);
+  });
+
+  it('should show Navigation Drawer and Lock Scroll on #showNavigationDrawer', () => {
+    spyOn(component.store, 'dispatch').and.callThrough();
+
+    component.showNavigationDrawer();
+
+    expect(component.store.dispatch).toHaveBeenCalledWith(
+      new ShowNavigationDrawer()
+    );
+    expect(component.store.dispatch).toHaveBeenCalledWith(new LockScroll());
   });
 });

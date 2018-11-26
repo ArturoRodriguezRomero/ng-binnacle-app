@@ -7,23 +7,23 @@ import {
   HostListener
 } from '@angular/core';
 
-@Directive({ selector: '[long-press]' })
+@Directive({ selector: '[appLongPress]' })
 export class LongPressDirective {
   @Input()
-  duration: number = 500;
+  duration = 500;
 
   @Output()
-  onLongPress: EventEmitter<any> = new EventEmitter();
+  onLongPress = new EventEmitter();
   @Output()
-  onLongPressing: EventEmitter<any> = new EventEmitter();
+  onLongPressing = new EventEmitter();
   @Output()
-  onLongPressEnd: EventEmitter<any> = new EventEmitter();
+  onLongPressEnd = new EventEmitter();
 
   private pressing: boolean;
   private longPressing: boolean;
   private timeout: any;
-  private mouseX: number = 0;
-  private mouseY: number = 0;
+  private mouseX = 0;
+  private mouseY = 0;
 
   @HostBinding('class.press')
   get press() {

@@ -4,7 +4,9 @@ export namespace Endpoints {
   const baseEndpoint = 'api';
 
   export namespace Authentication {
-
+    export const getToken = () => {
+      return `oauth/token`;
+    };
   }
 
   export namespace Activity {

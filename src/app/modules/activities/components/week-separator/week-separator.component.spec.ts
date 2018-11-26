@@ -11,12 +11,14 @@ import { ActivitiesService } from '../../../../core/services/activities/activiti
 import { LoadingSpinnerComponent } from 'src/app/shared/components/loading-spinner/loading-spinner.component';
 import { activitiesServiceStub } from 'src/app/core/services/__mocks__/activities.service.stub';
 import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivityDay } from 'src/app/shared/models/ActivityDay';
 
 describe('WeekSeparatorComponent', () => {
   let component: WeekSeparatorComponent;
   let fixture: ComponentFixture<WeekSeparatorComponent>;
 
-  let notifierServiceStub = { notify: () => {} };
+  const notifierServiceStub = { notify: () => {} };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,6 +37,10 @@ describe('WeekSeparatorComponent', () => {
         {
           provide: ActivitiesService,
           useValue: activitiesServiceStub
+        },
+        {
+          provide: HttpClientModule,
+          useClass: HttpClientTestingModule
         }
       ]
     }).compileComponents();
@@ -116,26 +122,30 @@ describe('WeekSeparatorComponent', () => {
   });
 
   it('should set #totalMinutes correcty when #calculateTotalMinutesFromLocalActivities', () => {
-    const activitiesMock = [
+    const activitiesDayMock = <ActivityDay[]>[
       {
-        date: '2018-09-02T00:00:00.000+0200',
-        total_hours: 10
+        date: new Date('2018-09-02T00:00:00.000+0200'),
+        total_hours: 10,
+        activities: []
       },
       {
-        date: '2018-09-03T00:00:00.000+0200',
-        total_hours: 10
+        date: new Date('2018-09-03T00:00:00.000+0200'),
+        total_hours: 10,
+        activities: []
       },
       {
-        date: '2018-09-09T00:00:00.000+0200',
-        total_hours: 10
+        date: new Date('2018-09-09T00:00:00.000+0200'),
+        total_hours: 10,
+        activities: []
       },
       {
-        date: '2018-09-10T00:00:00.000+0200',
-        total_hours: 10
+        date: new Date('2018-09-10T00:00:00.000+0200'),
+        total_hours: 10,
+        activities: []
       }
     ];
 
-    component.calculateTotalMinutesFromLocalActivities(activitiesMock, 1, 2);
+    component.calculateTotalMinutesFromLocalActivities(activitiesDayMock, 1, 2);
 
     expect(component.totalMinutes).toEqual(20);
   });

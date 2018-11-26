@@ -36,6 +36,13 @@ import { IsMondayPipe } from 'src/app/shared/pipes/is.monday.pipe/is.monday.pipe
 import { TimeFormComponent } from '../time-form/time-form.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ActivitiesContainerComponent } from '../../pages/activities-container/activities-container.component';
+import { NavigationDrawerComponent } from 'src/app/shared/components/navigation-drawer/navigation-drawer.component';
+import {
+  SetFormDate,
+  SetFormActivity
+} from 'src/app/shared/store/activity-form/activity-form.actions';
+import { SetSelectedDate } from 'src/app/shared/store/calendar/calendar.actions';
 
 describe('DayMobileComponent', () => {
   let component: DayMobileComponent;
@@ -62,7 +69,9 @@ describe('DayMobileComponent', () => {
         IsMondayPipe,
         ActivityFormComponent,
         TimeFormComponent,
-        ProjectFormComponent
+        ProjectFormComponent,
+        ActivitiesContainerComponent,
+        NavigationDrawerComponent
       ],
       imports: [
         HttpClientModule,
@@ -82,6 +91,10 @@ describe('DayMobileComponent', () => {
         {
           provide: ActivitiesService,
           useValue: activitiesServiceStub
+        },
+        {
+          provide: HttpClientModule,
+          useClass: HttpClientTestingModule
         }
       ]
     }).compileComponents();
@@ -165,5 +178,42 @@ describe('DayMobileComponent', () => {
       true,
       '#date is a private holiday'
     );
+  });
+
+  it('should set Form State #onAddActivity', () => {
+    spyOn(component.store, 'dispatch').and.callThrough();
+    component.date = new Date();
+
+    component.onAddActivity();
+
+    expect(component.store.dispatch).toHaveBeenCalledWith(
+      new SetFormDate(component.date)
+    );
+    expect(component.store.dispatch).toHaveBeenCalledWith(
+      new SetFormActivity(null)
+    );
+  });
+
+  it('should set selectedDate to component date #onAddActivity', () => {
+    spyOn(component.store, 'dispatch').and.callThrough();
+    component.date = new Date();
+
+    component.onAddActivity();
+
+    expect(component.store.dispatch).toHaveBeenCalledWith(
+      new SetSelectedDate(new Date(component.date))
+    );
+  });
+
+  it('should navigate to /activities/new #onAddActivity', () => {
+    spyOn(component.router, 'navigate').and.callThrough();
+    component.date = new Date();
+
+    component.onAddActivity();
+
+    expect(component.router.navigate).toHaveBeenCalledWith([
+      'activities',
+      'new'
+    ]);
   });
 });

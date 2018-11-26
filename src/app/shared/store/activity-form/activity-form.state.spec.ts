@@ -55,8 +55,11 @@ import {
   DeleteActivityError
 } from './activity-form.actions';
 import { ModelsMock } from '../../__mocks__/models.mock';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivitiesContainerComponent } from 'src/app/modules/activities/pages/activities-container/activities-container.component';
+import { NavigationDrawerComponent } from '../../components/navigation-drawer/navigation-drawer.component';
 
-describe('Activity Detail', () => {
+describe('Activity Form State', () => {
   let store: Store;
   let activitiesService: ActivitiesService;
   let organizationsService: OrganizationsService;
@@ -86,7 +89,9 @@ describe('Activity Detail', () => {
         ActivityFormComponent,
         IsMondayPipe,
         TimeFormComponent,
-        ProjectFormComponent
+        ProjectFormComponent,
+        ActivitiesContainerComponent,
+        NavigationDrawerComponent
       ],
       imports: [
         CommonModule,
@@ -105,6 +110,10 @@ describe('Activity Detail', () => {
         {
           provide: NotifierService,
           useValue: notifierServiceStub
+        },
+        {
+          provide: HttpClientModule,
+          useClass: HttpClientTestingModule
         }
       ]
     });
@@ -123,9 +132,11 @@ describe('Activity Detail', () => {
 
     store.dispatch(new SetFormDate(expected));
 
-    store.selectOnce(state => state.activityForm.date).subscribe(date => {
-      expect(date).toEqual(expected);
-    });
+    store
+      .selectOnce(state => state.activityForm.date)
+      .subscribe(date => {
+        expect(date).toEqual(expected);
+      });
   });
 
   it('should patch date when @Action(SetFormDate)', () => {

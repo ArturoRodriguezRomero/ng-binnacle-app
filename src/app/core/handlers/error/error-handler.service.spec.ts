@@ -3,13 +3,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 describe('ErrorHandlerService', () => {
   let errorHandlerService: ErrorHandlerService;
-  let notifierServiceStub = { notify: () => {} };
+  const notifierServiceStub = { notify: () => {} };
 
-  let errorMessages = new Map<number, string>();
+  const errorMessages = new Map<number, string>();
 
   errorMessages.set(0, 'No hay conexión a Internet.');
   errorMessages.set(400, 'Error del servidor. Inténtalo más tarde.');
-  errorMessages.set(401, 'No autorizado.');
+  errorMessages.set(401, 'Usuario o contraseña incorrecto.');
   errorMessages.set(404, 'Recurso no encontrado.');
   errorMessages.set(500, 'Error del servidor. Inténtalo más tarde.');
 
