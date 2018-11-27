@@ -118,8 +118,8 @@ export class ProjectFormComponent implements OnInit {
   }
 
   getRecentProjectRoles(activities: Array<any>) {
-    const projectRoles = activities.reduce((projectRoles, activity) => {
-      return [...projectRoles, ...activity.projectRole];
+    const projectRoles = activities.reduce((roles, activity) => {
+      return [...roles, ...activity.projectRole];
     }, []);
 
     const uniqueProjectRoles = this.removeDuplicates(projectRoles, 'id');
